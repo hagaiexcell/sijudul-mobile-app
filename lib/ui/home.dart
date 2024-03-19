@@ -39,13 +39,6 @@ class Home extends StatelessWidget {
                   height: 24,
                 ),
                 MenuHome(
-                  icon: "lib/resources/images/ic-pengajuan.svg",
-                  title: "Ajukan Judul",
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/ajukan');
-                  },
-                ),
-                MenuHome(
                   icon: "lib/resources/images/ic-list.svg",
                   title: "Daftar Judul Mahasiswa",
                   onPressed: () {},
@@ -53,7 +46,9 @@ class Home extends StatelessWidget {
                 MenuHome(
                   icon: "lib/resources/images/ic-timbangan.svg",
                   title: "Cek Status Pengajuan",
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushNamed('/detail-judul');
+                  },
                 ),
                 MenuHome(
                   icon: "lib/resources/images/ic-dosen.svg",

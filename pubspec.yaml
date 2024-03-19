@@ -30,9 +30,11 @@ environment:
 dependencies:
   convex_bottom_bar: ^3.2.0
   cupertino_icons: ^1.0.2
+  dropdown_search: ^5.0.6
   flutter:
     sdk: flutter
   flutter_form_builder: ^9.2.1
+  sizer: ^2.0.15
 
 dev_dependencies:
   flutter_lints: ^2.0.0
@@ -56,9 +58,18 @@ flutter:
     - lib/resources/images/empty-profile.png
     - lib/resources/images/ic-pengajuan.svg
     - lib/resources/images/ic-timbangan.svg
+    - lib/resources/images/ic-timbangan-grey.svg
     - lib/resources/images/ic-list.svg
+    - lib/resources/images/ic-list-white.svg
     - lib/resources/images/ic-dosen.svg
     - lib/resources/images/ic-logout.svg
+    - lib/resources/images/ic-stamp-grey.svg
+    - lib/resources/images/ic-profile-grey.svg
+    - lib/resources/images/ic-location-grey.svg
+    - lib/resources/images/ic-bars-grey.svg
+    - lib/resources/images/ic-checklist-white.svg
+    - lib/resources/images/ic-cross-white.svg
+    - lib/resources/images/ic-loading.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

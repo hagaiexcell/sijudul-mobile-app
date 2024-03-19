@@ -6,6 +6,9 @@ class AppColors {
   static const success = Color(0XFF28C76F);
   static const danger = Color(0XFFEA5455);
   static const secondary = Color(0XFFA8AAAE);
+  static const textColour10 = Color(0xFFE7E7E7);
+  static const gray700 = Color.fromRGBO(75, 70, 92, 0.7);
+  static const textColour90 = Color(0xFF252525);
 }
 
 class AppElevation {
@@ -22,9 +25,14 @@ class ElevatedButtonWithCustomStyle extends StatelessWidget {
   final VoidCallback onPressed;
   final ButtonStyle? style;
   final String? icon;
+  final String? type;
 
   const ElevatedButtonWithCustomStyle(
-      {required this.text, required this.onPressed, this.style, this.icon});
+      {required this.text,
+      required this.onPressed,
+      this.style,
+      this.icon,
+      this.type});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +41,12 @@ class ElevatedButtonWithCustomStyle extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.primary,
+          splashFactory: NoSplash.splashFactory,
+          backgroundColor: type == "success"
+              ? AppColors.success
+              : type == "danger"
+                  ? AppColors.danger
+                  : AppColors.primary,
           elevation: 0, // Hilangkan elevasi bawaan dari ElevatedButton
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10), // Bentuk tepi tombol
@@ -57,15 +70,21 @@ class ElevatedButtonWithCustomStyle extends StatelessWidget {
                     child: Text(
                       text,
                       textAlign: TextAlign.center,
-                      style: const TextStyle(fontSize: 15,fontWeight: FontWeight.w600),
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600),
                     ),
                   ),
                 ],
               )
             : Text(
                 text,
-                style:
-                    const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+                style: const TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
               ),
       ),
     );
