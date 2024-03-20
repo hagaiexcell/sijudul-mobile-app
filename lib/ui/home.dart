@@ -55,7 +55,9 @@ class Home extends StatelessWidget {
                 MenuHome(
                   icon: "lib/resources/images/ic-dosen.svg",
                   title: "Daftar Dosen Pembimbing 1",
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushNamed('/list-dosen-1');
+                  },
                 ),
                 MenuHome(
                   icon: "lib/resources/images/ic-dosen.svg",

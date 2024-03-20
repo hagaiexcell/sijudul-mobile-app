@@ -4,6 +4,7 @@ import 'package:flutter_project_skripsi/resources/resources.dart';
 import 'package:flutter_project_skripsi/ui/ajukan_judul.dart';
 import 'package:flutter_project_skripsi/ui/detail_judul.dart';
 import 'package:flutter_project_skripsi/ui/home.dart';
+import 'package:flutter_project_skripsi/ui/list_dosen_1.dart';
 import 'package:flutter_project_skripsi/ui/list_judul.dart';
 import 'package:flutter_project_skripsi/ui/profile.dart';
 
@@ -32,6 +33,7 @@ class _MyAppState extends State<MyApp> {
         '/ajukan': (context) => AjukanJudul(),
         '/detail-judul': (context) => const DetailJudul(),
         '/list-judul': (context) => ListJudul(),
+        '/list-dosen-1': (context) => ListDosen1(),
       },
     );
   }

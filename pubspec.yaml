@@ -35,10 +35,11 @@ dependencies:
     sdk: flutter
   flutter_form_builder: ^9.2.1
   sizer: ^2.0.15
+  flutter_svg: ^2.0.5
+
 
 dev_dependencies:
   flutter_lints: ^2.0.0
-  flutter_svg: ^2.0.5
   flutter_test:
     sdk: flutter
 
@@ -71,6 +72,7 @@ flutter:
     - lib/resources/images/ic-cross-white.svg
     - lib/resources/images/ic-loading.svg
     - lib/resources/images/arrow-right.svg
+    - lib/resources/images/ic-envelope.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
