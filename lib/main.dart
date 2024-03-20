@@ -4,6 +4,7 @@ import 'package:flutter_project_skripsi/resources/resources.dart';
 import 'package:flutter_project_skripsi/ui/ajukan_judul.dart';
 import 'package:flutter_project_skripsi/ui/detail_judul.dart';
 import 'package:flutter_project_skripsi/ui/home.dart';
+import 'package:flutter_project_skripsi/ui/list_judul.dart';
 import 'package:flutter_project_skripsi/ui/profile.dart';
 
 main() {
@@ -29,7 +30,8 @@ class _MyAppState extends State<MyApp> {
       routes: {
         '/': (context) => MainScreen(),
         '/ajukan': (context) => AjukanJudul(),
-        '/detail-judul' : (context) => DetailJudul(),
+        '/detail-judul': (context) => const DetailJudul(),
+        '/list-judul': (context) => ListJudul(),
       },
     );
   }

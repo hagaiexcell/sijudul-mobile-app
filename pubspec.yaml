@@ -70,6 +70,7 @@ flutter:
     - lib/resources/images/ic-checklist-white.svg
     - lib/resources/images/ic-cross-white.svg
     - lib/resources/images/ic-loading.svg
+    - lib/resources/images/arrow-right.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
