@@ -6,7 +6,10 @@ import 'package:flutter_project_skripsi/ui/detail_judul.dart';
 import 'package:flutter_project_skripsi/ui/home.dart';
 import 'package:flutter_project_skripsi/ui/list_dosen_1.dart';
 import 'package:flutter_project_skripsi/ui/list_judul.dart';
+import 'package:flutter_project_skripsi/ui/login_screen.dart';
 import 'package:flutter_project_skripsi/ui/profile.dart';
+import 'package:flutter_project_skripsi/ui/register_screen.dart';
+import 'package:flutter_project_skripsi/ui/splash_screen.dart';
 
 main() {
   runApp(MyApp());
@@ -29,7 +32,10 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/': (context) => MainScreen(),
+        '/': (context) => const SplashScreen(),
+        '/home': (context) => MainScreen(),
+        '/login': (context) => const LoginScreen(),
+        '/register': (context) => const RegisterScreen(),
         '/ajukan': (context) => AjukanJudul(),
         '/detail-judul': (context) => const DetailJudul(),
         '/list-judul': (context) => ListJudul(),
