@@ -1,0 +1,50 @@
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_project_skripsi/features/posts/model/posts_data_ui_model.dart';
+import 'package:http/http.dart' as http;
+
+class PostRepo {
+  static Future<List<PostsDataUiModel>> fetchPosts() async {
+    var client = http.Client();
+    List<PostsDataUiModel> posts = [];
+    try {
+      var response = await client
+          .get(Uri.parse("https://jsonplaceholder.typicode.com/posts"));
+
+      List result = jsonDecode(response.body);
+      for (int i = 0; i < result.length; i++) {
+        PostsDataUiModel post =
+            PostsDataUiModel.fromMap(result[i] as Map<String, dynamic>);
+        posts.add(post);
+      }
+
+      return posts;
+    } catch (e) {
+      debugPrint(e.toString());
+      return [];
+    }
+  }
+
+  static Future<bool> addPosts() async {
+    var client = http.Client();
+
+    try {
+      var response = await client
+          .post(Uri.parse("https://jsonplaceholder.typicode.com/posts"), body: {
+        "title": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "body": "vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv",
+        "userId": "34"
+      });
+
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        return true;
+      }else{
+        return false;
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+      return false;
+    }
+  }
+}

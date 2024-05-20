@@ -1,5 +1,11 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_project_skripsi/features/login/bloc/login_bloc.dart';
+import 'package:flutter_project_skripsi/features/login/ui/login_page.dart';
+import 'package:flutter_project_skripsi/features/posts/bloc/posts_bloc.dart';
+import 'package:flutter_project_skripsi/features/posts/ui/posts_page.dart';
+
 import 'package:flutter_project_skripsi/resources/resources.dart';
 import 'package:flutter_project_skripsi/ui/ajukan_judul.dart';
 import 'package:flutter_project_skripsi/ui/detail_judul.dart';
@@ -9,9 +15,11 @@ import 'package:flutter_project_skripsi/ui/list_judul.dart';
 import 'package:flutter_project_skripsi/ui/login_screen.dart';
 import 'package:flutter_project_skripsi/ui/profile.dart';
 import 'package:flutter_project_skripsi/ui/register_screen.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_project_skripsi/ui/splash_screen.dart';
 
-main() {
+main() async {
+  dotenv.load();
   runApp(MyApp());
 }
 
@@ -25,23 +33,29 @@ class _MyAppState extends State<MyApp> {
   final List _pageOption = [Home()];
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        fontFamily: 'Poppins',
-      ),
-      debugShowCheckedModeBanner: false,
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const SplashScreen(),
-        '/home': (context) => MainScreen(),
-        '/login': (context) => const LoginScreen(),
-        '/register': (context) => const RegisterScreen(),
-        '/ajukan': (context) => AjukanJudul(),
-        '/detail-judul': (context) => const DetailJudul(),
-        '/list-judul': (context) => ListJudul(),
-        '/list-dosen-1': (context) => ListDosen1(),
-      },
-    );
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider<PostsBloc>(create: (context) => PostsBloc()),
+          BlocProvider<LoginBloc>(create: (context) => LoginBloc()),
+        ],
+        child: MaterialApp(
+          theme: ThemeData(
+            fontFamily: 'Poppins',
+          ),
+          debugShowCheckedModeBanner: false,
+          initialRoute: '/',
+          routes: {
+            '/': (context) => const SplashScreen(),
+            '/home': (context) => MainScreen(),
+            '/login': (context) => const LoginPage(),
+            '/register': (context) => const RegisterScreen(),
+            '/ajukan': (context) => AjukanJudul(),
+            '/detail-judul': (context) => const DetailJudul(),
+            // '/list-judul': (context) => ListJudul(),
+            '/list-judul': (context) => PostsPage(),
+            '/list-dosen-1': (context) => ListDosen1(),
+          },
+        ));
   }
 }
 
