@@ -1,22 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_project_skripsi/component/header_home.dart';
 import 'package:flutter_project_skripsi/component/menu_bar.dart';
 import 'package:flutter_project_skripsi/component/tag_status.dart';
+import 'package:flutter_project_skripsi/features/profile/bloc/profile_bloc.dart';
 import 'package:flutter_project_skripsi/resources/resources.dart';
 
-class Home extends StatelessWidget {
-  const Home({
+class HomePage extends StatelessWidget {
+  const HomePage({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
+    context.read<ProfileBloc>().add(ProfileFetchEvent());
+
     return Scaffold(
       body: SingleChildScrollView(
           child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // const HeaderHome(),
+          BlocBuilder<ProfileBloc, ProfileState>(
+            builder: (context, state) {
+              if (state is ProfileLoadingState) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (state is ProfileLoadedState) {
+                return HeaderHome(
+                  userData: state.userData,
+                );
+              } else if (state is ProfileErrorState) {
+                return Center(child: Text('Error: ${state.message}'));
+              } else {
+                return const Center(child: CircularProgressIndicator());
+              }
+            },
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             child: Column(

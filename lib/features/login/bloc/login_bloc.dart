@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -38,8 +39,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   Future<void> _saveUserData(Map<String, dynamic> userData) async {
     final prefs = await SharedPreferences.getInstance();
-    final userDataJson = userData.toString();
-    await prefs.setString(
-        'userData', userDataJson); 
+    final userDataJson = jsonEncode(userData);
+    await prefs.setString('userData', userDataJson);
   }
 }

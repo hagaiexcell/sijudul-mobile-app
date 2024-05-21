@@ -3,8 +3,10 @@ import 'package:flutter_project_skripsi/resources/resources.dart';
 // import 'resources/colors.dart';
 
 class HeaderHome extends StatelessWidget {
+  final Map<String, dynamic> userData;
   const HeaderHome({
     super.key,
+    required this.userData,
   });
 
   @override
@@ -30,18 +32,18 @@ class HeaderHome extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Column(
+            Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Marwahal Hagai Excellent",
-                  style: TextStyle(
+                  userData['name'],
+                  style: const TextStyle(
                       fontWeight: FontWeight.w700,
                       color: Colors.white,
                       fontSize: 18),
                 ),
                 Text(
-                  "2010511072",
+                  userData['nim'],
                   style: TextStyle(
                       color: Colors.white, fontWeight: FontWeight.w500),
                 )

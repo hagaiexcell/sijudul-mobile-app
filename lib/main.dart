@@ -1,10 +1,13 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_project_skripsi/features/home/ui/home_page.dart';
 import 'package:flutter_project_skripsi/features/login/bloc/login_bloc.dart';
 import 'package:flutter_project_skripsi/features/login/ui/login_page.dart';
 import 'package:flutter_project_skripsi/features/posts/bloc/posts_bloc.dart';
 import 'package:flutter_project_skripsi/features/posts/ui/posts_page.dart';
+import 'package:flutter_project_skripsi/features/profile/bloc/profile_bloc.dart';
+import 'package:flutter_project_skripsi/features/profile/ui/profile_page.dart';
 
 import 'package:flutter_project_skripsi/resources/resources.dart';
 import 'package:flutter_project_skripsi/ui/ajukan_judul.dart';
@@ -17,9 +20,12 @@ import 'package:flutter_project_skripsi/ui/profile.dart';
 import 'package:flutter_project_skripsi/ui/register_screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_project_skripsi/ui/splash_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 main() async {
   dotenv.load();
+  // final prefs = await SharedPreferences.getInstance();
+  // await prefs.remove('auth_token');
   runApp(MyApp());
 }
 
@@ -30,13 +36,14 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   int selectedPageIndex = 0;
-  final List _pageOption = [Home()];
+  final List _pageOption = [HomePage()];
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
         providers: [
           BlocProvider<PostsBloc>(create: (context) => PostsBloc()),
           BlocProvider<LoginBloc>(create: (context) => LoginBloc()),
+          BlocProvider<ProfileBloc>(create: (context) => ProfileBloc()),
         ],
         child: MaterialApp(
           theme: ThemeData(
@@ -68,9 +75,9 @@ class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
   final List<Widget> _screens = [
-    const Home(),
+    const HomePage(),
     AjukanJudul(),
-    const Profile(),
+    const ProfilePage(),
     // tambahkan layar-layar lain di sini sesuai kebutuhan Anda
   ];
 
