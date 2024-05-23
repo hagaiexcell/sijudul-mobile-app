@@ -66,7 +66,8 @@ class ProfilePage extends StatelessWidget {
                           context: context,
                           builder: (context) {
                             return AlertDialog(
-                              title: const Text('Logout'),
+                              title: const Text('Logout',
+                                  style: TextStyle(color: AppColors.primary,fontWeight: FontWeight.w600)),
                               content:
                                   const Text("Apakah Anda Yakin Ingin Logout?"),
                               actions: [
@@ -74,7 +75,10 @@ class ProfilePage extends StatelessWidget {
                                   onPressed: () {
                                     logout(context);
                                   },
-                                  child: const Text('YA'),
+                                  child: const Text(
+                                    'YA',
+                                    style: TextStyle(color: AppColors.primary),
+                                  ),
                                 ),
                               ],
                             );

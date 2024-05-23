@@ -16,6 +16,7 @@ class DetailJudul extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.only(left: 16, right: 16, bottom: 30),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
                 padding: const EdgeInsets.all(16),
@@ -50,7 +51,7 @@ class DetailJudul extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 16,
                     ),
                     Container(
@@ -163,6 +164,30 @@ class DetailJudul extends StatelessWidget {
                 onPressed: () {},
                 icon: "lib/resources/images/ic-checklist-white.svg",
               ),
+              const SizedBox(
+                height: 24,
+              ),
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    boxShadow: [AppElevation.elevationPrimary],
+                    color: Colors.white),
+                child: const Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Catatan",
+                      style: TextStyle(fontWeight: FontWeight.w600),
+                    ),
+                    SizedBox(
+                      height: 4,
+                    ),
+                    Text("Masalah Masalah masih kurang jelas,Masalah masih kurang jelas,Masalah masih kurang jelas,Masalah masih kurang jelas,masih kurang jelas,")
+                  ],
+                ),
+              )
             ],
           ),
         ),

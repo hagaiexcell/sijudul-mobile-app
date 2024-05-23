@@ -23,14 +23,18 @@ class LoginPage extends StatelessWidget {
               context: context,
               builder: (context) {
                 return AlertDialog(
-                  title: const Text('Success'),
+                  title: const Text('Success',
+                      style: TextStyle(
+                          color: AppColors.primary,
+                          fontWeight: FontWeight.w600)),
                   content: const Text('Berhasil Login, Selamat Datang!'),
                   actions: [
                     TextButton(
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
-                      child: const Text('OK'),
+                      child: const Text('OK',
+                          style: TextStyle(color: AppColors.primary)),
                     ),
                   ],
                 );
