@@ -112,7 +112,11 @@ class LoginPage extends StatelessWidget {
                       height: 12,
                     ),
                     ElevatedButtonWithCustomStyle(
-                      text: "MASUK",
+                      text: state is LoginLoadingState
+                          ? "Loading..."
+                          : state is LoginInitial
+                              ? "Masuk"
+                              : "",
                       onPressed: () {
                         if (formKey.currentState?.saveAndValidate() ?? false) {
                           final nim =

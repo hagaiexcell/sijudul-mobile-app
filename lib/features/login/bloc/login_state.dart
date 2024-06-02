@@ -18,6 +18,6 @@ class LoginSubmitFailureState extends LoginState {
   });
 }
 
-class LoginIdleState extends LoginState{}
+class LoginLoadingState extends LoginState{}
 
 

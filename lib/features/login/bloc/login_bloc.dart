@@ -17,18 +17,26 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   FutureOr<void> loginSubmitEvent(
       LoginSubmitEvent event, Emitter<LoginState> emit) async {
+      emit(LoginLoadingState());
+
+    try {
     var result = await LoginRepo.loginMahasiswa(event.nim, event.password);
     debugPrint(result.toString());
+    
     if (result.containsKey('data')) {
       final token = result['token'];
       await _saveToken(token);
       await _saveUserData(result['data']);
-      emit(LoginIdleState());
       emit(LoginSubmitSuccessState());
     } else {
-      emit(LoginIdleState());
       emit(LoginSubmitFailureState(message: result['error']));
     }
+  } catch (e) {
+    emit(LoginSubmitFailureState(message: e.toString()));
+  } finally {
+    emit(LoginInitial());
+  }
+
     // debugPrint(result['data'].toString());
   }
 

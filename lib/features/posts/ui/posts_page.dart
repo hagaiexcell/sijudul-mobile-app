@@ -19,10 +19,10 @@ class PostsPage extends StatelessWidget {
         title: "Daftar Judul Mahasiswa",
         context: context,
       ),
-      floatingActionButton: FloatingActionButton(onPressed: () {
-        postsBloc.add(PostsAddEvent());
-        postsBloc.add(PostsInitialsFetchEvent());
-      }),
+      // floatingActionButton: FloatingActionButton(onPressed: () {
+      //   postsBloc.add(PostsAddEvent());
+      //   postsBloc.add(PostsInitialsFetchEvent());
+      // }),
       body: BlocConsumer<PostsBloc, PostsState>(
         buildWhen: (previous, current) => current is! PostsActionState,
         listenWhen: (previous, current) => current is PostsActionState,
