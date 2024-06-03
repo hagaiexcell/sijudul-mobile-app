@@ -27,7 +27,8 @@ class LoginPage extends StatelessWidget {
                       style: TextStyle(
                           color: AppColors.primary,
                           fontWeight: FontWeight.w600)),
-                  content: const Text('Berhasil Login, Selamat Datang!'),
+                  content: Text(
+                      'Berhasil Login, Selamat Datang ${state.user.name}!'),
                   actions: [
                     TextButton(
                       onPressed: () {
