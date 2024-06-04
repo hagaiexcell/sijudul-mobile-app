@@ -16,8 +16,15 @@ class Dosen1Bloc extends Bloc<Dosen1Event, Dosen1State> {
 
   FutureOr<void> dosenInitialFetchEvent(
       DosenInitialFetchEvent event, Emitter<Dosen1State> emit) async {
-    List<Dosen> listDosen = await Dosen1Repo.fetchDosen();
-    
+    List<Dosen> listDosen = await Dosen1Repo.fetchDosen(event.type);
+    if (event.type == "dosen1") {
+      listDosen =
+          listDosen.where((dosen) => dosen.prodi == "informatika").toList();
+    }else if(event.type == "dosen2"){
+       listDosen =
+          listDosen.where((dosen) => dosen.jabatan == "").toList();
+    }
+
     emit(DosenFetchingSuccessfulState(listDosen: listDosen));
   }
 }

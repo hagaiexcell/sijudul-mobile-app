@@ -1,19 +1,25 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:flutter_project_skripsi/component/app_bar_widget.dart';
 import 'package:flutter_project_skripsi/features/dosen/bloc/dosen1_bloc.dart';
 import 'package:flutter_project_skripsi/resources/resources.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Dosen1Page extends StatelessWidget {
-  Dosen1Page({super.key});
+  String type;
+  Dosen1Page({
+    Key? key,
+    required this.type,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    context.read<Dosen1Bloc>().add(DosenInitialFetchEvent());
+    context.read<Dosen1Bloc>().add(DosenInitialFetchEvent(type: type));
     return Scaffold(
       appBar: AppBarWidget.defaultAppBar(
-        title: "Dosen Pembimbing 1",
+        title: type == "dosen1" ? "Dosen Pembimbing 1" : "Dosen Pembimbing 2",
         context: context,
       ),
       body: BlocBuilder<Dosen1Bloc, Dosen1State>(

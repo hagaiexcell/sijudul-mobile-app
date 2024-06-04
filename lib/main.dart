@@ -63,7 +63,8 @@ class _MyAppState extends State<MyApp> {
             '/detail-judul': (context) => const DetailJudul(),
             // '/list-judul': (context) => ListJudul(),
             '/list-judul': (context) => PostsPage(),
-            '/list-dosen-1': (context) => Dosen1Page(),
+            '/list-dosen-1': (context) => Dosen1Page(type: "dosen1",),
+            '/list-dosen-2': (context) => Dosen1Page(type: "dosen2",),
           },
         ));
   }

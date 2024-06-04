@@ -7,7 +7,7 @@ import 'dart:convert';
 class Dosen1Repo {
   static final baseUrl = dotenv.get("BASE_URL");
 
-  static Future<List<Dosen>> fetchDosen() async {
+  static Future<List<Dosen>> fetchDosen(type) async {
     var client = http.Client();
     List<Dosen> listDosen = [];
 
@@ -17,16 +17,12 @@ class Dosen1Repo {
       );
       if (response.statusCode == 200) {
         Map<String, dynamic> jsonResponse = jsonDecode(response.body);
-        print(jsonResponse);
-        // Ensure jsonResponse contains 'result' key and it is a list
 
         List<dynamic> results = jsonResponse['result'];
-        print(results);
         for (var item in results) {
-          if (item != null && item is Map<String, dynamic>) {
-            Dosen dosen = Dosen.fromMap(item);
-            listDosen.add(dosen);
-          }
+          Dosen dosen = Dosen.fromMap(item);
+          print(dosen);
+          listDosen.add(dosen);
         }
       } else {
         debugPrint("Failed to load dosen: ${response.statusCode}");

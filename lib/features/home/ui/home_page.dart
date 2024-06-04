@@ -80,7 +80,9 @@ class HomePage extends StatelessWidget {
                 MenuHome(
                   icon: "lib/resources/images/ic-dosen.svg",
                   title: "Daftar Dosen Pembimbing 2",
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushNamed('/list-dosen-2');
+                  },
                 ),
               ],
             ),
