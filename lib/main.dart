@@ -1,6 +1,8 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_project_skripsi/features/dosen/bloc/dosen1_bloc.dart';
+import 'package:flutter_project_skripsi/features/dosen/ui/dosen_1_page.dart';
 import 'package:flutter_project_skripsi/features/home/ui/home_page.dart';
 import 'package:flutter_project_skripsi/features/login/bloc/login_bloc.dart';
 import 'package:flutter_project_skripsi/features/login/ui/login_page.dart';
@@ -44,6 +46,7 @@ class _MyAppState extends State<MyApp> {
           BlocProvider<PostsBloc>(create: (context) => PostsBloc()),
           BlocProvider<LoginBloc>(create: (context) => LoginBloc()),
           BlocProvider<ProfileBloc>(create: (context) => ProfileBloc()),
+          BlocProvider<Dosen1Bloc>(create: (context) => Dosen1Bloc()),
         ],
         child: MaterialApp(
           theme: ThemeData(
@@ -60,7 +63,7 @@ class _MyAppState extends State<MyApp> {
             '/detail-judul': (context) => const DetailJudul(),
             // '/list-judul': (context) => ListJudul(),
             '/list-judul': (context) => PostsPage(),
-            '/list-dosen-1': (context) => ListDosen1(),
+            '/list-dosen-1': (context) => Dosen1Page(),
           },
         ));
   }

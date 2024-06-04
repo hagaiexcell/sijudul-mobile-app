@@ -14,7 +14,7 @@ class LoginRepo {
       var body = jsonEncode({"nim": nim, "password": password});
 
       var response = await client.post(
-          Uri.parse("${baseUrl}mahasiswa/login"),
+          Uri.parse("$baseUrl/mahasiswa/login"),
           body: body);
 
       // Check if response status code is in the success range
