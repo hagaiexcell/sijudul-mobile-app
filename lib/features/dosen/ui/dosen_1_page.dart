@@ -22,7 +22,28 @@ class Dosen1Page extends StatelessWidget {
         title: type == "dosen1" ? "Dosen Pembimbing 1" : "Dosen Pembimbing 2",
         context: context,
       ),
-      body: BlocBuilder<Dosen1Bloc, Dosen1State>(
+      body: BlocConsumer<Dosen1Bloc, Dosen1State>(
+        listener: (context, state) {
+          if (state is DosenFetchingErrorState) {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: const Text("Error"),
+                  content: Text(state.error),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text('OK'),
+                    ),
+                  ],
+                );
+              },
+            );
+          }
+        },
         builder: (context, state) {
           if (state is Dosen1Initial) {
             return const Center(child: CircularProgressIndicator());
@@ -71,7 +92,9 @@ class Dosen1Page extends StatelessWidget {
                                   height: 4,
                                 ),
                                 Text(
-                                  state.listDosen[index].jabatan == "" ? "Dosen" : state.listDosen[index].jabatan,
+                                  state.listDosen[index].jabatan == ""
+                                      ? "Dosen"
+                                      : state.listDosen[index].jabatan,
                                   style:
                                       const TextStyle(color: AppColors.gray700),
                                 ),
@@ -109,7 +132,7 @@ class Dosen1Page extends StatelessWidget {
               ),
             );
           }
-          return (Container());
+          return const Center();
         },
       ),
     );

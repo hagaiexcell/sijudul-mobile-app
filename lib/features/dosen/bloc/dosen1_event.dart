@@ -8,9 +8,9 @@ sealed class Dosen1Event extends Equatable {
   List<Object> get props => [];
 }
 
-class DosenInitialFetchEvent extends Dosen1Event {
-  String type;
-  DosenInitialFetchEvent({
+final class DosenInitialFetchEvent extends Dosen1Event {
+  final String type;
+  const DosenInitialFetchEvent({
     required this.type,
   });
 }

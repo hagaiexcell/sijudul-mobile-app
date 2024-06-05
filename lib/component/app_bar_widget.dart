@@ -6,6 +6,7 @@ class AppBarWidget {
       String? title,
       List<Widget>? actions,
       required BuildContext context,
+      VoidCallback? onLeadingTap,
       bool? showLeading}) {
     return AppBar(
       title: Text(
@@ -17,9 +18,10 @@ class AppBarWidget {
       elevation: 0.2,
       leading: showLeading != null && showLeading
           ? InkWell(
-              onTap: () {
-                Navigator.of(context).pop();
-              },
+              onTap: onLeadingTap ??
+                  () {
+                    Navigator.of(context).pop();
+                  },
               child: const Icon(
                 Icons.arrow_back_ios_rounded,
                 color: Colors.black,

@@ -26,7 +26,7 @@ class Dosen {
     return Dosen(
       id: json['id'] ?? -1,
       name: json['name'] ?? "",
-      nidn: json['nidn'] ?? '', // Provide a default value if nidn is null
+      nidn: json['nidn'] ?? "",
       email: json['email'] ?? "",
       prodi: json['prodi'] ?? "",
       kapasitas: json['kapasitas'] ??

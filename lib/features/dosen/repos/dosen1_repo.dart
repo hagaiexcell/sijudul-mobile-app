@@ -15,23 +15,24 @@ class Dosen1Repo {
       var response = await client.get(
         Uri.parse("$baseUrl/dosen"),
       );
+      // print("dosenn");
       if (response.statusCode == 200) {
         Map<String, dynamic> jsonResponse = jsonDecode(response.body);
 
         List<dynamic> results = jsonResponse['result'];
         for (var item in results) {
           Dosen dosen = Dosen.fromMap(item);
-          print(dosen);
+
           listDosen.add(dosen);
         }
       } else {
-        debugPrint("Failed to load dosen: ${response.statusCode}");
+        throw Exception('Failed to load Dosen');
       }
 
       return listDosen;
     } catch (e) {
       debugPrint(e.toString());
-      return [];
+      rethrow;
     } finally {
       client.close();
     }

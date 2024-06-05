@@ -46,7 +46,9 @@ class ElevatedButtonWithCustomStyle extends StatelessWidget {
               ? AppColors.success
               : type == "danger"
                   ? AppColors.danger
-                  : AppColors.primary,
+                  : type == "pending"
+                      ? AppColors.gray700
+                      : AppColors.primary,
           elevation: 0, // Hilangkan elevasi bawaan dari ElevatedButton
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10), // Bentuk tepi tombol

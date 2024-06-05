@@ -14,3 +14,9 @@ final class DosenFetchingSuccessfulState extends Dosen1State {
 
   const DosenFetchingSuccessfulState({required this.listDosen});
 }
+
+final class DosenFetchingErrorState extends Dosen1State {
+  final String error;
+
+  const DosenFetchingErrorState({required this.error});
+}
