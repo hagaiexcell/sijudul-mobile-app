@@ -21,7 +21,7 @@ class PengajuanDetailPage extends StatelessWidget {
           showLeading: true,
           onLeadingTap: () {
             print('Leading icon tapped!');
-            context.read<PengajuanBloc>().add(PengajuanInitialFetchEvent());
+            context.read<PengajuanBloc>().add(PengajuanResetStateEvent());
 
             Navigator.of(context).pop();
           }),

@@ -8,7 +8,11 @@ sealed class PengajuanEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class PengajuanInitialFetchEvent extends PengajuanEvent {}
+class PengajuanInitialFetchEvent extends PengajuanEvent {
+  final bool isInitial;
+
+  const PengajuanInitialFetchEvent({required this.isInitial});
+}
 
 class PengajuanFetchByIdEvent extends PengajuanEvent {
   final int id;
@@ -16,3 +20,5 @@ class PengajuanFetchByIdEvent extends PengajuanEvent {
     required this.id,
   });
 }
+
+class PengajuanResetStateEvent extends PengajuanEvent {}

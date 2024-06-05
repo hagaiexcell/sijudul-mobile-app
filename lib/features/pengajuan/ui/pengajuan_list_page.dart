@@ -10,7 +10,9 @@ class PengajuanListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<PengajuanBloc>().add(PengajuanInitialFetchEvent());
+    context
+        .read<PengajuanBloc>()
+        .add(const PengajuanInitialFetchEvent(isInitial: true));
 
     return Scaffold(
       appBar: AppBarWidget.defaultAppBar(
@@ -40,8 +42,12 @@ class PengajuanListPage extends StatelessWidget {
           }
         },
         builder: (context, state) {
-          print(state);
-          if (state is PengajuanLoadingState) {
+          if (state is PengajuanInitial) {
+            context
+                .read<PengajuanBloc>()
+                .add(const PengajuanInitialFetchEvent(isInitial: false));
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is PengajuanLoadingState) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is PengajuanFetchingSuccessfulState) {
             return ListView.builder(

@@ -9,22 +9,35 @@ part 'pengajuan_event.dart';
 part 'pengajuan_state.dart';
 
 class PengajuanBloc extends Bloc<PengajuanEvent, PengajuanState> {
+  List<Pengajuan>? _cachedPengajuanList;
   PengajuanBloc() : super(PengajuanInitial()) {
     on<PengajuanInitialFetchEvent>(pengajuanInitialFetchEvent);
     on<PengajuanFetchByIdEvent>(pengajuanFetchByIdEvent);
+    on<PengajuanResetStateEvent>(pengajuanResetStateEvent);
   }
 
   FutureOr<void> pengajuanInitialFetchEvent(
       PengajuanInitialFetchEvent event, Emitter<PengajuanState> emit) async {
-    
+    if (_cachedPengajuanList == null) {
+      emit(PengajuanLoadingState());
+      try {
+        // Fetch data from API
+        final listPengajuan = await PengajuanRepo.fetchAllPengajuan();
+        _cachedPengajuanList = listPengajuan;
+        emit(PengajuanFetchingSuccessfulState(listPengajuan: listPengajuan));
+      } catch (e) {
+        emit(PengajuanFetchingErrorState(e.toString()));
+      }
+    } else {
+      emit(PengajuanLoadingState());
 
-    emit(PengajuanLoadingState());
-    try {
-      // Fetch data from API
-      final listPengajuan = await PengajuanRepo.fetchAllPengajuan();
-      emit(PengajuanFetchingSuccessfulState(listPengajuan: listPengajuan));
-    } catch (e) {
-      emit(PengajuanFetchingErrorState(e.toString()));
+      if (event.isInitial) {
+        final listPengajuan = await PengajuanRepo.fetchAllPengajuan();
+        emit(PengajuanFetchingSuccessfulState(listPengajuan: listPengajuan));
+      } else {
+        emit(PengajuanFetchingSuccessfulState(
+            listPengajuan: _cachedPengajuanList!));
+      }
     }
   }
 
@@ -40,5 +53,10 @@ class PengajuanBloc extends Bloc<PengajuanEvent, PengajuanState> {
     } catch (e) {
       emit(PengajuanFetchingErrorState(e.toString()));
     }
+  }
+
+  FutureOr<void> pengajuanResetStateEvent(
+      PengajuanResetStateEvent event, Emitter<PengajuanState> emit) {
+    emit(PengajuanInitial());
   }
 }

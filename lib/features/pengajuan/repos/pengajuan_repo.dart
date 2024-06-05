@@ -20,6 +20,7 @@ class PengajuanRepo {
       if (response.statusCode == 200) {
         Map<String, dynamic> jsonResponse = jsonDecode(response.body);
         List<dynamic> results = jsonResponse['result'];
+        // print(results);
         for (var item in results) {
           Pengajuan pengajuan = Pengajuan.fromMap(item);
           listPengajuan.add(pengajuan);
