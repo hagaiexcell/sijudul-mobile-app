@@ -209,18 +209,19 @@ class PengajuanDetailPage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(15),
                           boxShadow: [AppElevation.elevationPrimary],
                           color: Colors.white),
-                      child: const Column(
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                             "Catatan",
                             style: TextStyle(fontWeight: FontWeight.w600),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 4,
                           ),
-                          Text(
-                              "Masalah Masalah masih kurang jelas,Masalah masih kurang jelas,Masalah masih kurang jelas,Masalah masih kurang jelas,masih kurang jelas,")
+                          Text(state.pengajuanDetail.notes == ""
+                              ? "-"
+                              : state.pengajuanDetail.notes)
                         ],
                       ),
                     )

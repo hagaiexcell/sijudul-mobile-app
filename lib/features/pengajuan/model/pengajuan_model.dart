@@ -66,7 +66,7 @@ class Pengajuan {
       dospem2Id: map['dospem2Id'] ?? 0,
       dospem2: Dosen.fromMap(map['dospem2'] as Map<String, dynamic>),
       status: map['status_acc'] ?? "",
-      notes: map['notes'] ?? "",
+      notes: map['rejected_note'] ?? "",
       mahasiswa: User.fromJson(map['mahasiswa'] as Map<String, dynamic>, ''),
     );
   }
