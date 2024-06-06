@@ -42,7 +42,7 @@ class HomePage extends StatelessWidget {
               // mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const Text(
-                  "Status Pengajuan",
+                  "Status Pengajuan Terkini",
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
@@ -60,14 +60,14 @@ class HomePage extends StatelessWidget {
                   icon: "lib/resources/images/ic-list.svg",
                   title: "Daftar Judul Mahasiswa",
                   onPressed: () {
-                    Navigator.of(context).pushNamed('/list-judul');
+                    Navigator.of(context).pushNamed('/list-judul-all');
                   },
                 ),
                 MenuHome(
                   icon: "lib/resources/images/ic-timbangan.svg",
-                  title: "Cek Status Pengajuan",
+                  title: "Riwayat Pengajuan Saya",
                   onPressed: () {
-                    Navigator.of(context).pushNamed('/detail-judul');
+                    Navigator.of(context).pushNamed('/list-judul-user');
                   },
                 ),
                 MenuHome(

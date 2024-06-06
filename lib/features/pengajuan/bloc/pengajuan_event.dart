@@ -14,6 +14,15 @@ class PengajuanInitialFetchEvent extends PengajuanEvent {
   const PengajuanInitialFetchEvent({required this.isInitial});
 }
 
+class PengajuanFetchAllByMahasiswaIdEvent extends PengajuanEvent {
+  final int? id;
+  final bool isInitial;
+
+  const PengajuanFetchAllByMahasiswaIdEvent({required this.id, required this.isInitial});
+
+
+}
+
 class PengajuanFetchByIdEvent extends PengajuanEvent {
   final int id;
   const PengajuanFetchByIdEvent({

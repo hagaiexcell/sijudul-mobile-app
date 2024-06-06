@@ -16,11 +16,41 @@ class PengajuanRepo {
       var response = await client.get(
         Uri.parse("$baseUrl/pengajuan"),
       );
-      print(response);
+
       if (response.statusCode == 200) {
         Map<String, dynamic> jsonResponse = jsonDecode(response.body);
         List<dynamic> results = jsonResponse['result'];
         // print(results);
+        for (var item in results) {
+          Pengajuan pengajuan = Pengajuan.fromMap(item);
+          listPengajuan.add(pengajuan);
+        }
+      } else {
+        throw Exception('Failed to load pengajuan');
+      }
+
+      return listPengajuan;
+    } catch (e) {
+      debugPrint(e.toString());
+      rethrow;
+    } finally {
+      client.close();
+    }
+  }
+
+  static Future<List<Pengajuan>> fetchAllPengajuanByIdMahasiswa(id) async {
+    var client = http.Client();
+    List<Pengajuan> listPengajuan = [];
+
+    try {
+      var response = await client.get(
+        Uri.parse("$baseUrl/pengajuan/mahasiswa/$id"),
+      );
+
+      if (response.statusCode == 200) {
+        Map<String, dynamic> jsonResponse = jsonDecode(response.body);
+        List<dynamic> results = jsonResponse['result'];
+
         for (var item in results) {
           Pengajuan pengajuan = Pengajuan.fromMap(item);
           listPengajuan.add(pengajuan);
@@ -48,7 +78,7 @@ class PengajuanRepo {
       if (response.statusCode == 200) {
         Map<String, dynamic> jsonResponse = jsonDecode(response.body);
         Map<String, dynamic> results = jsonResponse['result'];
-       return Pengajuan.fromMap(results);
+        return Pengajuan.fromMap(results);
       } else {
         throw Exception('Failed to load pengajuan');
       }

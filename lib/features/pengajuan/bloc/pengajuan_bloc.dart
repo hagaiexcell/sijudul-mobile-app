@@ -10,16 +10,19 @@ part 'pengajuan_state.dart';
 
 class PengajuanBloc extends Bloc<PengajuanEvent, PengajuanState> {
   List<Pengajuan>? _cachedPengajuanList;
+  List<Pengajuan>? _cachedPengajuanUserList;
   PengajuanBloc() : super(PengajuanInitial()) {
     on<PengajuanInitialFetchEvent>(pengajuanInitialFetchEvent);
+    on<PengajuanFetchAllByMahasiswaIdEvent>(
+        pengajuanFetchAllByMahasiswaIdEvent);
     on<PengajuanFetchByIdEvent>(pengajuanFetchByIdEvent);
     on<PengajuanResetStateEvent>(pengajuanResetStateEvent);
   }
 
   FutureOr<void> pengajuanInitialFetchEvent(
       PengajuanInitialFetchEvent event, Emitter<PengajuanState> emit) async {
-    if (_cachedPengajuanList == null) {
       emit(PengajuanLoadingState());
+    if (_cachedPengajuanList == null) {
       try {
         // Fetch data from API
         final listPengajuan = await PengajuanRepo.fetchAllPengajuan();
@@ -29,7 +32,7 @@ class PengajuanBloc extends Bloc<PengajuanEvent, PengajuanState> {
         emit(PengajuanFetchingErrorState(e.toString()));
       }
     } else {
-      emit(PengajuanLoadingState());
+      // emit(PengajuanLoadingState());
 
       if (event.isInitial) {
         final listPengajuan = await PengajuanRepo.fetchAllPengajuan();
@@ -57,6 +60,36 @@ class PengajuanBloc extends Bloc<PengajuanEvent, PengajuanState> {
 
   FutureOr<void> pengajuanResetStateEvent(
       PengajuanResetStateEvent event, Emitter<PengajuanState> emit) {
-    emit(PengajuanInitial());
+    emit(PengajuanResetState());
+  }
+
+  FutureOr<void> pengajuanFetchAllByMahasiswaIdEvent(
+      PengajuanFetchAllByMahasiswaIdEvent event,
+      Emitter<PengajuanState> emit) async {
+      emit(PengajuanLoadingState());
+    if (_cachedPengajuanUserList == null) {
+      try {
+        // Fetch data from API
+        final listPengajuanUser =
+            await PengajuanRepo.fetchAllPengajuanByIdMahasiswa(event.id);
+        _cachedPengajuanUserList = listPengajuanUser;
+        emit(
+            PengajuanFetchingSuccessfulState(listPengajuan: listPengajuanUser));
+      } catch (e) {
+        emit(PengajuanFetchingErrorState(e.toString()));
+      }
+    } else {
+      // emit(PengajuanLoadingState());
+
+      if (event.isInitial) {
+        final listPengajuanUser =
+            await PengajuanRepo.fetchAllPengajuanByIdMahasiswa(event.id);
+        emit(
+            PengajuanFetchingSuccessfulState(listPengajuan: listPengajuanUser));
+      } else {
+        emit(PengajuanFetchingSuccessfulState(
+            listPengajuan: _cachedPengajuanUserList!));
+      }
+    }
   }
 }

@@ -59,9 +59,10 @@ class _MyAppState extends State<MyApp> {
             '/ajukan': (context) => AjukanJudul(),
             '/detail-judul': (context) => const PengajuanDetailPage(),
             // '/list-judul': (context) => ListJudul(),
-            '/list-judul': (context) => PengajuanListPage(),
-            '/list-dosen-1': (context) => Dosen1Page(type: "dosen1",),
-            '/list-dosen-2': (context) => Dosen1Page(type: "dosen2",),
+            '/list-judul-all': (context) => PengajuanListPage(type: "all"),
+            '/list-judul-user': (context) => PengajuanListPage(type: "user"),
+            '/list-dosen-1': (context) => Dosen1Page(type: "dosen1"),
+            '/list-dosen-2': (context) => Dosen1Page(type: "dosen2"),
           },
         ));
   }

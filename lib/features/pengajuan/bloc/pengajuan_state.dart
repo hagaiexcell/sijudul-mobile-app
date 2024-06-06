@@ -10,6 +10,8 @@ sealed class PengajuanState extends Equatable {
 
 final class PengajuanInitial extends PengajuanState {}
 
+final class PengajuanResetState extends PengajuanState {}
+
 final class PengajuanLoadingState extends PengajuanState {}
 
 final class PengajuanFetchingSuccessfulState extends PengajuanState {
