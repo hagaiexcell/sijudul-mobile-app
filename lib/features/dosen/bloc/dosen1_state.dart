@@ -9,14 +9,30 @@ sealed class Dosen1State extends Equatable {
 
 final class Dosen1Initial extends Dosen1State {}
 
-final class DosenFetchingSuccessfulState extends Dosen1State {
+final class Dosen1FetchingSuccessfulState extends Dosen1State {
+  final String type;
   final List<Dosen> listDosen;
 
-  const DosenFetchingSuccessfulState({required this.listDosen});
+  const Dosen1FetchingSuccessfulState({required this.listDosen, required this.type});
+}
+final class Dosen2FetchingSuccessfulState extends Dosen1State {
+  final String type;
+  final List<Dosen> listDosen;
+
+  const Dosen2FetchingSuccessfulState({required this.listDosen, required this.type});
 }
 
 final class DosenFetchingErrorState extends Dosen1State {
   final String error;
+  final String type;
 
-  const DosenFetchingErrorState({required this.error});
+
+  const DosenFetchingErrorState({required this.error, required this.type});
+}
+
+final class DosenLoadingState extends Dosen1State{
+  final String type;
+
+  const DosenLoadingState({required this.type});
+
 }

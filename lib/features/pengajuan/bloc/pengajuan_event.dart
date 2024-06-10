@@ -18,9 +18,8 @@ class PengajuanFetchAllByMahasiswaIdEvent extends PengajuanEvent {
   final int? id;
   final bool isInitial;
 
-  const PengajuanFetchAllByMahasiswaIdEvent({required this.id, required this.isInitial});
-
-
+  const PengajuanFetchAllByMahasiswaIdEvent(
+      {required this.id, required this.isInitial});
 }
 
 class PengajuanFetchByIdEvent extends PengajuanEvent {
@@ -31,3 +30,20 @@ class PengajuanFetchByIdEvent extends PengajuanEvent {
 }
 
 class PengajuanResetStateEvent extends PengajuanEvent {}
+
+class PengajuanCreateEvent extends PengajuanEvent {
+  final String peminatan;
+  final String judul;
+  final String tempatPenelitian;
+  final String rumusanMasalah;
+  final int dosen1Id;
+  final int dosen2Id;
+
+  const PengajuanCreateEvent(
+      {required this.peminatan,
+      required this.judul,
+      required this.tempatPenelitian,
+      required this.rumusanMasalah,
+      required this.dosen1Id,
+      required this.dosen2Id});
+}

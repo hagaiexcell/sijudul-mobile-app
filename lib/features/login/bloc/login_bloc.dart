@@ -28,7 +28,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         await _saveToken(result.token);
         await _saveUserData(result);
         emit(LoginSubmitSuccessState(user: result));
-        emit(LoginSubmitSuccessState(user: result));
+        // emit(LoginSubmitSuccessState(user: result));
       } else {
         emit(LoginSubmitFailureState(message: result['error']));
       }

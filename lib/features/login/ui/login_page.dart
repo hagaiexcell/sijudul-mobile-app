@@ -5,6 +5,7 @@ import 'package:flutter_project_skripsi/component/text_field_widget.dart';
 import 'package:flutter_project_skripsi/features/login/bloc/login_bloc.dart';
 import 'package:flutter_project_skripsi/features/posts/bloc/posts_bloc.dart';
 import 'package:flutter_project_skripsi/resources/resources.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -93,22 +94,26 @@ class LoginPage extends StatelessWidget {
                     const SizedBox(
                       height: 16,
                     ),
-                    const TextFieldWidget(
-                      name: "nim",
-                      hintText: "NIM",
-                      label: "NIM",
-                      keyboardType: TextInputType.phone,
-                    ),
+                    TextFieldWidget(
+                        name: "nim",
+                        hintText: "NIM",
+                        label: "NIM",
+                        keyboardType: TextInputType.phone,
+                        validator: FormBuilderValidators.compose([
+                          FormBuilderValidators.required(),
+                        ])),
                     const SizedBox(
                       height: 16,
                     ),
-                    const TextFieldWidget(
-                      name: "password",
-                      hintText: "Password",
-                      label: "Password",
-                      obsecure: true,
-                      keyboardType: TextInputType.visiblePassword,
-                    ),
+                    TextFieldWidget(
+                        name: "password",
+                        hintText: "Password",
+                        label: "Password",
+                        obsecure: true,
+                        keyboardType: TextInputType.visiblePassword,
+                        validator: FormBuilderValidators.compose([
+                          FormBuilderValidators.required(),
+                        ])),
                     const SizedBox(
                       height: 12,
                     ),

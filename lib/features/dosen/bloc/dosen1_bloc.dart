@@ -16,20 +16,32 @@ class Dosen1Bloc extends Bloc<Dosen1Event, Dosen1State> {
 
   FutureOr<void> dosenInitialFetchEvent(
       DosenInitialFetchEvent event, Emitter<Dosen1State> emit) async {
-    emit(Dosen1Initial());
+   
+    if (event.type == "dosen1") {
+      emit(const DosenLoadingState(type: 'dosen1'));
+    } else if (event.type == "dosen2") {
+      emit(const DosenLoadingState(type: 'dosen2'));
+    }
 
     try {
       List<Dosen> listDosen = await Dosen1Repo.fetchDosen(event.type);
       if (event.type == "dosen1") {
         listDosen =
             listDosen.where((dosen) => dosen.prodi == "Informatika").toList();
+        emit(
+            Dosen1FetchingSuccessfulState(listDosen: listDosen, type: 'dosen1'));
+        // add(const DosenInitialFetchEvent(type: 'dosen2'));
       } else if (event.type == "dosen2") {
         listDosen = listDosen.where((dosen) => dosen.jabatan == "").toList();
+        emit(
+            Dosen2FetchingSuccessfulState(listDosen: listDosen, type: 'dosen2'));
       }
-
-      emit(DosenFetchingSuccessfulState(listDosen: listDosen));
     } catch (e) {
-      emit(DosenFetchingErrorState(error: e.toString()));
+      if (event.type == "dosen1") {
+        emit(DosenFetchingErrorState(error: e.toString(), type: 'dosen1'));
+      } else if (event.type == "dosen2") {
+        emit(DosenFetchingErrorState(error: e.toString(), type: 'dosen2'));
+      }
     }
   }
 }

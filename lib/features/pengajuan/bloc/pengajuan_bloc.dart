@@ -17,11 +17,12 @@ class PengajuanBloc extends Bloc<PengajuanEvent, PengajuanState> {
         pengajuanFetchAllByMahasiswaIdEvent);
     on<PengajuanFetchByIdEvent>(pengajuanFetchByIdEvent);
     on<PengajuanResetStateEvent>(pengajuanResetStateEvent);
+    on<PengajuanCreateEvent>(pengajuanCreateEvent);
   }
 
   FutureOr<void> pengajuanInitialFetchEvent(
       PengajuanInitialFetchEvent event, Emitter<PengajuanState> emit) async {
-      emit(PengajuanLoadingState());
+    emit(PengajuanLoadingState());
     if (_cachedPengajuanList == null) {
       try {
         // Fetch data from API
@@ -51,6 +52,8 @@ class PengajuanBloc extends Bloc<PengajuanEvent, PengajuanState> {
       Pengajuan pengajuanDetail =
           await PengajuanRepo.fetchPengajuanById(event.id);
 
+      // print(pengajuanDetail.tempatPenelitian);
+
       emit(PengajuanDetailFetchingSuccessfulState(
           pengajuanDetail: pengajuanDetail));
     } catch (e) {
@@ -66,7 +69,7 @@ class PengajuanBloc extends Bloc<PengajuanEvent, PengajuanState> {
   FutureOr<void> pengajuanFetchAllByMahasiswaIdEvent(
       PengajuanFetchAllByMahasiswaIdEvent event,
       Emitter<PengajuanState> emit) async {
-      emit(PengajuanLoadingState());
+    emit(PengajuanLoadingState());
     if (_cachedPengajuanUserList == null) {
       try {
         // Fetch data from API
@@ -79,8 +82,6 @@ class PengajuanBloc extends Bloc<PengajuanEvent, PengajuanState> {
         emit(PengajuanFetchingErrorState(e.toString()));
       }
     } else {
-      // emit(PengajuanLoadingState());
-
       if (event.isInitial) {
         final listPengajuanUser =
             await PengajuanRepo.fetchAllPengajuanByIdMahasiswa(event.id);
@@ -91,5 +92,25 @@ class PengajuanBloc extends Bloc<PengajuanEvent, PengajuanState> {
             listPengajuan: _cachedPengajuanUserList!));
       }
     }
+  }
+
+  FutureOr<void> pengajuanCreateEvent(
+      event, Emitter<PengajuanState> emit) async {
+    try {
+      // print(event.toString());
+      final resultPengajuan = await PengajuanRepo.createPengajuan(
+          judul: event.judul,
+          peminatan: event.peminatan,
+          rumusanMasalah: event.rumusanMasalah,
+          tempatPenelitian: event.tempatPenelitian,
+          dosen1Id: event.dosen1Id,
+          dosen2Id: event.dosen2Id);
+      // print(resultPengajuan);
+      emit(PengajuanCreateSuccessfullState());
+    } catch (e) {
+      emit(PengajuanCreateErrorState());
+    }
+    // print("woiii");
+    // print(result.toString());
   }
 }

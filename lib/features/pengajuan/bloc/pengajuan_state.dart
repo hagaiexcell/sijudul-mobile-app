@@ -31,3 +31,6 @@ class PengajuanFetchingErrorState extends PengajuanState {
 
   const PengajuanFetchingErrorState(this.error);
 }
+
+class PengajuanCreateSuccessfullState extends PengajuanState {}
+class PengajuanCreateErrorState extends PengajuanState {}

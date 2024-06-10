@@ -45,11 +45,13 @@ class Dosen1Page extends StatelessWidget {
           }
         },
         builder: (context, state) {
-          if (state is Dosen1Initial) {
+          if (state is DosenLoadingState) {
             return const Center(child: CircularProgressIndicator());
-          } else if (state is DosenFetchingSuccessfulState) {
+          } else if ((type == "dosen1" && state is Dosen1FetchingSuccessfulState) ||
+               (type == "dosen2" && state is Dosen2FetchingSuccessfulState)) {
+                 final listDosen = state is Dosen1FetchingSuccessfulState ? state.listDosen : (state as Dosen2FetchingSuccessfulState).listDosen;
             return ListView.builder(
-              itemCount: state.listDosen.length,
+              itemCount: listDosen.length,
               itemBuilder: (context, index) => Container(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -83,7 +85,7 @@ class Dosen1Page extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  state.listDosen[index].name,
+                                  listDosen[index].name,
                                   style: const TextStyle(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 15),
@@ -92,9 +94,9 @@ class Dosen1Page extends StatelessWidget {
                                   height: 4,
                                 ),
                                 Text(
-                                  state.listDosen[index].jabatan == ""
+                                  listDosen[index].jabatan == ""
                                       ? "Dosen"
-                                      : state.listDosen[index].jabatan,
+                                      : listDosen[index].jabatan,
                                   style:
                                       const TextStyle(color: AppColors.gray700),
                                 ),
@@ -102,14 +104,14 @@ class Dosen1Page extends StatelessWidget {
                                   height: 4,
                                 ),
                                 Text(
-                                  "(kuota : ${state.listDosen[index].kapasitas})",
+                                  "(kuota : ${listDosen[index].kapasitas})",
                                   style: TextStyle(color: AppColors.primary),
                                 ),
                                 const SizedBox(
                                   height: 4,
                                 ),
                                 Text(
-                                  state.listDosen[index].prodi,
+                                  listDosen[index].prodi,
                                   style: const TextStyle(
                                       color: AppColors.gray700,
                                       fontWeight: FontWeight.w600),

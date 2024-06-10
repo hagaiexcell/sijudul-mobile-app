@@ -7,6 +7,7 @@ import 'package:flutter_project_skripsi/features/home/ui/home_page.dart';
 import 'package:flutter_project_skripsi/features/login/bloc/login_bloc.dart';
 import 'package:flutter_project_skripsi/features/login/ui/login_page.dart';
 import 'package:flutter_project_skripsi/features/pengajuan/bloc/pengajuan_bloc.dart';
+import 'package:flutter_project_skripsi/features/pengajuan/ui/pengajuan_create_page.dart';
 import 'package:flutter_project_skripsi/features/pengajuan/ui/pengajuan_detail_page.dart';
 import 'package:flutter_project_skripsi/features/pengajuan/ui/pengajuan_list_page.dart';
 import 'package:flutter_project_skripsi/features/posts/bloc/posts_bloc.dart';
@@ -56,7 +57,7 @@ class _MyAppState extends State<MyApp> {
             '/home': (context) => MainScreen(),
             '/login': (context) => const LoginPage(),
             '/register': (context) => const RegisterScreen(),
-            '/ajukan': (context) => AjukanJudul(),
+            // '/ajukan': (context) => AjukanJudul(),
             '/detail-judul': (context) => const PengajuanDetailPage(),
             // '/list-judul': (context) => ListJudul(),
             '/list-judul-all': (context) => PengajuanListPage(type: "all"),
@@ -78,7 +79,7 @@ class _MainScreenState extends State<MainScreen> {
 
   final List<Widget> _screens = [
     const HomePage(),
-    AjukanJudul(),
+    PengajuanCreatePage(),
     const ProfilePage(),
     // tambahkan layar-layar lain di sini sesuai kebutuhan Anda
   ];
