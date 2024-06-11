@@ -32,6 +32,7 @@ class PengajuanFetchByIdEvent extends PengajuanEvent {
 class PengajuanResetStateEvent extends PengajuanEvent {}
 
 class PengajuanCreateEvent extends PengajuanEvent {
+  final int? userId;
   final String peminatan;
   final String judul;
   final String tempatPenelitian;
@@ -40,7 +41,8 @@ class PengajuanCreateEvent extends PengajuanEvent {
   final int dosen2Id;
 
   const PengajuanCreateEvent(
-      {required this.peminatan,
+      {required this.userId,
+      required this.peminatan,
       required this.judul,
       required this.tempatPenelitian,
       required this.rumusanMasalah,

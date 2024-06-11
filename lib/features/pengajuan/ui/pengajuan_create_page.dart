@@ -11,6 +11,8 @@ import 'package:flutter_project_skripsi/resources/resources.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
 class PengajuanCreatePage extends StatelessWidget
     implements PreferredSizeWidget {
@@ -18,6 +20,16 @@ class PengajuanCreatePage extends StatelessWidget
 
   @override
   Size get preferredSize => const Size.fromHeight(100);
+
+  Future<int?> _getUserId() async {
+    final prefs = await SharedPreferences.getInstance();
+    final userDataJson = prefs.getString('userData');
+    if (userDataJson != null) {
+      final userData = jsonDecode(userDataJson) as Map<String, dynamic>;
+      return userData['id'];
+    }
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,25 +73,26 @@ class PengajuanCreatePage extends StatelessWidget
                   Navigator.of(context).pushReplacementNamed('/home');
                 });
               });
-            } else if (state is PengajuanCreateErrorState) {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return AlertDialog(
-                    title: const Text('Failed'),
-                    content: const Text("Gagal Mengajukan Judul!"),
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: const Text('OK'),
-                      ),
-                    ],
-                  );
-                },
-              );
             }
+            // else if (state is PengajuanCreateErrorState) {
+            //   showDialog(
+            //     context: context,
+            //     builder: (context) {
+            //       return AlertDialog(
+            //         title: const Text('Failed'),
+            //         content: Text(state.error),
+            //         actions: [
+            //           TextButton(
+            //             onPressed: () {
+            //               Navigator.of(context).pop();
+            //             },
+            //             child: const Text('OK'),
+            //           ),
+            //         ],
+            //       );
+            //     },
+            //   );
+            // }
           },
           builder: (context, state) {
             return Container(
@@ -142,9 +155,14 @@ class PengajuanCreatePage extends StatelessWidget
                       ),
                       const LabelFormWidget(labelText: "Dosen Pembimbing 1"),
                       BlocBuilder<Dosen1Bloc, Dosen1State>(
-                        buildWhen: (previous, current) =>
-                            current is Dosen1FetchingSuccessfulState &&
-                            current.type == 'dosen1',
+                        buildWhen: (previous, current) {
+                          return (current is Dosen1FetchingSuccessfulState &&
+                                  current.type == 'dosen1') ||
+                              (current is DosenLoadingState &&
+                                  current.type == 'dosen1') ||
+                              (current is DosenFetchingErrorState &&
+                                  current.type == 'dosen1');
+                        },
                         builder: (context, state) {
                           if (state is DosenLoadingState &&
                               state.type == 'dosen1') {
@@ -154,6 +172,8 @@ class PengajuanCreatePage extends StatelessWidget
                             return DropDownDospem(
                               items: state.listDosen,
                               name: "dosen1",
+                              validator: FormBuilderValidators.required(
+                                  errorText: 'This field is required'),
                             );
                           } else if (state is DosenFetchingErrorState &&
                               state.type == 'dosen1') {
@@ -167,9 +187,14 @@ class PengajuanCreatePage extends StatelessWidget
                       ),
                       const LabelFormWidget(labelText: "Dosen Pembimbing 2"),
                       BlocBuilder<Dosen1Bloc, Dosen1State>(
-                        buildWhen: (previous, current) =>
-                            current is Dosen2FetchingSuccessfulState &&
-                            current.type == 'dosen2',
+                        buildWhen: (previous, current) {
+                          return (current is Dosen2FetchingSuccessfulState &&
+                                  current.type == 'dosen2') ||
+                              (current is DosenLoadingState &&
+                                  current.type == 'dosen2') ||
+                              (current is DosenFetchingErrorState &&
+                                  current.type == 'dosen2');
+                        },
                         builder: (context, state) {
                           if (state is DosenLoadingState &&
                               state.type == 'dosen2') {
@@ -179,6 +204,8 @@ class PengajuanCreatePage extends StatelessWidget
                             return DropDownDospem(
                               items: state.listDosen,
                               name: "dosen2",
+                              validator: FormBuilderValidators.required(
+                                  errorText: 'This field is required'),
                             );
                           } else if (state is DosenFetchingErrorState &&
                               state.type == 'dosen2') {
@@ -191,10 +218,13 @@ class PengajuanCreatePage extends StatelessWidget
                         height: 20,
                       ),
                       ElevatedButtonWithCustomStyle(
-                        text: "Submit",
-                        onPressed: () {
+                        text: state is PengajuanCreateLoadingState
+                            ? "Loading..."
+                            : "Submit",
+                        onPressed: () async {
                           if (formKey.currentState?.saveAndValidate() ??
                               false) {
+                            final userId = await _getUserId();
                             final peminatan = formKey
                                 .currentState?.fields['peminatan']?.value;
                             final judul =
@@ -203,13 +233,15 @@ class PengajuanCreatePage extends StatelessWidget
                                 ?.fields['tempatpenelitian']?.value;
                             final rumusanMasalah = formKey
                                 .currentState?.fields['rumusanmasalah']?.value;
-                            final dosen1 = formKey.currentState
-                                ?.fields['dosen1']?.value?.id; // Get dospem_id
-                            final dosen2 = formKey.currentState
-                                ?.fields['dosen2']?.value?.id; // Get dospem_id
+                            final dosen1 = formKey
+                                .currentState?.fields['dosen1']?.value?.id;
+                            final dosen2 = formKey
+                                .currentState?.fields['dosen2']?.value?.id;
+
                             // debugPrint(
                             //     '$peminatan,$judul,$tempatPenelitian,$rumusanMasalah');
                             pengajuanBloc.add(PengajuanCreateEvent(
+                                userId: userId,
                                 peminatan: peminatan,
                                 judul: judul,
                                 rumusanMasalah: rumusanMasalah,
@@ -222,20 +254,21 @@ class PengajuanCreatePage extends StatelessWidget
                       const SizedBox(
                         height: 16,
                       ),
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.8,
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                            color: AppColors.danger,
-                            borderRadius: BorderRadius.circular(12)),
-                        child: const Text(
-                          "Maaf, judul yang Anda ajukan memiliki kemiripan yang tinggi dengan judul yang sudah ada. Harap ajukan judul lain.",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.white,
+                      if (state is PengajuanCreateErrorState)
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                              color: AppColors.danger,
+                              borderRadius: BorderRadius.circular(12)),
+                          child: Text(
+                            state.error,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
                           ),
-                        ),
-                      )
+                        )
                     ],
                   )),
             );

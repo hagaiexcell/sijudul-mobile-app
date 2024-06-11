@@ -98,12 +98,17 @@ class PengajuanRepo {
   }
 
   static Future createPengajuan(
-      {peminatan, judul, tempatPenelitian, rumusanMasalah, dosen1Id, dosen2Id}) async {
+      {id,peminatan,
+      judul,
+      tempatPenelitian,
+      rumusanMasalah,
+      dosen1Id,
+      dosen2Id}) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     var client = http.Client();
     try {
       var body = jsonEncode({
-        "mahasiswa_id": 2,
+        "mahasiswa_id": id,
         "peminatan": peminatan,
         "judul": judul,
         "tempat_penelitian": tempatPenelitian,
@@ -127,6 +132,7 @@ class PengajuanRepo {
         Map<String, dynamic> results = jsonResponse['result'];
 
         return Pengajuan.fromMap(results);
+        // return true;
       } else if (response.statusCode == 307) {
         var redirectUrl = response.headers['location'];
         var redirectResponse = await client.post(
@@ -143,6 +149,7 @@ class PengajuanRepo {
           Map<String, dynamic> jsonResponse = jsonDecode(redirectResponse.body);
           Map<String, dynamic> results = jsonResponse['result'];
           return Pengajuan.fromMap(results);
+          // return true;
         } else {
           throw Exception('Failed to create pengajuan');
         }
@@ -153,6 +160,29 @@ class PengajuanRepo {
       rethrow;
     } finally {
       client.close();
+    }
+  }
+
+  static Future similarityCheck(judul) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    var client = http.Client();
+
+    try {
+      var body = jsonEncode({"judul": judul});
+
+      var response = await client.post(
+          Uri.parse("$baseUrl/pengajuan/similarity-test"),
+          headers: {"Authorization": "Bearer ${prefs.getString('auth_token')}"},
+          body: body);
+
+      if (response.statusCode == 200) {
+        var jsonResponse = jsonDecode(response.body);
+        return jsonResponse;
+      } else {
+        throw Exception('Failed to Check Similarity');
+      }
+    } catch (e) {
+      rethrow;
     }
   }
 }

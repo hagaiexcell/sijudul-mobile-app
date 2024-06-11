@@ -32,5 +32,12 @@ class PengajuanFetchingErrorState extends PengajuanState {
   const PengajuanFetchingErrorState(this.error);
 }
 
+class PengajuanCreateLoadingState extends PengajuanState {}
+
 class PengajuanCreateSuccessfullState extends PengajuanState {}
-class PengajuanCreateErrorState extends PengajuanState {}
+
+class PengajuanCreateErrorState extends PengajuanState {
+  final String error;
+
+  const PengajuanCreateErrorState({required this.error});
+}

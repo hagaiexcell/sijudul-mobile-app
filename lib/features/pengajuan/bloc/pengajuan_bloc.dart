@@ -37,6 +37,8 @@ class PengajuanBloc extends Bloc<PengajuanEvent, PengajuanState> {
 
       if (event.isInitial) {
         final listPengajuan = await PengajuanRepo.fetchAllPengajuan();
+        _cachedPengajuanList = listPengajuan;
+
         emit(PengajuanFetchingSuccessfulState(listPengajuan: listPengajuan));
       } else {
         emit(PengajuanFetchingSuccessfulState(
@@ -69,6 +71,7 @@ class PengajuanBloc extends Bloc<PengajuanEvent, PengajuanState> {
   FutureOr<void> pengajuanFetchAllByMahasiswaIdEvent(
       PengajuanFetchAllByMahasiswaIdEvent event,
       Emitter<PengajuanState> emit) async {
+    print(_cachedPengajuanUserList);
     emit(PengajuanLoadingState());
     if (_cachedPengajuanUserList == null) {
       try {
@@ -85,6 +88,7 @@ class PengajuanBloc extends Bloc<PengajuanEvent, PengajuanState> {
       if (event.isInitial) {
         final listPengajuanUser =
             await PengajuanRepo.fetchAllPengajuanByIdMahasiswa(event.id);
+        _cachedPengajuanUserList = listPengajuanUser;
         emit(
             PengajuanFetchingSuccessfulState(listPengajuan: listPengajuanUser));
       } else {
@@ -96,19 +100,29 @@ class PengajuanBloc extends Bloc<PengajuanEvent, PengajuanState> {
 
   FutureOr<void> pengajuanCreateEvent(
       event, Emitter<PengajuanState> emit) async {
+    emit(PengajuanCreateLoadingState());
     try {
-      // print(event.toString());
-      final resultPengajuan = await PengajuanRepo.createPengajuan(
-          judul: event.judul,
-          peminatan: event.peminatan,
-          rumusanMasalah: event.rumusanMasalah,
-          tempatPenelitian: event.tempatPenelitian,
-          dosen1Id: event.dosen1Id,
-          dosen2Id: event.dosen2Id);
-      // print(resultPengajuan);
-      emit(PengajuanCreateSuccessfullState());
+      final checkSimilarity = await PengajuanRepo.similarityCheck(event.judul);
+      print("cekkk $checkSimilarity");
+      if (checkSimilarity.containsKey('similarity') &&
+          checkSimilarity['similarity'] != null) {
+        double similarity = checkSimilarity['similarity'];
+        emit(PengajuanCreateErrorState(
+            error:
+                '${checkSimilarity['message']} with "${checkSimilarity['similar']}" (${similarity.toStringAsFixed(2)}%)'));
+      } else {
+        final resultPengajuan = await PengajuanRepo.createPengajuan(
+            id: event.userId,
+            judul: event.judul,
+            peminatan: event.peminatan,
+            rumusanMasalah: event.rumusanMasalah,
+            tempatPenelitian: event.tempatPenelitian,
+            dosen1Id: event.dosen1Id,
+            dosen2Id: event.dosen2Id);
+        emit(PengajuanCreateSuccessfullState());
+      }
     } catch (e) {
-      emit(PengajuanCreateErrorState());
+      emit(PengajuanCreateErrorState(error: e.toString()));
     }
     // print("woiii");
     // print(result.toString());
