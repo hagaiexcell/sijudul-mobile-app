@@ -5,7 +5,6 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_project_skripsi/features/posts/model/posts_data_ui_model.dart';
 import 'package:flutter_project_skripsi/features/posts/repos/posts_repo.dart';
-import 'package:http/http.dart' as http;
 
 part 'posts_event.dart';
 part 'posts_state.dart';

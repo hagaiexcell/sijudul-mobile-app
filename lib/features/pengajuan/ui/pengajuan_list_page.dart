@@ -8,8 +8,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
 class PengajuanListPage extends StatelessWidget {
-  String type;
-  PengajuanListPage({
+  final String type;
+  const PengajuanListPage({
     Key? key,
     required this.type,
   }) : super(key: key);
@@ -112,7 +112,6 @@ class BuildContent extends StatelessWidget {
           }
         },
         builder: (context, state) {
-          print(state);
           if (state is PengajuanResetState) {
             if (type == "all") {
               context

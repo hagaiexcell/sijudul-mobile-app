@@ -1,8 +1,6 @@
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_project_skripsi/features/dosen/model/dosen_model.dart';
 import 'package:flutter_project_skripsi/features/dosen/repos/dosen1_repo.dart';
 
@@ -16,7 +14,6 @@ class Dosen1Bloc extends Bloc<Dosen1Event, Dosen1State> {
 
   FutureOr<void> dosenInitialFetchEvent(
       DosenInitialFetchEvent event, Emitter<Dosen1State> emit) async {
-   
     if (event.type == "dosen1") {
       emit(const DosenLoadingState(type: 'dosen1'));
     } else if (event.type == "dosen2") {
@@ -28,13 +25,13 @@ class Dosen1Bloc extends Bloc<Dosen1Event, Dosen1State> {
       if (event.type == "dosen1") {
         listDosen =
             listDosen.where((dosen) => dosen.prodi == "Informatika").toList();
-        emit(
-            Dosen1FetchingSuccessfulState(listDosen: listDosen, type: 'dosen1'));
+        emit(Dosen1FetchingSuccessfulState(
+            listDosen: listDosen, type: 'dosen1'));
         // add(const DosenInitialFetchEvent(type: 'dosen2'));
       } else if (event.type == "dosen2") {
         listDosen = listDosen.where((dosen) => dosen.jabatan == "").toList();
-        emit(
-            Dosen2FetchingSuccessfulState(listDosen: listDosen, type: 'dosen2'));
+        emit(Dosen2FetchingSuccessfulState(
+            listDosen: listDosen, type: 'dosen2'));
       }
     } catch (e) {
       if (event.type == "dosen1") {

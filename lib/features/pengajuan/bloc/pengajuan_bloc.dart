@@ -71,7 +71,7 @@ class PengajuanBloc extends Bloc<PengajuanEvent, PengajuanState> {
   FutureOr<void> pengajuanFetchAllByMahasiswaIdEvent(
       PengajuanFetchAllByMahasiswaIdEvent event,
       Emitter<PengajuanState> emit) async {
-    print(_cachedPengajuanUserList);
+   
     emit(PengajuanLoadingState());
     if (_cachedPengajuanUserList == null) {
       try {
@@ -103,7 +103,7 @@ class PengajuanBloc extends Bloc<PengajuanEvent, PengajuanState> {
     emit(PengajuanCreateLoadingState());
     try {
       final checkSimilarity = await PengajuanRepo.similarityCheck(event.judul);
-      print("cekkk $checkSimilarity");
+      
       if (checkSimilarity.containsKey('similarity') &&
           checkSimilarity['similarity'] != null) {
         double similarity = checkSimilarity['similarity'];
@@ -111,7 +111,7 @@ class PengajuanBloc extends Bloc<PengajuanEvent, PengajuanState> {
             error:
                 '${checkSimilarity['message']} with "${checkSimilarity['similar']}" (${similarity.toStringAsFixed(2)}%)'));
       } else {
-        final resultPengajuan = await PengajuanRepo.createPengajuan(
+        await PengajuanRepo.createPengajuan(
             id: event.userId,
             judul: event.judul,
             peminatan: event.peminatan,
@@ -124,7 +124,5 @@ class PengajuanBloc extends Bloc<PengajuanEvent, PengajuanState> {
     } catch (e) {
       emit(PengajuanCreateErrorState(error: e.toString()));
     }
-    // print("woiii");
-    // print(result.toString());
   }
 }

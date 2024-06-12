@@ -8,8 +8,8 @@ import 'package:flutter_project_skripsi/features/dosen/bloc/dosen1_bloc.dart';
 import 'package:flutter_project_skripsi/resources/resources.dart';
 
 class Dosen1Page extends StatelessWidget {
-  String type;
-  Dosen1Page({
+  final String type;
+  const Dosen1Page({
     Key? key,
     required this.type,
   }) : super(key: key);
@@ -47,9 +47,12 @@ class Dosen1Page extends StatelessWidget {
         builder: (context, state) {
           if (state is DosenLoadingState) {
             return const Center(child: CircularProgressIndicator());
-          } else if ((type == "dosen1" && state is Dosen1FetchingSuccessfulState) ||
-               (type == "dosen2" && state is Dosen2FetchingSuccessfulState)) {
-                 final listDosen = state is Dosen1FetchingSuccessfulState ? state.listDosen : (state as Dosen2FetchingSuccessfulState).listDosen;
+          } else if ((type == "dosen1" &&
+                  state is Dosen1FetchingSuccessfulState) ||
+              (type == "dosen2" && state is Dosen2FetchingSuccessfulState)) {
+            final listDosen = state is Dosen1FetchingSuccessfulState
+                ? state.listDosen
+                : (state as Dosen2FetchingSuccessfulState).listDosen;
             return ListView.builder(
               itemCount: listDosen.length,
               itemBuilder: (context, index) => Container(
@@ -105,7 +108,8 @@ class Dosen1Page extends StatelessWidget {
                                 ),
                                 Text(
                                   "(kuota : ${listDosen[index].kapasitas})",
-                                  style: TextStyle(color: AppColors.primary),
+                                  style:
+                                      const TextStyle(color: AppColors.primary),
                                 ),
                                 const SizedBox(
                                   height: 4,

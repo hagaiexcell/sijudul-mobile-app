@@ -6,7 +6,6 @@ import 'package:flutter_project_skripsi/component/text_area_widget.dart';
 import 'package:flutter_project_skripsi/component/text_field_widget.dart';
 import 'package:flutter_project_skripsi/features/dosen/bloc/dosen1_bloc.dart';
 import 'package:flutter_project_skripsi/features/pengajuan/bloc/pengajuan_bloc.dart';
-import 'package:flutter_project_skripsi/features/pengajuan/model/pengajuan_model.dart';
 import 'package:flutter_project_skripsi/resources/resources.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -16,7 +15,7 @@ import 'dart:convert';
 
 class PengajuanCreatePage extends StatelessWidget
     implements PreferredSizeWidget {
-  PengajuanCreatePage({super.key});
+  const PengajuanCreatePage({super.key});
 
   @override
   Size get preferredSize => const Size.fromHeight(100);
@@ -74,25 +73,6 @@ class PengajuanCreatePage extends StatelessWidget
                 });
               });
             }
-            // else if (state is PengajuanCreateErrorState) {
-            //   showDialog(
-            //     context: context,
-            //     builder: (context) {
-            //       return AlertDialog(
-            //         title: const Text('Failed'),
-            //         content: Text(state.error),
-            //         actions: [
-            //           TextButton(
-            //             onPressed: () {
-            //               Navigator.of(context).pop();
-            //             },
-            //             child: const Text('OK'),
-            //           ),
-            //         ],
-            //       );
-            //     },
-            //   );
-            // }
           },
           builder: (context, state) {
             return Container(
@@ -238,8 +218,6 @@ class PengajuanCreatePage extends StatelessWidget
                             final dosen2 = formKey
                                 .currentState?.fields['dosen2']?.value?.id;
 
-                            // debugPrint(
-                            //     '$peminatan,$judul,$tempatPenelitian,$rumusanMasalah');
                             pengajuanBloc.add(PengajuanCreateEvent(
                                 userId: userId,
                                 peminatan: peminatan,
@@ -264,7 +242,7 @@ class PengajuanCreatePage extends StatelessWidget
                           child: Text(
                             state.error,
                             textAlign: TextAlign.center,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.white,
                             ),
                           ),

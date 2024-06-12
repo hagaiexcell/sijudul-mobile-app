@@ -98,7 +98,8 @@ class PengajuanRepo {
   }
 
   static Future createPengajuan(
-      {id,peminatan,
+      {id,
+      peminatan,
       judul,
       tempatPenelitian,
       rumusanMasalah,
