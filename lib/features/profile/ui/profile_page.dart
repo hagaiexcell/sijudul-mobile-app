@@ -51,7 +51,7 @@ class ProfilePage extends StatelessWidget {
                     Text(
                       state.userData['name'],
                       style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                         const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                     ),
                     Text(
                       state.userData['nim'],
@@ -67,7 +67,9 @@ class ProfilePage extends StatelessWidget {
                           builder: (context) {
                             return AlertDialog(
                               title: const Text('Logout',
-                                  style: TextStyle(color: AppColors.primary,fontWeight: FontWeight.w600)),
+                                  style: TextStyle(
+                                      color: AppColors.primary,
+                                      fontWeight: FontWeight.w600)),
                               content:
                                   const Text("Apakah Anda Yakin Ingin Logout?"),
                               actions: [
@@ -77,7 +79,17 @@ class ProfilePage extends StatelessWidget {
                                   },
                                   child: const Text(
                                     'YA',
-                                    style: TextStyle(color: AppColors.primary),
+                                    style: TextStyle(color: AppColors.success),
+                                  ),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .pop(); // Menutup dialog
+                                  },
+                                  child: const Text(
+                                    'TIDAK',
+                                    style: TextStyle(color: AppColors.danger),
                                   ),
                                 ),
                               ],

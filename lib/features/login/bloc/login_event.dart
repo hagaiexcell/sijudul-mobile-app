@@ -20,3 +20,14 @@ class LoginSubmitEvent extends LoginEvent {
   List<Object> get props => [nim, password];
 }
 
+class RegisterSubmitEvent extends LoginEvent {
+  final String name;
+  final String nim;
+  final String email;
+  final String password;
+  final String prodi;
+  final int? angkatan;
+  final int? sks;
+
+  const RegisterSubmitEvent({required this.name, required this.nim, required this.email, required this.password, required this.prodi, required this.angkatan, required this.sks});
+}

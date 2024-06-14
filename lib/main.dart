@@ -6,6 +6,7 @@ import 'package:flutter_project_skripsi/features/dosen/ui/dosen_1_page.dart';
 import 'package:flutter_project_skripsi/features/home/ui/home_page.dart';
 import 'package:flutter_project_skripsi/features/login/bloc/login_bloc.dart';
 import 'package:flutter_project_skripsi/features/login/ui/login_page.dart';
+import 'package:flutter_project_skripsi/features/login/ui/register_page.dart';
 import 'package:flutter_project_skripsi/features/pengajuan/bloc/pengajuan_bloc.dart';
 import 'package:flutter_project_skripsi/features/pengajuan/ui/pengajuan_create_page.dart';
 import 'package:flutter_project_skripsi/features/pengajuan/ui/pengajuan_detail_page.dart';
@@ -56,7 +57,7 @@ class _MyAppState extends State<MyApp> {
             '/': (context) => const SplashScreen(),
             '/home': (context) => MainScreen(),
             '/login': (context) => const LoginPage(),
-            '/register': (context) => const RegisterScreen(),
+            '/register': (context) => const RegisterPage(),
             // '/ajukan': (context) => AjukanJudul(),
             '/detail-judul': (context) => const PengajuanDetailPage(),
             // '/list-judul': (context) => ListJudul(),

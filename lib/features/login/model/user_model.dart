@@ -8,6 +8,7 @@ class User {
   final int angkatan;
   final int sks;
   final String token;
+  final String image;
 
   User({
     required this.id,
@@ -18,6 +19,7 @@ class User {
     required this.angkatan,
     required this.sks,
     required this.token,
+    required this.image,
   });
 
   factory User.fromJson(Map<String, dynamic> json, String token) {
@@ -30,6 +32,7 @@ class User {
       angkatan: json['angkatan'],
       sks: json['sks'],
       token: token,
+      image: json['image']
     );
   }
 
@@ -43,6 +46,7 @@ class User {
       'angkatan': angkatan,
       'sks': sks,
       'token': token,
+      'image' : image
     };
   }
 }

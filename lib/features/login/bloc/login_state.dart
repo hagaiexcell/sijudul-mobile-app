@@ -14,9 +14,18 @@ class LoginSubmitSuccessState extends LoginState {
   const LoginSubmitSuccessState({required this.user});
 }
 
+class RegisterSubmitSuccessState extends LoginState {}
+
 class LoginSubmitFailureState extends LoginState {
   final String message;
   const LoginSubmitFailureState({
+    required this.message,
+  });
+}
+
+class RegisterSubmitFailureState extends LoginState {
+  final String message;
+  const RegisterSubmitFailureState({
     required this.message,
   });
 }

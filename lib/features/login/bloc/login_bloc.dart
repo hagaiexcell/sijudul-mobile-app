@@ -14,6 +14,7 @@ part 'login_state.dart';
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc() : super(LoginInitial()) {
     on<LoginSubmitEvent>(loginSubmitEvent);
+    on<RegisterSubmitEvent>(registerSubmitEvent);
   }
 
   FutureOr<void> loginSubmitEvent(
@@ -34,6 +35,28 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       }
     } catch (e) {
       emit(LoginSubmitFailureState(message: e.toString()));
+    } finally {
+      emit(LoginInitial());
+    }
+
+    // debugPrint(result['data'].toString());
+  }
+
+  FutureOr<void> registerSubmitEvent(
+      RegisterSubmitEvent event, Emitter<LoginState> emit) async {
+    emit(LoginLoadingState());
+   
+    try {
+      var result = await LoginRepo.registerMahasiswa(event.name, event.nim,
+          event.email, event.password, event.prodi, event.angkatan, event.sks);
+      // print("haloooooo $result");
+      if (result.containsKey('error') && result['error'] != null) {
+        emit(RegisterSubmitFailureState(message: result['error']));
+      } else {
+        emit(RegisterSubmitSuccessState());
+      }
+    } catch (e) {
+      emit(RegisterSubmitFailureState(message: e.toString()));
     } finally {
       emit(LoginInitial());
     }
