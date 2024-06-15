@@ -39,4 +39,28 @@ class Dosen1Repo {
       client.close();
     }
   }
+
+  static Future<Dosen> fetchDosenById(id) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    var client = http.Client();
+
+    try {
+      var response = await client.get(Uri.parse("$baseUrl/dosen/$id"), headers: {
+        "Authorization": "Bearer ${prefs.getString('auth_token')}"
+      });
+      // print("dosenn");
+      if (response.statusCode == 200) {
+        Map<String, dynamic> jsonResponse = jsonDecode(response.body);
+        Map<String, dynamic> results = jsonResponse['dosen'];
+        return Dosen.fromMap(results);
+      } else {
+        throw Exception('Failed to load Dosen');
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+      rethrow;
+    } finally {
+      client.close();
+    }
+  }
 }

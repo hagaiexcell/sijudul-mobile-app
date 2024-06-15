@@ -14,3 +14,11 @@ final class DosenInitialFetchEvent extends Dosen1Event {
     required this.type,
   });
 }
+
+final class DosenFetchByIdEvent extends Dosen1Event {
+  final int id;
+
+  const DosenFetchByIdEvent({required this.id});
+}
+
+final class DosenResetStateEvent extends Dosen1Event{}

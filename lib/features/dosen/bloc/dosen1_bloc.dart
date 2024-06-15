@@ -10,6 +10,8 @@ part 'dosen1_state.dart';
 class Dosen1Bloc extends Bloc<Dosen1Event, Dosen1State> {
   Dosen1Bloc() : super(Dosen1Initial()) {
     on<DosenInitialFetchEvent>(dosenInitialFetchEvent);
+    on<DosenFetchByIdEvent>(dosenFetchByIdEvent);
+    on<DosenResetStateEvent>(dosenResetStateEvent);
   }
 
   FutureOr<void> dosenInitialFetchEvent(
@@ -40,5 +42,20 @@ class Dosen1Bloc extends Bloc<Dosen1Event, Dosen1State> {
         emit(DosenFetchingErrorState(error: e.toString(), type: 'dosen2'));
       }
     }
+  }
+
+  FutureOr<void> dosenFetchByIdEvent(event, Emitter<Dosen1State> emit) async {
+    const DosenLoadingState(type: "dosen1");
+    try {
+      Dosen dosenDetail = await Dosen1Repo.fetchDosenById(event.id);
+      print(dosenDetail);
+      emit(DosenDetailFetchingSuccessfulState(detail: dosenDetail));
+    } catch (e) {
+      emit(DosenFetchingErrorState(error: e.toString(), type: "dosen1"));
+    }
+  }
+
+  FutureOr<void> dosenResetStateEvent(DosenResetStateEvent event, Emitter<Dosen1State> emit) async{
+    emit(DosenResetState());
   }
 }

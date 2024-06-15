@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_project_skripsi/features/dosen/bloc/dosen1_bloc.dart';
 import 'package:flutter_project_skripsi/features/dosen/ui/dosen_1_page.dart';
+import 'package:flutter_project_skripsi/features/dosen/ui/dosen_detail_page.dart';
 import 'package:flutter_project_skripsi/features/home/ui/home_page.dart';
 import 'package:flutter_project_skripsi/features/login/bloc/login_bloc.dart';
 import 'package:flutter_project_skripsi/features/login/ui/login_page.dart';
@@ -61,10 +62,13 @@ class _MyAppState extends State<MyApp> {
             // '/ajukan': (context) => AjukanJudul(),
             '/detail-judul': (context) => const PengajuanDetailPage(),
             // '/list-judul': (context) => ListJudul(),
-            '/list-judul-all': (context) => PengajuanListPage(type: "all"),
-            '/list-judul-user': (context) => PengajuanListPage(type: "user"),
-            '/list-dosen-1': (context) => Dosen1Page(type: "dosen1"),
-            '/list-dosen-2': (context) => Dosen1Page(type: "dosen2"),
+            '/list-judul-all': (context) =>
+                const PengajuanListPage(type: "all"),
+            '/list-judul-user': (context) =>
+                const PengajuanListPage(type: "user"),
+            '/list-dosen-1': (context) => const Dosen1Page(type: "dosen1"),
+            '/list-dosen-2': (context) => const Dosen1Page(type: "dosen2"),
+            '/detail-dosen': (context) => const DosenDetailPage(),
           },
         ));
   }
