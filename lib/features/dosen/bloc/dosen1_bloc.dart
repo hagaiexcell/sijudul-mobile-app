@@ -45,7 +45,7 @@ class Dosen1Bloc extends Bloc<Dosen1Event, Dosen1State> {
   }
 
   FutureOr<void> dosenFetchByIdEvent(event, Emitter<Dosen1State> emit) async {
-    const DosenLoadingState(type: "dosen1");
+    emit(const DosenLoadingState(type: "dosen1"));
     try {
       Dosen dosenDetail = await Dosen1Repo.fetchDosenById(event.id);
       print(dosenDetail);
@@ -55,7 +55,8 @@ class Dosen1Bloc extends Bloc<Dosen1Event, Dosen1State> {
     }
   }
 
-  FutureOr<void> dosenResetStateEvent(DosenResetStateEvent event, Emitter<Dosen1State> emit) async{
+  FutureOr<void> dosenResetStateEvent(
+      DosenResetStateEvent event, Emitter<Dosen1State> emit) async {
     emit(DosenResetState());
   }
 }

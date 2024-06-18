@@ -8,14 +8,15 @@ class AppColors {
   static const secondary = Color(0XFFA8AAAE);
   static const textColour10 = Color(0xFFE7E7E7);
   static const gray700 = Color.fromRGBO(75, 70, 92, 0.7);
+  static const gray = Color.fromRGBO(168, 170, 174, 1);
   static const textColour90 = Color(0xFF252525);
 }
 
 class AppElevation {
   static BoxShadow elevationPrimary = const BoxShadow(
-    color: Color.fromARGB(70, 150, 150, 150),
+    color: Color.fromARGB(10, 0, 0, 0),
     spreadRadius: 0,
-    blurRadius: 10,
+    blurRadius: 5,
     offset: Offset(0, 2),
   );
 }

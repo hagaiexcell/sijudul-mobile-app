@@ -8,6 +8,7 @@ import 'package:flutter_project_skripsi/features/home/ui/home_page.dart';
 import 'package:flutter_project_skripsi/features/login/bloc/login_bloc.dart';
 import 'package:flutter_project_skripsi/features/login/ui/login_page.dart';
 import 'package:flutter_project_skripsi/features/login/ui/register_page.dart';
+import 'package:flutter_project_skripsi/features/notifications/ui/notifications_page.dart';
 import 'package:flutter_project_skripsi/features/pengajuan/bloc/pengajuan_bloc.dart';
 import 'package:flutter_project_skripsi/features/pengajuan/ui/pengajuan_create_page.dart';
 import 'package:flutter_project_skripsi/features/pengajuan/ui/pengajuan_detail_page.dart';
@@ -84,7 +85,8 @@ class _MainScreenState extends State<MainScreen> {
 
   final List<Widget> _screens = [
     const HomePage(),
-    PengajuanCreatePage(),
+    const PengajuanCreatePage(),
+    const NotificationsPage(),
     const ProfilePage(),
     // tambahkan layar-layar lain di sini sesuai kebutuhan Anda
   ];
@@ -105,6 +107,7 @@ class _MainScreenState extends State<MainScreen> {
           items: const [
             TabItem(icon: Icons.home_filled, title: 'Beranda'),
             TabItem(icon: Icons.add_circle_rounded, title: 'Ajukan'),
+            TabItem(icon: Icons.notifications_active_rounded, title: 'Notifikasi'),
             TabItem(icon: Icons.person, title: 'Profile'),
           ],
           onTap: (int i) => setState(() {
