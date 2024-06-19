@@ -1,18 +1,29 @@
 import 'package:flutter/material.dart';
 
 class AppBarWidget {
-  static AppBar defaultAppBar(
-      {Color? color,
-      String? title,
-      List<Widget>? actions,
-      required BuildContext context,
-      VoidCallback? onLeadingTap,
-      bool? showLeading}) {
+  static AppBar defaultAppBar({
+    Color? color,
+    String? title,
+    List<Widget>? actions,
+    required BuildContext context,
+    VoidCallback? onLeadingTap,
+    bool? showLeading,
+    VoidCallback? onSearchTap,
+  }) {
     return AppBar(
       title: Text(
         title ?? '',
         style: const TextStyle(color: Colors.black),
       ),
+      actions: actions ??
+          (onSearchTap != null
+              ? [
+                  IconButton(
+                    icon: const Icon(Icons.search_rounded, color: Colors.black),
+                    onPressed: onSearchTap,
+                  ),
+                ]
+              : null),
       centerTitle: false,
       backgroundColor: Colors.white,
       elevation: 0.2,
@@ -27,9 +38,7 @@ class AppBarWidget {
                 color: Colors.black,
               ),
             )
-          : null, // If showLeading is false, leading widget will be null
+          : null,
     );
   }
-
-  // AppBar transparent with just Back Button
 }

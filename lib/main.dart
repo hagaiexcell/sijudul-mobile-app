@@ -8,6 +8,7 @@ import 'package:flutter_project_skripsi/features/home/ui/home_page.dart';
 import 'package:flutter_project_skripsi/features/login/bloc/login_bloc.dart';
 import 'package:flutter_project_skripsi/features/login/ui/login_page.dart';
 import 'package:flutter_project_skripsi/features/login/ui/register_page.dart';
+import 'package:flutter_project_skripsi/features/notifications/bloc/notification_bloc.dart';
 import 'package:flutter_project_skripsi/features/notifications/ui/notifications_page.dart';
 import 'package:flutter_project_skripsi/features/pengajuan/bloc/pengajuan_bloc.dart';
 import 'package:flutter_project_skripsi/features/pengajuan/ui/pengajuan_create_page.dart';
@@ -48,6 +49,8 @@ class _MyAppState extends State<MyApp> {
           BlocProvider<ProfileBloc>(create: (context) => ProfileBloc()),
           BlocProvider<Dosen1Bloc>(create: (context) => Dosen1Bloc()),
           BlocProvider<PengajuanBloc>(create: (context) => PengajuanBloc()),
+          BlocProvider<NotificationBloc>(
+              create: (context) => NotificationBloc()),
         ],
         child: MaterialApp(
           theme: ThemeData(
@@ -63,10 +66,8 @@ class _MyAppState extends State<MyApp> {
             // '/ajukan': (context) => AjukanJudul(),
             '/detail-judul': (context) => const PengajuanDetailPage(),
             // '/list-judul': (context) => ListJudul(),
-            '/list-judul-all': (context) =>
-                const PengajuanListPage(type: "all"),
-            '/list-judul-user': (context) =>
-                const PengajuanListPage(type: "user"),
+            '/list-judul-all': (context) => PengajuanListPage(type: "all"),
+            '/list-judul-user': (context) => PengajuanListPage(type: "user"),
             '/list-dosen-1': (context) => const Dosen1Page(type: "dosen1"),
             '/list-dosen-2': (context) => const Dosen1Page(type: "dosen2"),
             '/detail-dosen': (context) => const DosenDetailPage(),
@@ -107,7 +108,8 @@ class _MainScreenState extends State<MainScreen> {
           items: const [
             TabItem(icon: Icons.home_filled, title: 'Beranda'),
             TabItem(icon: Icons.add_circle_rounded, title: 'Ajukan'),
-            TabItem(icon: Icons.notifications_active_rounded, title: 'Notifikasi'),
+            TabItem(
+                icon: Icons.notifications_active_rounded, title: 'Notifikasi'),
             TabItem(icon: Icons.person, title: 'Profile'),
           ],
           onTap: (int i) => setState(() {

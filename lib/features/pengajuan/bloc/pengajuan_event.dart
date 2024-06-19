@@ -31,6 +31,13 @@ class PengajuanFetchByIdEvent extends PengajuanEvent {
 
 class PengajuanResetStateEvent extends PengajuanEvent {}
 
+class PengajuanSearchEvent extends PengajuanEvent {
+  final String query;
+  final String type;
+
+  const PengajuanSearchEvent({required this.query, required this.type});
+}
+
 class PengajuanCreateEvent extends PengajuanEvent {
   final int? userId;
   final String peminatan;

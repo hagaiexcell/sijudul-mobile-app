@@ -6,3 +6,6 @@ sealed class NotificationEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+
+class NotificationFetchAllEvent extends NotificationEvent{}

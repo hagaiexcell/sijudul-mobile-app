@@ -18,6 +18,7 @@ class PengajuanBloc extends Bloc<PengajuanEvent, PengajuanState> {
     on<PengajuanFetchByIdEvent>(pengajuanFetchByIdEvent);
     on<PengajuanResetStateEvent>(pengajuanResetStateEvent);
     on<PengajuanCreateEvent>(pengajuanCreateEvent);
+    on<PengajuanSearchEvent>(pengajuanSearchEvent);
   }
 
   FutureOr<void> pengajuanInitialFetchEvent(
@@ -26,7 +27,7 @@ class PengajuanBloc extends Bloc<PengajuanEvent, PengajuanState> {
     if (_cachedPengajuanList == null) {
       try {
         // Fetch data from API
-        final listPengajuan = await PengajuanRepo.fetchAllPengajuan();
+        final listPengajuan = await PengajuanRepo.fetchAllPengajuan(query: "");
         _cachedPengajuanList = listPengajuan;
         emit(PengajuanFetchingSuccessfulState(listPengajuan: listPengajuan));
       } catch (e) {
@@ -36,7 +37,7 @@ class PengajuanBloc extends Bloc<PengajuanEvent, PengajuanState> {
       // emit(PengajuanLoadingState());
 
       if (event.isInitial) {
-        final listPengajuan = await PengajuanRepo.fetchAllPengajuan();
+        final listPengajuan = await PengajuanRepo.fetchAllPengajuan(query: "");
         _cachedPengajuanList = listPengajuan;
 
         emit(PengajuanFetchingSuccessfulState(listPengajuan: listPengajuan));
@@ -71,13 +72,12 @@ class PengajuanBloc extends Bloc<PengajuanEvent, PengajuanState> {
   FutureOr<void> pengajuanFetchAllByMahasiswaIdEvent(
       PengajuanFetchAllByMahasiswaIdEvent event,
       Emitter<PengajuanState> emit) async {
-   
     emit(PengajuanLoadingState());
     if (_cachedPengajuanUserList == null) {
       try {
         // Fetch data from API
         final listPengajuanUser =
-            await PengajuanRepo.fetchAllPengajuanByIdMahasiswa(event.id);
+            await PengajuanRepo.fetchAllPengajuanByIdMahasiswa(id: event.id);
         _cachedPengajuanUserList = listPengajuanUser;
         emit(
             PengajuanFetchingSuccessfulState(listPengajuan: listPengajuanUser));
@@ -86,8 +86,9 @@ class PengajuanBloc extends Bloc<PengajuanEvent, PengajuanState> {
       }
     } else {
       if (event.isInitial) {
+        
         final listPengajuanUser =
-            await PengajuanRepo.fetchAllPengajuanByIdMahasiswa(event.id);
+            await PengajuanRepo.fetchAllPengajuanByIdMahasiswa(id: event.id);
         _cachedPengajuanUserList = listPengajuanUser;
         emit(
             PengajuanFetchingSuccessfulState(listPengajuan: listPengajuanUser));
@@ -103,7 +104,7 @@ class PengajuanBloc extends Bloc<PengajuanEvent, PengajuanState> {
     emit(PengajuanCreateLoadingState());
     try {
       final checkSimilarity = await PengajuanRepo.similarityCheck(event.judul);
-      
+
       if (checkSimilarity.containsKey('similarity') &&
           checkSimilarity['similarity'] != null) {
         double similarity = checkSimilarity['similarity'];
@@ -123,6 +124,28 @@ class PengajuanBloc extends Bloc<PengajuanEvent, PengajuanState> {
       }
     } catch (e) {
       emit(PengajuanCreateErrorState(error: e.toString()));
+    }
+  }
+
+  FutureOr<void> pengajuanSearchEvent(
+      event, Emitter<PengajuanState> emit) async {
+    emit(PengajuanLoadingState());
+    print(event.type);
+    try {
+      // print(event.query);
+      final List<Pengajuan> listPengajuan;
+      if (event.type == "all") {
+        listPengajuan =
+            await PengajuanRepo.fetchAllPengajuan(query: event.query);
+        emit(PengajuanFetchingSuccessfulState(listPengajuan: listPengajuan));
+      } else if (event.type == "user") {
+        listPengajuan = await PengajuanRepo.fetchAllPengajuanByIdMahasiswa(
+            id: event.id, query: event.query);
+        emit(PengajuanFetchingSuccessfulState(listPengajuan: listPengajuan));
+      }
+      // print(listPengajuan);
+    } catch (e) {
+      emit(PengajuanFetchingErrorState(e.toString()));
     }
   }
 }

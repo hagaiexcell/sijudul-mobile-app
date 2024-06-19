@@ -229,6 +229,8 @@ class PengajuanDetailPage extends StatelessWidget {
                 ),
               ),
             );
+          } else if (state is PengajuanFetchingErrorState) {
+            return Center(child: Text(state.error));
           }
           return Container();
         },

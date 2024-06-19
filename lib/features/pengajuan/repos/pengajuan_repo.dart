@@ -8,14 +8,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 class PengajuanRepo {
   static final baseUrl = dotenv.get("BASE_URL");
 
-  static Future<List<Pengajuan>> fetchAllPengajuan() async {
+  static Future<List<Pengajuan>> fetchAllPengajuan({query}) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     var client = http.Client();
 
     List<Pengajuan> listPengajuan = [];
 
     try {
-      var response = await client.get(Uri.parse("$baseUrl/pengajuan"),
+      var response = await client.get(Uri.parse("$baseUrl/pengajuan/?judul=$query"),
           headers: {
             "Authorization": "Bearer ${prefs.getString('auth_token')}"
           });
@@ -41,7 +41,7 @@ class PengajuanRepo {
     }
   }
 
-  static Future<List<Pengajuan>> fetchAllPengajuanByIdMahasiswa(id) async {
+  static Future<List<Pengajuan>> fetchAllPengajuanByIdMahasiswa({id,query}) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     var client = http.Client();
     List<Pengajuan> listPengajuan = [];
@@ -186,4 +186,6 @@ class PengajuanRepo {
       rethrow;
     }
   }
+
+
 }
