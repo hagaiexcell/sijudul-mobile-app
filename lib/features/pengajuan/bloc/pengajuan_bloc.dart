@@ -77,7 +77,8 @@ class PengajuanBloc extends Bloc<PengajuanEvent, PengajuanState> {
       try {
         // Fetch data from API
         final listPengajuanUser =
-            await PengajuanRepo.fetchAllPengajuanByIdMahasiswa(id: event.id);
+            await PengajuanRepo.fetchAllPengajuanByIdMahasiswa(
+                id: event.id, query: "");
         _cachedPengajuanUserList = listPengajuanUser;
         emit(
             PengajuanFetchingSuccessfulState(listPengajuan: listPengajuanUser));
@@ -86,9 +87,9 @@ class PengajuanBloc extends Bloc<PengajuanEvent, PengajuanState> {
       }
     } else {
       if (event.isInitial) {
-        
         final listPengajuanUser =
-            await PengajuanRepo.fetchAllPengajuanByIdMahasiswa(id: event.id);
+            await PengajuanRepo.fetchAllPengajuanByIdMahasiswa(
+                id: event.id, query: "");
         _cachedPengajuanUserList = listPengajuanUser;
         emit(
             PengajuanFetchingSuccessfulState(listPengajuan: listPengajuanUser));
@@ -130,7 +131,6 @@ class PengajuanBloc extends Bloc<PengajuanEvent, PengajuanState> {
   FutureOr<void> pengajuanSearchEvent(
       event, Emitter<PengajuanState> emit) async {
     emit(PengajuanLoadingState());
-    print(event.type);
     try {
       // print(event.query);
       final List<Pengajuan> listPengajuan;

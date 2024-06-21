@@ -10,10 +10,8 @@ import 'dart:async';
 
 class PengajuanListPage extends StatelessWidget {
   final String type;
-  PengajuanListPage({
-    Key? key,
-    required this.type,
-  }) : super(key: key);
+  int? id;
+  PengajuanListPage({Key? key, required this.type, this.id}) : super(key: key);
 
   final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false);
   final TextEditingController _searchController = TextEditingController();
@@ -26,6 +24,7 @@ class PengajuanListPage extends StatelessWidget {
     final userData = prefs.getString('userData');
     if (userData != null) {
       final Map<String, dynamic> userMap = jsonDecode(userData);
+      id = userMap['id'];
       return userMap['id'];
     }
     return null;
@@ -48,7 +47,7 @@ class PengajuanListPage extends StatelessWidget {
       _currentSearchQuery = value;
       context
           .read<PengajuanBloc>()
-          .add(PengajuanSearchEvent(query: value, type: type));
+          .add(PengajuanSearchEvent(query: value, type: type, id: id));
     });
   }
 
@@ -198,9 +197,8 @@ class BuildContent extends StatelessWidget {
         if (currentSearchQuery.isNotEmpty) {
           searchController.text =
               currentSearchQuery; // Set search query in text field
-          context
-              .read<PengajuanBloc>()
-              .add(PengajuanSearchEvent(query: currentSearchQuery, type: type));
+          context.read<PengajuanBloc>().add(PengajuanSearchEvent(
+              query: currentSearchQuery, type: type, id: userId));
         }
         if (state is PengajuanResetState) {
           if (type == "all") {
@@ -216,51 +214,57 @@ class BuildContent extends StatelessWidget {
         } else if (state is PengajuanLoadingState) {
           return const Center(child: CircularProgressIndicator());
         } else if (state is PengajuanFetchingSuccessfulState) {
-          return ListView.builder(
-            itemCount: state.listPengajuan.length,
-            itemBuilder: (context, index) => InkWell(
-              onTap: () => onDetailTap(state.listPengajuan[index].id),
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                margin: const EdgeInsets.only(bottom: 12),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: [AppElevation.elevationPrimary],
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            state.listPengajuan[index].judul,
-                            style: const TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w500),
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            "${state.listPengajuan[index].mahasiswa.name} - ${state.listPengajuan[index].mahasiswa.nim}",
-                            style: const TextStyle(color: AppColors.gray700),
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            "${state.listPengajuan[index].mahasiswa.prodi} (${state.listPengajuan[index].mahasiswa.angkatan})",
-                            style: const TextStyle(color: AppColors.gray700),
-                          ),
-                        ],
+          if (state.listPengajuan.isNotEmpty) {
+            return ListView.builder(
+              itemCount: state.listPengajuan.length,
+              itemBuilder: (context, index) => InkWell(
+                onTap: () => onDetailTap(state.listPengajuan[index].id),
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  margin: const EdgeInsets.only(bottom: 12),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [AppElevation.elevationPrimary],
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              state.listPengajuan[index].judul,
+                              style: const TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w500),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              "${state.listPengajuan[index].mahasiswa.name} - ${state.listPengajuan[index].mahasiswa.nim}",
+                              style: const TextStyle(color: AppColors.gray700),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              "${state.listPengajuan[index].mahasiswa.prodi} (${state.listPengajuan[index].mahasiswa.angkatan})",
+                              style: const TextStyle(color: AppColors.gray700),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    SvgPicture.asset(
-                      "lib/resources/images/arrow-right.svg",
-                      width: 30,
-                    ),
-                  ],
+                      SvgPicture.asset(
+                        "lib/resources/images/arrow-right.svg",
+                        width: 30,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          );
+            );
+          } else {
+            return const Center(
+              child: Text("Data Not Found"),
+            );
+          }
         }
         return Container();
       },

@@ -15,10 +15,10 @@ class PengajuanRepo {
     List<Pengajuan> listPengajuan = [];
 
     try {
-      var response = await client.get(Uri.parse("$baseUrl/pengajuan/?judul=$query"),
-          headers: {
-            "Authorization": "Bearer ${prefs.getString('auth_token')}"
-          });
+      var response = await client
+          .get(Uri.parse("$baseUrl/pengajuan/?judul=$query"), headers: {
+        "Authorization": "Bearer ${prefs.getString('auth_token')}"
+      });
 
       if (response.statusCode == 200) {
         Map<String, dynamic> jsonResponse = jsonDecode(response.body);
@@ -41,16 +41,18 @@ class PengajuanRepo {
     }
   }
 
-  static Future<List<Pengajuan>> fetchAllPengajuanByIdMahasiswa({id,query}) async {
+  static Future<List<Pengajuan>> fetchAllPengajuanByIdMahasiswa(
+      {id, query}) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     var client = http.Client();
     List<Pengajuan> listPengajuan = [];
-
+    // print(query);
     try {
-      var response = await client
-          .get(Uri.parse("$baseUrl/pengajuan/mahasiswa/$id"), headers: {
-        "Authorization": "Bearer ${prefs.getString('auth_token')}"
-      });
+      var response = await client.get(
+          Uri.parse("$baseUrl/pengajuan/mahasiswa/$id?judul=$query"),
+          headers: {
+            "Authorization": "Bearer ${prefs.getString('auth_token')}"
+          });
 
       if (response.statusCode == 200) {
         Map<String, dynamic> jsonResponse = jsonDecode(response.body);
@@ -61,7 +63,7 @@ class PengajuanRepo {
           listPengajuan.add(pengajuan);
         }
       } else {
-        throw Exception('Failed to load pengajuan');
+        throw Exception(jsonDecode(response.body)['error']);
       }
 
       return listPengajuan;
@@ -186,6 +188,4 @@ class PengajuanRepo {
       rethrow;
     }
   }
-
-
 }

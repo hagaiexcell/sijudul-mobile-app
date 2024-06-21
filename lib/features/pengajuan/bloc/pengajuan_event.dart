@@ -34,8 +34,10 @@ class PengajuanResetStateEvent extends PengajuanEvent {}
 class PengajuanSearchEvent extends PengajuanEvent {
   final String query;
   final String type;
+  final int? id;
 
-  const PengajuanSearchEvent({required this.query, required this.type});
+  const PengajuanSearchEvent(
+      {required this.query, required this.type, this.id});
 }
 
 class PengajuanCreateEvent extends PengajuanEvent {
