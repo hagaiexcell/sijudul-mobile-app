@@ -25,8 +25,11 @@ class Dosen1Bloc extends Bloc<Dosen1Event, Dosen1State> {
     try {
       List<Dosen> listDosen = await Dosen1Repo.fetchDosen(event.type);
       if (event.type == "dosen1") {
-        listDosen =
-            listDosen.where((dosen) => dosen.prodi == "Informatika").toList();
+        listDosen = listDosen
+            .where((dosen) =>
+                dosen.prodi == "Informatika" &&
+                (event.kepakaran == null || dosen.kepakaran == event.kepakaran))
+            .toList();
         emit(Dosen1FetchingSuccessfulState(
             listDosen: listDosen, type: 'dosen1'));
         // add(const DosenInitialFetchEvent(type: 'dosen2'));

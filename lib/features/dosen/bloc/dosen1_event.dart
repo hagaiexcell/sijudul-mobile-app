@@ -10,8 +10,10 @@ sealed class Dosen1Event extends Equatable {
 
 final class DosenInitialFetchEvent extends Dosen1Event {
   final String type;
-  const DosenInitialFetchEvent({
+  String? kepakaran;
+   DosenInitialFetchEvent({
     required this.type,
+    this.kepakaran
   });
 }
 

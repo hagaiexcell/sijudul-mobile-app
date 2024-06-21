@@ -85,6 +85,7 @@ flutter:
     - lib/resources/images/ic-loading.svg
     - lib/resources/images/arrow-right.svg
     - lib/resources/images/ic-envelope.svg
+    - lib/resources/images/ic-peminatan-grey.svg
     - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see

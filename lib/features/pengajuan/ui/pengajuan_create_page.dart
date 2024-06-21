@@ -12,6 +12,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
+import 'package:flutter_project_skripsi/component/dropdown_custom2.dart';
 
 class PengajuanCreatePage extends StatelessWidget
     implements PreferredSizeWidget {
@@ -35,8 +36,8 @@ class PengajuanCreatePage extends StatelessWidget
     PengajuanBloc pengajuanBloc = context.read<PengajuanBloc>();
     Dosen1Bloc dosen1bloc = context.read<Dosen1Bloc>();
 
-    dosen1bloc.add(const DosenInitialFetchEvent(type: 'dosen1'));
-    dosen1bloc.add(const DosenInitialFetchEvent(type: 'dosen2'));
+    dosen1bloc.add(DosenInitialFetchEvent(type: 'dosen1'));
+    dosen1bloc.add(DosenInitialFetchEvent(type: 'dosen2'));
 
     final formKey = GlobalKey<FormBuilderState>();
 
@@ -82,12 +83,33 @@ class PengajuanCreatePage extends StatelessWidget
                   child: Column(
                     children: [
                       const LabelFormWidget(labelText: "Peminatan"),
-                      TextFieldWidget(
-                          name: "peminatan",
-                          hintText: "Peminatan",
-                          validator: FormBuilderValidators.compose([
-                            FormBuilderValidators.required(),
-                          ])),
+                      // TextFieldWidget(
+                      //     name: "peminatan",
+                      //     hintText: "Peminatan",
+                      //     validator: FormBuilderValidators.compose([
+                      //       FormBuilderValidators.required(),
+                      //     ])),
+                      DropdownButtonCustom2(
+                        hint: "Peminatan",
+                        name: "peminatan",
+                        items: const [
+                          'IT Security Specialist',
+                          'Data Scientist',
+                          'Software Engineer'
+                        ],
+                        validator: FormBuilderValidators.compose([
+                          FormBuilderValidators.required(
+                              errorText: 'This field cannot be empty'),
+                        ]),
+                        onChanged: (value) {
+                          if (value != null) {
+                            dosen1bloc.add(DosenInitialFetchEvent(
+                                type: 'dosen1', kepakaran: value));
+                            dosen1bloc.add(DosenInitialFetchEvent(
+                                type: 'dosen2', kepakaran: value));
+                          }
+                        },
+                      ),
                       const SizedBox(
                         height: 16,
                       ),

@@ -142,6 +142,7 @@ class RegisterPage extends StatelessWidget {
                         height: 12,
                       ),
                       DropdownButtonCustom2(
+                        hint: "PRODI",
                         name: "prodi",
                         items: const ['Informatika', 'Sistem Informasi'],
                         validator: FormBuilderValidators.compose([

@@ -5,14 +5,18 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 class DropdownButtonCustom2 extends StatelessWidget {
   final String name;
+  final String hint;
   final List<String> items;
   final FormFieldValidator<String>? validator;
+  final ValueChanged<String?>? onChanged;
 
   const DropdownButtonCustom2({
     super.key,
     required this.name,
+    required this.hint,
     required this.items,
     this.validator,
+    this.onChanged,
   });
 
   @override
@@ -27,13 +31,18 @@ class DropdownButtonCustom2 extends StatelessWidget {
             DropdownButtonFormField2<String>(
               isExpanded: true,
               decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: const BorderSide(
+                      color: AppColors.primary), // Change to your desired color
+                ),
                 contentPadding: const EdgeInsets.symmetric(vertical: 16),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                   borderSide: const BorderSide(color: Colors.grey),
                 ),
               ),
-              hint: const Text('PRODI'),
+              hint:  Text(hint),
               value: field.value,
               items: items
                   .map((item) => DropdownMenuItem<String>(
@@ -52,14 +61,18 @@ class DropdownButtonCustom2 extends StatelessWidget {
                     item,
                     style: TextStyle(
                       fontSize: 14,
-                      color: item == field.value ? AppColors.primary : Colors.black,
+                      color: item == field.value
+                          ? AppColors.primary
+                          : Colors.black,
                     ),
                   );
                 }).toList();
               },
               onChanged: (value) {
                 field.didChange(value);
-                FormBuilder.of(context)?.save();
+                if (onChanged != null) {
+                  onChanged!(value);
+                }
               },
             ),
             if (field.hasError)

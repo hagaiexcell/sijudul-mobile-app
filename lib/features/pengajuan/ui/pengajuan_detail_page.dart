@@ -115,6 +115,22 @@ class PengajuanDetailPage extends StatelessWidget {
                           Row(
                             children: [
                               SvgPicture.asset(
+                                "lib/resources/images/ic-peminatan-grey.svg",
+                                width: 24,
+                              ),
+                              const SizedBox(
+                                width: 12,
+                              ),
+                              Expanded(
+                                  child: Text(state.pengajuanDetail.peminatan))
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          Row(
+                            children: [
+                              SvgPicture.asset(
                                 "lib/resources/images/ic-location-grey.svg",
                                 width: 20,
                               ),
