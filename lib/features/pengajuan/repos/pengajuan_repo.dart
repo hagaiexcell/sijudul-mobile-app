@@ -118,7 +118,7 @@ class PengajuanRepo {
         "rumusan_masalah": rumusanMasalah,
         "dospem1_id": dosen1Id,
         "dospem2_id": dosen2Id,
-        "status_acc": "Checking",
+        "status_acc": "Pending",
         "rejected_note": ""
       });
 

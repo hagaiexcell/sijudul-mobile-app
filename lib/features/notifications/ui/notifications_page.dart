@@ -15,7 +15,7 @@ class NotificationsPage extends StatelessWidget {
     context.read<NotificationBloc>().add(NotificationFetchAllEvent());
     return Scaffold(
         appBar:
-            AppBarWidget.defaultAppBar(title: "Notifikasi", context: context),
+            AppBarWidget.defaultAppBar(title: "Pemberitahuan", context: context),
         body: BlocConsumer<NotificationBloc, NotificationState>(
           listener: (context, state) {
             if (state is NotificationFetchingErrorState) {
@@ -73,8 +73,35 @@ class NotificationsPage extends StatelessWidget {
                                   children: [
                                     Text(
                                       state.listNotifications[index].message,
-                                      style: const TextStyle(
-                                          color: AppColors.success,
+                                      style: TextStyle(
+                                          color: state
+                                                          .listNotifications[
+                                                              index]
+                                                          .dataPengajuan
+                                                          .status ==
+                                                      "Pending" ||
+                                                  state
+                                                          .listNotifications[
+                                                              index]
+                                                          .dataPengajuan
+                                                          .status ==
+                                                      "Checking"
+                                              ? AppColors.gray700
+                                              : state
+                                                          .listNotifications[
+                                                              index]
+                                                          .dataPengajuan
+                                                          .status ==
+                                                      "Approved"
+                                                  ? AppColors.success
+                                                  : state
+                                                              .listNotifications[
+                                                                  index]
+                                                              .dataPengajuan
+                                                              .status ==
+                                                          "Rejected"
+                                                      ? AppColors.danger
+                                                      : AppColors.primary,
                                           fontWeight: FontWeight.w600,
                                           fontSize: 15),
                                     ),

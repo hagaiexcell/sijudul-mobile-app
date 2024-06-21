@@ -198,14 +198,16 @@ class PengajuanDetailPage extends StatelessWidget {
                       height: 24,
                     ),
                     ElevatedButtonWithCustomStyle(
-                      text: state.pengajuanDetail.status == "Checking"
+                      text: state.pengajuanDetail.status == "Pending" ||
+                              state.pengajuanDetail.status == "Checking"
                           ? "PENDING"
                           : state.pengajuanDetail.status == "Approved"
                               ? "APPROVED"
                               : state.pengajuanDetail.status == "Rejected"
                                   ? "REJECTED"
                                   : "",
-                      type: state.pengajuanDetail.status == "Checking"
+                      type: state.pengajuanDetail.status == "Pending" ||
+                              state.pengajuanDetail.status == "Checking"
                           ? "pending"
                           : state.pengajuanDetail.status == "Approved"
                               ? "success"

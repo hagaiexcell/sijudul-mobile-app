@@ -3,13 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_project_skripsi/component/header_home.dart';
 import 'package:flutter_project_skripsi/component/menu_bar.dart';
 import 'package:flutter_project_skripsi/component/tag_status.dart';
+import 'package:flutter_project_skripsi/features/pengajuan/bloc/pengajuan_bloc.dart';
 import 'package:flutter_project_skripsi/features/profile/bloc/profile_bloc.dart';
 import 'package:flutter_project_skripsi/resources/resources.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({
-    super.key,
-  });
+  HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +24,11 @@ class HomePage extends StatelessWidget {
               if (state is ProfileLoadingState) {
                 return const Center(child: CircularProgressIndicator());
               } else if (state is ProfileLoadedState) {
+                int userId = state.userData['id'];
+
+                context.read<PengajuanBloc>().add(
+                    PengajuanFetchAllByMahasiswaIdEvent(
+                        id: userId, isInitial: true));
                 return HeaderHome(
                   userData: state.userData,
                 );
@@ -52,7 +56,18 @@ class HomePage extends StatelessWidget {
                 const SizedBox(
                   height: 8,
                 ),
-                const StatusHome(),
+                BlocBuilder<PengajuanBloc, PengajuanState>(
+                  builder: (context, state) {
+                    if (state is PengajuanLoadingState) {
+                      return const CircularProgressIndicator();
+                    } else if (state is PengajuanFetchingSuccessfulState) {
+                      return StatusHome(
+                        pengajuan: state.listPengajuan,
+                      );
+                    }
+                    return Container();
+                  },
+                ),
                 const SizedBox(
                   height: 24,
                 ),
@@ -94,12 +109,13 @@ class HomePage extends StatelessWidget {
 }
 
 class StatusHome extends StatelessWidget {
-  const StatusHome({
-    super.key,
-  });
+  final List<dynamic> pengajuan;
+  const StatusHome({super.key, required this.pengajuan});
 
   @override
   Widget build(BuildContext context) {
+    int lengthPengajuan = pengajuan.length;
+
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -121,16 +137,16 @@ class StatusHome extends StatelessWidget {
                 const SizedBox(
                   width: 12,
                 ),
-                const Expanded(
+                Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         "Judul",
                         style: TextStyle(fontWeight: FontWeight.w600),
                       ),
                       Text(
-                        "Rancang Bangun Aplikasi SiJuDul Dengan Framework Flutter",
+                        pengajuan[lengthPengajuan - 1].judul,
                         maxLines: 2,
                       )
                     ],
@@ -155,8 +171,15 @@ class StatusHome extends StatelessWidget {
                 const SizedBox(
                   width: 12,
                 ),
-                const TagStatus(
-                  status: "Approved",
+                TagStatus(
+                  status: pengajuan[lengthPengajuan - 1].status == "Pending" ||
+                          pengajuan[lengthPengajuan - 1].status == "Checking"
+                      ? "Pending"
+                      : pengajuan[lengthPengajuan - 1].status == "Approved"
+                          ? "Approved"
+                          : pengajuan[lengthPengajuan - 1].status == "Rejected"
+                              ? "Rejected"
+                              : "",
                 )
               ],
             ),

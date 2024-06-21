@@ -15,13 +15,10 @@ import 'package:flutter_project_skripsi/features/pengajuan/ui/pengajuan_create_p
 import 'package:flutter_project_skripsi/features/pengajuan/ui/pengajuan_detail_page.dart';
 import 'package:flutter_project_skripsi/features/pengajuan/ui/pengajuan_list_page.dart';
 import 'package:flutter_project_skripsi/features/posts/bloc/posts_bloc.dart';
-import 'package:flutter_project_skripsi/features/posts/ui/posts_page.dart';
 import 'package:flutter_project_skripsi/features/profile/bloc/profile_bloc.dart';
 import 'package:flutter_project_skripsi/features/profile/ui/profile_page.dart';
 
 import 'package:flutter_project_skripsi/resources/resources.dart';
-import 'package:flutter_project_skripsi/ui/ajukan_judul.dart';
-import 'package:flutter_project_skripsi/ui/register_screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_project_skripsi/ui/splash_screen.dart';
 
@@ -85,7 +82,7 @@ class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
   final List<Widget> _screens = [
-    const HomePage(),
+    HomePage(),
     const PengajuanCreatePage(),
     const NotificationsPage(),
     const ProfilePage(),
