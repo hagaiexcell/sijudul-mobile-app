@@ -5,14 +5,14 @@ class Notifications {
   int id;
   int mahasiswaId;
   String message;
-  // String createdAt;
+  String createdAt;
 
   Notifications({
     required this.dataPengajuan,
     required this.id,
     required this.mahasiswaId,
     required this.message,
-    // required this.createdAt,
+    required this.createdAt,
   });
 
   Map<String, dynamic> toMap() {
@@ -21,17 +21,16 @@ class Notifications {
       'id': id,
       'mahasiswaId': mahasiswaId,
       'message': message,
-      // 'createdAt': createdAt
+      'createdAt': createdAt
     };
   }
 
   factory Notifications.fromMap(Map<String, dynamic> map) {
     return Notifications(
-      dataPengajuan: Pengajuan.fromMap(map['data_pengajuan']),
-      id: map['data_pengajuan_id'],
-      mahasiswaId: map['id'] ?? 0,
-      message: map['message'],
-      // createdAt: map['CreatedAt']
-    );
+        dataPengajuan: Pengajuan.fromMap(map['data_pengajuan']),
+        id: map['data_pengajuan_id'],
+        mahasiswaId: map['id'] ?? 0,
+        message: map['message'],
+        createdAt: map['CreatedAt']);
   }
 }

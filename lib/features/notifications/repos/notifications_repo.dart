@@ -27,8 +27,10 @@ class NotificationsRepo {
         List<dynamic> results = jsonResponse['result'];
         // print("$results sjfhjsfhj");
         for (var item in results) {
-          print("heyyyyyyyy");
+          // print("heyyyyyyyy");
           Notifications notification = Notifications.fromMap(item);
+          // print(item['CreatedAt']);
+          // print(notification.createdAt);
           listNotification.add(notification);
         }
       } else {

@@ -18,6 +18,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     try {
       final List<Notifications> listNotifications =
           await NotificationsRepo.fetchAllNotifications();
+      // print(listNotifications);
       emit(NotificationFetchingSuccessfulState(
           listNotifications: listNotifications));
     } catch (e) {

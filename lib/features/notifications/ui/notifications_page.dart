@@ -40,12 +40,13 @@ class NotificationsPage extends StatelessWidget {
           },
           builder: (context, state) {
             if (state is NotificationFetchingSuccessfulState) {
-              // print("state.listNotifications[0].dataPengajuan");
+              // print(state.listNotifications[0].createdAt);
               return ListView.builder(
                 itemCount: state.listNotifications.length,
                 itemBuilder: (context, index) {
-                  // var createdAtFormatted =
-                  //     formatDateTime(state.listNotifications[index].createdAt);
+                  var createdAtFormatted =
+                      formatDateTime(state.listNotifications[index].createdAt);
+
                   return InkWell(
                     onTap: () => Navigator.of(context).pushNamed(
                         '/detail-judul',
@@ -92,7 +93,7 @@ class NotificationsPage extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                "createdAtFormatted",
+                                createdAtFormatted,
                                 style: const TextStyle(
                                     color: AppColors.gray,
                                     fontSize: 11,
