@@ -60,7 +60,7 @@ class Pengajuan {
       peminatan: map['peminatan'] ?? "",
       judul: map['judul'] ?? "",
       tempatPenelitian: map['tempat_penelitian'] ?? "",
-      rumusanMasalah: map['rumusan_masalah'] ?? "",
+      rumusanMasalah: map['abstrak'] ?? "",
       dospem1Id: map['dospem1Id'] ?? 0,
       dospem1: Dosen.fromMap(map['dospem1'] as Map<String, dynamic>),
       dospem2Id: map['dospem2Id'] ?? 0,

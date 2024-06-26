@@ -115,7 +115,7 @@ class PengajuanRepo {
         "peminatan": peminatan,
         "judul": judul,
         "tempat_penelitian": tempatPenelitian,
-        "rumusan_masalah": rumusanMasalah,
+        "abstrak": rumusanMasalah,
         "dospem1_id": dosen1Id,
         "dospem2_id": dosen2Id,
         "status_acc": "Pending",

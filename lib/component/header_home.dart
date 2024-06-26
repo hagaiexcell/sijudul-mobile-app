@@ -32,22 +32,30 @@ class HeaderHome extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  userData['name'],
-                  style: const TextStyle(
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
-                      fontSize: 18),
-                ),
-                Text(
-                  userData['nim'],
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.w500),
-                )
-              ],
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    userData['name'],
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                        fontSize: 18),
+                  ),
+                  Text(
+                    userData['email'],
+                    style: const TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.w500),
+                  ),
+                  const SizedBox(height: 4,),
+                  Text(
+                    userData['nim'],
+                    style: const TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.w500),
+                  )
+                ],
+              ),
             ),
             ClipOval(
               child: Container(

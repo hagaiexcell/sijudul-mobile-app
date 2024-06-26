@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_project_skripsi/component/header_home.dart';
@@ -6,13 +8,30 @@ import 'package:flutter_project_skripsi/component/tag_status.dart';
 import 'package:flutter_project_skripsi/features/pengajuan/bloc/pengajuan_bloc.dart';
 import 'package:flutter_project_skripsi/features/profile/bloc/profile_bloc.dart';
 import 'package:flutter_project_skripsi/resources/resources.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
 
+  Future<int?> _getUserId() async {
+    final prefs = await SharedPreferences.getInstance();
+    final userDataJson = prefs.getString('userData');
+    if (userDataJson != null) {
+      final userData = jsonDecode(userDataJson) as Map<String, dynamic>;
+      return userData['id'];
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
-    context.read<ProfileBloc>().add(ProfileFetchEvent());
+    _getUserId().then((id) {
+      // print(id);
+      if (id != null) {
+        
+        context.read<ProfileBloc>().add(ProfileFetchEvent(id: id));
+      }
+    });
 
     return Scaffold(
       body: SingleChildScrollView(
