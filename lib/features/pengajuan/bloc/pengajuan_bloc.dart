@@ -15,6 +15,7 @@ class PengajuanBloc extends Bloc<PengajuanEvent, PengajuanState> {
     on<PengajuanInitialFetchEvent>(pengajuanInitialFetchEvent);
     on<PengajuanFetchAllByMahasiswaIdEvent>(
         pengajuanFetchAllByMahasiswaIdEvent);
+    on<MyPengajuanListEvent>(myPengajuanListEvent);
     on<PengajuanFetchByIdEvent>(pengajuanFetchByIdEvent);
     on<PengajuanResetStateEvent>(pengajuanResetStateEvent);
     on<PengajuanCreateEvent>(pengajuanCreateEvent);
@@ -100,52 +101,64 @@ class PengajuanBloc extends Bloc<PengajuanEvent, PengajuanState> {
     }
   }
 
-  FutureOr<void> pengajuanCreateEvent(
-      event, Emitter<PengajuanState> emit) async {
-    emit(PengajuanCreateLoadingState());
-    try {
-      final checkSimilarity = await PengajuanRepo.similarityCheck(event.judul);
-
-      if (checkSimilarity.containsKey('similarity') &&
-          checkSimilarity['similarity'] != null) {
-        double similarity = checkSimilarity['similarity'];
-        emit(PengajuanCreateErrorState(
-            error:
-                '${checkSimilarity['message']} with "${checkSimilarity['similar']}" (${similarity.toStringAsFixed(2)}%)'));
-      } else {
-        await PengajuanRepo.createPengajuan(
-            id: event.userId,
-            judul: event.judul,
-            peminatan: event.peminatan,
-            rumusanMasalah: event.rumusanMasalah,
-            tempatPenelitian: event.tempatPenelitian,
-            dosen1Id: event.dosen1Id,
-            dosen2Id: event.dosen2Id);
-        emit(PengajuanCreateSuccessfullState());
-      }
-    } catch (e) {
-      emit(PengajuanCreateErrorState(error: e.toString()));
-    }
-  }
-
-  FutureOr<void> pengajuanSearchEvent(
-      event, Emitter<PengajuanState> emit) async {
+  FutureOr<void> myPengajuanListEvent(
+      MyPengajuanListEvent event, Emitter<PengajuanState> emit) async {
     emit(PengajuanLoadingState());
     try {
-      // print(event.query);
-      final List<Pengajuan> listPengajuan;
-      if (event.type == "all") {
-        listPengajuan =
-            await PengajuanRepo.fetchAllPengajuan(query: event.query);
-        emit(PengajuanFetchingSuccessfulState(listPengajuan: listPengajuan));
-      } else if (event.type == "user") {
-        listPengajuan = await PengajuanRepo.fetchAllPengajuanByIdMahasiswa(
-            id: event.id, query: event.query);
-        emit(PengajuanFetchingSuccessfulState(listPengajuan: listPengajuan));
-      }
-      // print(listPengajuan);
+      // Fetch data from API
+      final listPengajuanUser =
+          await PengajuanRepo.fetchAllPengajuanByIdMahasiswa(
+              id: event.id, query: "");
+
+      emit(PengajuanFetchingSuccessfulState(listPengajuan: listPengajuanUser));
     } catch (e) {
       emit(PengajuanFetchingErrorState(e.toString()));
     }
+  }
+}
+
+FutureOr<void> pengajuanCreateEvent(event, Emitter<PengajuanState> emit) async {
+  emit(PengajuanCreateLoadingState());
+  try {
+    final checkSimilarity = await PengajuanRepo.similarityCheck(event.judul);
+
+    if (checkSimilarity.containsKey('similarity') &&
+        checkSimilarity['similarity'] != null) {
+      double similarity = checkSimilarity['similarity'];
+      emit(PengajuanCreateErrorState(
+          error:
+              '${checkSimilarity['message']} with "${checkSimilarity['similar']}" (${similarity.toStringAsFixed(2)}%)'));
+    } else {
+      await PengajuanRepo.createPengajuan(
+          id: event.userId,
+          judul: event.judul,
+          peminatan: event.peminatan,
+          rumusanMasalah: event.rumusanMasalah,
+          tempatPenelitian: event.tempatPenelitian,
+          dosen1Id: event.dosen1Id,
+          dosen2Id: event.dosen2Id);
+      emit(PengajuanCreateSuccessfullState());
+    }
+  } catch (e) {
+    emit(PengajuanCreateErrorState(error: e.toString()));
+  }
+}
+
+FutureOr<void> pengajuanSearchEvent(event, Emitter<PengajuanState> emit) async {
+  emit(PengajuanLoadingState());
+  try {
+    // print(event.query);
+    final List<Pengajuan> listPengajuan;
+    if (event.type == "all") {
+      listPengajuan = await PengajuanRepo.fetchAllPengajuan(query: event.query);
+      emit(PengajuanFetchingSuccessfulState(listPengajuan: listPengajuan));
+    } else if (event.type == "user") {
+      listPengajuan = await PengajuanRepo.fetchAllPengajuanByIdMahasiswa(
+          id: event.id, query: event.query);
+      emit(PengajuanFetchingSuccessfulState(listPengajuan: listPengajuan));
+    }
+    // print(listPengajuan);
+  } catch (e) {
+    emit(PengajuanFetchingErrorState(e.toString()));
   }
 }

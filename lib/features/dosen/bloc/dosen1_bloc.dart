@@ -21,20 +21,22 @@ class Dosen1Bloc extends Bloc<Dosen1Event, Dosen1State> {
     } else if (event.type == "dosen2") {
       emit(const DosenLoadingState(type: 'dosen2'));
     }
-
+    // print(event.prodi);
     try {
       List<Dosen> listDosen = await Dosen1Repo.fetchDosen(event.type);
       if (event.type == "dosen1") {
         listDosen = listDosen
             .where((dosen) =>
-                dosen.prodi == "Informatika" &&
+                dosen.prodi == event.prodi &&
                 (event.kepakaran == null || dosen.kepakaran == event.kepakaran))
             .toList();
+        // print(event.prodi);
         emit(Dosen1FetchingSuccessfulState(
             listDosen: listDosen, type: 'dosen1'));
         // add(const DosenInitialFetchEvent(type: 'dosen2'));
       } else if (event.type == "dosen2") {
-        listDosen = listDosen.where((dosen) => dosen.jabatan == "").toList();
+        listDosen =
+            listDosen.where((dosen) => dosen.jabatan == "Dosen").toList();
         emit(Dosen2FetchingSuccessfulState(
             listDosen: listDosen, type: 'dosen2'));
       }

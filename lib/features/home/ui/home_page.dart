@@ -28,7 +28,6 @@ class HomePage extends StatelessWidget {
     _getUserId().then((id) {
       // print(id);
       if (id != null) {
-        
         context.read<ProfileBloc>().add(ProfileFetchEvent(id: id));
       }
     });
@@ -45,9 +44,9 @@ class HomePage extends StatelessWidget {
               } else if (state is ProfileLoadedState) {
                 int userId = state.userData['id'];
 
-                context.read<PengajuanBloc>().add(
-                    PengajuanFetchAllByMahasiswaIdEvent(
-                        id: userId, isInitial: true));
+                context
+                    .read<PengajuanBloc>()
+                    .add(MyPengajuanListEvent(id: userId, isInitial: true));
                 return HeaderHome(
                   userData: state.userData,
                 );
@@ -196,15 +195,15 @@ class StatusHome extends StatelessWidget {
                           width: 12,
                         ),
                         TagStatus(
-                          status: pengajuan[lengthPengajuan - 1].status ==
+                          status: pengajuan[lengthPengajuan - 1].statusAccKaprodi ==
                                       "Pending" ||
-                                  pengajuan[lengthPengajuan - 1].status ==
+                                  pengajuan[lengthPengajuan - 1].statusAccKaprodi ==
                                       "Checking"
                               ? "Pending"
-                              : pengajuan[lengthPengajuan - 1].status ==
+                              : pengajuan[lengthPengajuan - 1].statusAccKaprodi ==
                                       "Approved"
                                   ? "Approved"
-                                  : pengajuan[lengthPengajuan - 1].status ==
+                                  : pengajuan[lengthPengajuan - 1].statusAccKaprodi ==
                                           "Rejected"
                                       ? "Rejected"
                                       : "",

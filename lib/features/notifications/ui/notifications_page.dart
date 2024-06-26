@@ -78,27 +78,27 @@ class NotificationsPage extends StatelessWidget {
                                                           .listNotifications[
                                                               index]
                                                           .dataPengajuan
-                                                          .status ==
+                                                          .statusAccKaprodi ==
                                                       "Pending" ||
                                                   state
                                                           .listNotifications[
                                                               index]
                                                           .dataPengajuan
-                                                          .status ==
+                                                          .statusAccKaprodi ==
                                                       "Checking"
                                               ? AppColors.gray700
                                               : state
                                                           .listNotifications[
                                                               index]
                                                           .dataPengajuan
-                                                          .status ==
+                                                          .statusAccKaprodi ==
                                                       "Approved"
                                                   ? AppColors.success
                                                   : state
                                                               .listNotifications[
                                                                   index]
                                                               .dataPengajuan
-                                                              .status ==
+                                                              .statusAccKaprodi ==
                                                           "Rejected"
                                                       ? AppColors.danger
                                                       : AppColors.primary,

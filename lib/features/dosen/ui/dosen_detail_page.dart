@@ -161,7 +161,8 @@ class DosenDetailPage extends StatelessWidget {
                                   ),
                                   Text(
                                     (state.detail.kapasitas -
-                                            state.detail.totalMahasiswa)
+                                            state.detail.mahasiswaBimbingan
+                                                .length)
                                         .toString(),
                                     style: const TextStyle(
                                         color: AppColors.gray700),

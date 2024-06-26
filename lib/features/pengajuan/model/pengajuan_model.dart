@@ -16,6 +16,7 @@ class Pengajuan {
   int dospem2Id;
   Dosen dospem2;
   String status;
+  String statusAccKaprodi;
   String notes;
   User mahasiswa;
 
@@ -31,6 +32,7 @@ class Pengajuan {
     required this.dospem2Id,
     required this.dospem2,
     required this.status,
+    required this.statusAccKaprodi,
     required this.notes,
     required this.mahasiswa,
   });
@@ -48,6 +50,7 @@ class Pengajuan {
       'dospem2Id': dospem2Id,
       'dospem2': dospem2.toMap(),
       'status': status,
+      'statusAccKaprodi': statusAccKaprodi,
       'notes': notes,
       'mahasiswa': mahasiswa.toJson()
     };
@@ -66,6 +69,7 @@ class Pengajuan {
       dospem2Id: map['dospem2Id'] ?? 0,
       dospem2: Dosen.fromMap(map['dospem2'] as Map<String, dynamic>),
       status: map['status_acc'] ?? "",
+      statusAccKaprodi: map['status_acc_kaprodi'] ?? "",
       notes: map['rejected_note'] ?? "",
       mahasiswa: User.fromJson(map['mahasiswa'] as Map<String, dynamic>, ''),
     );

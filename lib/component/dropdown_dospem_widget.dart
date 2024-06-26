@@ -30,19 +30,22 @@ class DropDownDospem extends StatelessWidget {
                     constraints: const BoxConstraints(maxHeight: 200),
                     itemBuilder:
                         (BuildContext context, Dosen? item, bool isSelected) {
+                     
                       return Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 12, vertical: 8),
                         child: Row(children: [
-                          Text(
-                            item?.name ?? "",
-                            style: const TextStyle(fontSize: 16),
+                          Expanded(
+                            child: Text(
+                              item?.name ?? "",
+                              style: const TextStyle(fontSize: 16),
+                            ),
                           ),
                           const SizedBox(
                             width: 8,
                           ),
                           Text(
-                            "(Kuota : ${item?.kapasitas ?? ""})",
+                            "Kuota : ${(item?.kapasitas ?? 0) - (item?.mahasiswaBimbingan.length ?? 0)}",
                             style: const TextStyle(
                                 fontSize: 12, color: AppColors.primary),
                           )

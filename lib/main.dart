@@ -86,7 +86,7 @@ class _MainScreenState extends State<MainScreen> {
   final List<Widget> _screens = [
     HomePage(),
     const PengajuanCreatePage(),
-    const NotificationsPage(),
+    // const NotificationsPage(),
     const ProfilePage(),
     // tambahkan layar-layar lain di sini sesuai kebutuhan Anda
   ];
@@ -107,8 +107,8 @@ class _MainScreenState extends State<MainScreen> {
           items: const [
             TabItem(icon: Icons.home_filled, title: 'Beranda'),
             TabItem(icon: Icons.add_circle_rounded, title: 'Ajukan'),
-            TabItem(
-                icon: Icons.notifications_active_rounded, title: 'Notifikasi'),
+            // TabItem(
+            //     icon: Icons.notifications_active_rounded, title: 'Notifikasi'),
             TabItem(icon: Icons.person, title: 'Profile'),
           ],
           onTap: (int i) => setState(() {

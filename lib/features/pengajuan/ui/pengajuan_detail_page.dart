@@ -173,7 +173,9 @@ class PengajuanDetailPage extends StatelessWidget {
                               const SizedBox(
                                 width: 12,
                               ),
-                              Text(state.pengajuanDetail.dospem1.name)
+                              Expanded(
+                                  child:
+                                      Text(state.pengajuanDetail.dospem1.name))
                             ],
                           ),
                           const SizedBox(
@@ -188,7 +190,9 @@ class PengajuanDetailPage extends StatelessWidget {
                               const SizedBox(
                                 width: 12,
                               ),
-                              Text(state.pengajuanDetail.dospem2.name)
+                              Expanded(
+                                  child:
+                                      Text(state.pengajuanDetail.dospem2.name))
                             ],
                           ),
                         ],
@@ -198,20 +202,26 @@ class PengajuanDetailPage extends StatelessWidget {
                       height: 24,
                     ),
                     ElevatedButtonWithCustomStyle(
-                      text: state.pengajuanDetail.status == "Pending" ||
-                              state.pengajuanDetail.status == "Checking"
+                      text: state.pengajuanDetail.statusAccKaprodi ==
+                                  "Pending" ||
+                              state.pengajuanDetail.statusAccKaprodi ==
+                                  "Checking"
                           ? "PENDING"
-                          : state.pengajuanDetail.status == "Approved"
+                          : state.pengajuanDetail.statusAccKaprodi == "Approved"
                               ? "APPROVED"
-                              : state.pengajuanDetail.status == "Rejected"
+                              : state.pengajuanDetail.statusAccKaprodi ==
+                                      "Rejected"
                                   ? "REJECTED"
                                   : "",
-                      type: state.pengajuanDetail.status == "Pending" ||
-                              state.pengajuanDetail.status == "Checking"
+                      type: state.pengajuanDetail.statusAccKaprodi ==
+                                  "Pending" ||
+                              state.pengajuanDetail.statusAccKaprodi ==
+                                  "Checking"
                           ? "pending"
-                          : state.pengajuanDetail.status == "Approved"
+                          : state.pengajuanDetail.statusAccKaprodi == "Approved"
                               ? "success"
-                              : state.pengajuanDetail.status == "Rejected"
+                              : state.pengajuanDetail.statusAccKaprodi ==
+                                      "Rejected"
                                   ? "danger"
                                   : "",
                       onPressed: () {},

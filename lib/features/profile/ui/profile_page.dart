@@ -22,7 +22,7 @@ class ProfilePage extends StatelessWidget {
   Future<void> logout(BuildContext context) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove(
-        'auth_token'); // Ensure 'auth_token' is the key you're using to store the token
+        'auth_token');
 
     // ignore: use_build_context_synchronously
     Navigator.of(context).pushReplacementNamed('/login');
