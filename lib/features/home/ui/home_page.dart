@@ -115,77 +115,86 @@ class StatusHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     int lengthPengajuan = pengajuan.length;
+    // print(lengthPengajuan);
 
     return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          color: Colors.white,
-          boxShadow: [AppElevation.elevationPrimary]),
-      child: Column(
-        children: [
-          IntrinsicHeight(
-            child: Row(
-              children: [
-                Container(
-                  width: 2,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(2),
-                    color: AppColors.primary,
+        width: double.infinity,
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            color: Colors.white,
+            boxShadow: [AppElevation.elevationPrimary]),
+        child: pengajuan.isNotEmpty
+            ? Column(
+                children: [
+                  IntrinsicHeight(
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 2,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(2),
+                            color: AppColors.primary,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 12,
+                        ),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                "Judul",
+                                style: TextStyle(fontWeight: FontWeight.w600),
+                              ),
+                              Text(
+                                lengthPengajuan > 0
+                                    ? pengajuan[lengthPengajuan - 1].judul
+                                    : "Anda Belum Mengajukan Judul Apa pun",
+                                maxLines: 2,
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  width: 12,
-                ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        "Judul",
-                        style: TextStyle(fontWeight: FontWeight.w600),
-                      ),
-                      Text(
-                        pengajuan[lengthPengajuan - 1].judul,
-                        maxLines: 2,
-                      )
-                    ],
+                  const SizedBox(
+                    height: 8,
                   ),
-                )
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          IntrinsicHeight(
-            child: Row(
-              children: [
-                Container(
-                  width: 2,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(2),
-                    color: AppColors.primary,
-                  ),
-                ),
-                const SizedBox(
-                  width: 12,
-                ),
-                TagStatus(
-                  status: pengajuan[lengthPengajuan - 1].status == "Pending" ||
-                          pengajuan[lengthPengajuan - 1].status == "Checking"
-                      ? "Pending"
-                      : pengajuan[lengthPengajuan - 1].status == "Approved"
-                          ? "Approved"
-                          : pengajuan[lengthPengajuan - 1].status == "Rejected"
-                              ? "Rejected"
-                              : "",
-                )
-              ],
-            ),
-          )
-        ],
-      ),
-    );
+                  IntrinsicHeight(
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 2,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(2),
+                            color: AppColors.primary,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 12,
+                        ),
+                        TagStatus(
+                          status: pengajuan[lengthPengajuan - 1].status ==
+                                      "Pending" ||
+                                  pengajuan[lengthPengajuan - 1].status ==
+                                      "Checking"
+                              ? "Pending"
+                              : pengajuan[lengthPengajuan - 1].status ==
+                                      "Approved"
+                                  ? "Approved"
+                                  : pengajuan[lengthPengajuan - 1].status ==
+                                          "Rejected"
+                                      ? "Rejected"
+                                      : "",
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              )
+            : Text("Anda Belum Mengajukan Judul Apapun"));
   }
 }

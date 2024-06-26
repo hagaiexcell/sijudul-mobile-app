@@ -14,8 +14,8 @@ class NotificationsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     context.read<NotificationBloc>().add(NotificationFetchAllEvent());
     return Scaffold(
-        appBar:
-            AppBarWidget.defaultAppBar(title: "Pemberitahuan", context: context),
+        appBar: AppBarWidget.defaultAppBar(
+            title: "Pemberitahuan", context: context, showLeading: false),
         body: BlocConsumer<NotificationBloc, NotificationState>(
           listener: (context, state) {
             if (state is NotificationFetchingErrorState) {

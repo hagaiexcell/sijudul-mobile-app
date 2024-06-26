@@ -42,8 +42,8 @@ class PengajuanCreatePage extends StatelessWidget
     final formKey = GlobalKey<FormBuilderState>();
 
     return Scaffold(
-      appBar:
-          AppBarWidget.defaultAppBar(title: "Ajukan Judul", context: context),
+      appBar: AppBarWidget.defaultAppBar(
+          title: "Ajukan Judul", context: context, showLeading: false),
       body: SingleChildScrollView(
         child: BlocConsumer<PengajuanBloc, PengajuanState>(
           listener: (context, state) {
@@ -133,12 +133,12 @@ class PengajuanCreatePage extends StatelessWidget
                       const SizedBox(
                         height: 16,
                       ),
-                      const LabelFormWidget(labelText: "Rumusan Masalah"),
+                      const LabelFormWidget(labelText: "Abstrak"),
                       TextAreaWidget(
                         validator: FormBuilderValidators.compose([
                           FormBuilderValidators.required(),
                         ]),
-                        hintText: "Rumusan Masalah",
+                        hintText: "Abstrak",
                         name: "rumusanmasalah",
                         // textAreaResult: controller.keteranganResult,
                         maxLength: 200,
