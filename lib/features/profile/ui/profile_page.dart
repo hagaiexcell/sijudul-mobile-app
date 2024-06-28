@@ -76,14 +76,27 @@ class ProfilePage extends StatelessWidget {
                       height: 4,
                     ),
                     Text(
-                      state.userData['email'],
+                      state.userData['nim'],
                     ),
                     const SizedBox(
                       height: 4,
                     ),
                     Text(
-                      state.userData['nim'],
+                      state.userData['prodi'] == "Sarjana Informatika"
+                          ? "S1 - Informatika"
+                          : state.userData['prodi'] ==
+                                  "Sarjana Sistem Informasi"
+                              ? "S1 - Sistem Informasi"
+                              : state.userData['prodi'] == "Diploma"
+                                  ? "D3 - Sistem Informasi"
+                                  : "",
                     ),
+                    // const SizedBox(
+                    //   height: 4,
+                    // ),
+                    // Text(
+                    //   state.userData['email'],
+                    // ),
                     const SizedBox(
                       height: 24,
                     ),

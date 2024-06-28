@@ -23,7 +23,7 @@ class PengajuanFetchAllByMahasiswaIdEvent extends PengajuanEvent {
 }
 
 class MyPengajuanListEvent extends PengajuanEvent {
-  final int? id;
+  final int id;
   final bool isInitial;
 
   const MyPengajuanListEvent(

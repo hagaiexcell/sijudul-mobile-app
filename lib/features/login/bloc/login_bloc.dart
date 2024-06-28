@@ -59,7 +59,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           event.tempatLahir,
           event.tanggalLahir,
           event.jenisKelamin,
-          event.agama);
+          event.agama,
+          // event.noTelpon
+          );
       // print("haloooooo $result");
       if (result.containsKey('error') && result['error'] != null) {
         emit(RegisterSubmitFailureState(message: result['error']));

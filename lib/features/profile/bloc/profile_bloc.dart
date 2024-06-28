@@ -41,7 +41,6 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       final prefs = await SharedPreferences.getInstance();
       final userDataJson = prefs.getString('userData');
 
-      
       if (userDataJson != null) {
         // final userData = jsonDecode(userDataJson);
         // print(userData['id']);
@@ -60,8 +59,16 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       ProfileUpdateEvent event, Emitter<ProfileState> emit) async {
     emit(ProfileLoadingState());
     try {
+      // print(
+      //     "${event.name} ${event.email} ${event.agama} ${event.jenisKelamin} ${event.tempatLahir} ${event.tanggalLahir}");
       Map<String, dynamic> user = await ProfileRepo.updateProfile(
-          email: event.email, id: event.id, name: event.name);
+          email: event.email,
+          id: event.id,
+          name: event.name,
+          agama: event.agama,
+          jenisKelamin: event.jenisKelamin,
+          tanggalLahir: event.tanggalLahir,
+          tempatLahir: event.tempatLahir);
       // print(user);
       emit(ProfileLoadedState(user['result']));
     } catch (error) {

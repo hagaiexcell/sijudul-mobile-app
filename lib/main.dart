@@ -70,6 +70,7 @@ class _MyAppState extends State<MyApp> {
             '/list-dosen-2': (context) => const Dosen1Page(type: "dosen2"),
             '/detail-dosen': (context) => const DosenDetailPage(),
             '/edit-profile': (context) => const ProfileEditPage(),
+            '/profile': (context) => const ProfilePage(),
           },
         ));
   }

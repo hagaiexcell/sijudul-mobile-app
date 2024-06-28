@@ -121,8 +121,8 @@ class PengajuanCreatePage extends StatelessWidget
                                 name: "peminatan",
                                 items: const [
                                   'IT Security Specialist',
-                                  'Data Scientist',
-                                  'Software Engineer'
+                                  'Software Engineer',
+                                  'Network Engineer'
                                 ],
                                 validator: FormBuilderValidators.compose([
                                   FormBuilderValidators.required(

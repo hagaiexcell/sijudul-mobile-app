@@ -9,6 +9,7 @@ class DropdownButtonCustom2 extends StatelessWidget {
   final List<String> items;
   final FormFieldValidator<String>? validator;
   final ValueChanged<String?>? onChanged;
+  final String? initialValue;
 
   const DropdownButtonCustom2({
     super.key,
@@ -17,6 +18,7 @@ class DropdownButtonCustom2 extends StatelessWidget {
     required this.items,
     this.validator,
     this.onChanged,
+    this.initialValue
   });
 
   @override
@@ -24,6 +26,7 @@ class DropdownButtonCustom2 extends StatelessWidget {
     return FormBuilderField<String>(
       name: name,
       validator: validator,
+      initialValue: initialValue,
       builder: (FormFieldState<String?> field) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
