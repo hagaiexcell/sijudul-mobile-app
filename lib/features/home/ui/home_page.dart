@@ -26,7 +26,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _getUserId().then((id) {
-      // print(id);
+      // print("$id woy");
       if (id != null) {
         context.read<ProfileBloc>().add(ProfileFetchEvent(id: id));
       }
@@ -39,11 +39,11 @@ class HomePage extends StatelessWidget {
         children: [
           BlocBuilder<ProfileBloc, ProfileState>(
             builder: (context, state) {
+              // print("state $state");
               if (state is ProfileLoadingState) {
                 return const Center(child: CircularProgressIndicator());
               } else if (state is ProfileLoadedState) {
                 int userId = state.userData['id'];
-
                 context
                     .read<PengajuanBloc>()
                     .add(MyPengajuanListEvent(id: userId, isInitial: true));
@@ -79,6 +79,7 @@ class HomePage extends StatelessWidget {
                     if (state is PengajuanLoadingState) {
                       return const CircularProgressIndicator();
                     } else if (state is PengajuanFetchingSuccessfulState) {
+                      // print(state.listPengajuan);
                       return StatusHome(
                         pengajuan: state.listPengajuan,
                       );
@@ -195,18 +196,22 @@ class StatusHome extends StatelessWidget {
                           width: 12,
                         ),
                         TagStatus(
-                          status: pengajuan[lengthPengajuan - 1].statusAccKaprodi ==
-                                      "Pending" ||
-                                  pengajuan[lengthPengajuan - 1].statusAccKaprodi ==
-                                      "Checking"
-                              ? "Pending"
-                              : pengajuan[lengthPengajuan - 1].statusAccKaprodi ==
-                                      "Approved"
-                                  ? "Approved"
-                                  : pengajuan[lengthPengajuan - 1].statusAccKaprodi ==
-                                          "Rejected"
-                                      ? "Rejected"
-                                      : "",
+                          status:
+                              pengajuan[lengthPengajuan - 1].statusAccKaprodi ==
+                                          "Pending" ||
+                                      pengajuan[lengthPengajuan - 1]
+                                              .statusAccKaprodi ==
+                                          "Checking"
+                                  ? "Pending"
+                                  : pengajuan[lengthPengajuan - 1]
+                                              .statusAccKaprodi ==
+                                          "Approved"
+                                      ? "Approved"
+                                      : pengajuan[lengthPengajuan - 1]
+                                                  .statusAccKaprodi ==
+                                              "Rejected"
+                                          ? "Rejected"
+                                          : "",
                         )
                       ],
                     ),

@@ -54,10 +54,9 @@ class DosenDetailPage extends StatelessWidget {
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 color: const Color.fromRGBO(228, 228, 228, 1),
-                                image: const DecorationImage(
-                                  image: AssetImage(
-                                      "lib/resources/images/empty-profile.png"),
-                                ),
+                                image: DecorationImage(
+                                    image: NetworkImage(state.detail.image),
+                                    fit: BoxFit.cover),
                               ),
                             ),
                             const SizedBox(

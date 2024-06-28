@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project_skripsi/component/app_bar_widget.dart';
 import 'package:flutter_project_skripsi/component/dropdown_custom2.dart';
 import 'package:flutter_project_skripsi/component/text_field_widget.dart';
 import 'package:flutter_project_skripsi/resources/resources.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_project_skripsi/features/login/bloc/login_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
@@ -14,8 +16,54 @@ class RegisterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     LoginBloc registerBloc = context.read<LoginBloc>();
     final formKey = GlobalKey<FormBuilderState>();
+    final TextEditingController dateController = TextEditingController();
+
+    final config = CalendarDatePicker2Config(
+      calendarType: CalendarDatePicker2Type.single,
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+      currentDate: DateTime.now(),
+    );
+
+    Future<void> _selectDate(BuildContext context, FormFieldState field) async {
+      final config = CalendarDatePicker2Config(
+        calendarType: CalendarDatePicker2Type.single,
+        firstDate: DateTime(1900),
+        lastDate: DateTime.now(),
+        currentDate: DateTime.now(),
+      );
+
+      final List<DateTime>? picked = await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            child: CalendarDatePicker2(
+              config: config,
+              value: field.value != null ? [field.value] : [],
+              onValueChanged: (dates) {
+                if (dates.isNotEmpty) {
+                  field.didChange(dates[0]);
+                  dateController.text =
+                      dates[0].toLocal().toString().split(' ')[0];
+                }
+              },
+            ),
+          );
+        },
+      );
+
+      if (picked != null && picked.isNotEmpty) {
+        field.didChange(picked.first);
+        dateController.text = picked.first.toLocal().toString().split(' ')[0];
+      }
+    }
 
     return Scaffold(
+      appBar: AppBarWidget.defaultAppBar(
+        title: "Register",
+        showLeading: false,
+        context: context,
+      ),
       body: BlocConsumer<LoginBloc, LoginState>(
         listener: (context, state) {
           if (state is RegisterSubmitSuccessState) {
@@ -68,7 +116,8 @@ class RegisterPage extends StatelessWidget {
           return Center(
             child: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 child: FormBuilder(
                   key: formKey,
                   child: Column(
@@ -117,6 +166,168 @@ class RegisterPage extends StatelessWidget {
                         height: 16,
                       ),
                       TextFieldWidget(
+                        name: "tempatlahir",
+                        hintText: "Tempat Lahir",
+                        label: "Tempat Lahir",
+                        validator: FormBuilderValidators.compose([
+                          FormBuilderValidators.required(),
+                        ]),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      FormBuilderField(
+                        name: 'tanggallahir',
+                        validator: FormBuilderValidators.compose([
+                          FormBuilderValidators.required(
+                            errorText: 'This field cannot be empty',
+                          ),
+                        ]),
+                        builder: (FormFieldState<dynamic> field) {
+                          // Update the dateController text whenever field value changes
+                          if (field.value != null &&
+                              dateController.text.isEmpty) {
+                            dateController.text = (field.value as DateTime)
+                                .toLocal()
+                                .toString()
+                                .split(' ')[0];
+                          }
+
+                          return Container(
+                            width: double.infinity,
+                            height: 55,
+                            child: InkWell(
+                              onTap: () async {
+                                final config = CalendarDatePicker2Config(
+                                  calendarType: CalendarDatePicker2Type.single,
+                                  firstDate: DateTime(1900),
+                                  lastDate: DateTime.now(),
+                                  currentDate: DateTime.now(),
+                                );
+
+                                final List<DateTime>? picked = await showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return Dialog(
+                                      child: CalendarDatePicker2(
+                                        config: config,
+                                        value: field.value != null
+                                            ? [field.value]
+                                            : [],
+                                        onValueChanged: (dates) {
+                                          if (dates.isNotEmpty) {
+                                            field.didChange(dates[0]);
+                                            dateController.text = dates[0]
+                                                .toLocal()
+                                                .toString()
+                                                .split(' ')[0];
+                                          }
+                                        },
+                                      ),
+                                    );
+                                  },
+                                );
+
+                                if (picked != null && picked.isNotEmpty) {
+                                  field.didChange(picked.first);
+                                  dateController.text = picked.first
+                                      .toLocal()
+                                      .toString()
+                                      .split(' ')[0];
+                                }
+                              },
+                              child: InputDecorator(
+                                decoration: InputDecoration(
+                                  labelText: 'Tanggal Lahir',
+                                  errorText: field.errorText,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                    borderSide:
+                                        const BorderSide(color: Colors.grey),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                    borderSide: const BorderSide(
+                                        color: AppColors.primary, width: 1),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                    borderSide: const BorderSide(
+                                        color: AppColors.danger, width: 1),
+                                  ),
+                                ),
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    dateController.text.isEmpty
+                                        ? 'Pilih Tanggal Lahir'
+                                        : dateController.text,
+                                    style: dateController.text.isEmpty
+                                        ? Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium!
+                                            .copyWith(color: AppColors.gray700)
+                                        : Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium!
+                                            .copyWith(color: AppColors.primary),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      DropdownButtonCustom2(
+                        hint: "Jenis Kelamin",
+                        name: "jeniskelamin",
+                        items: const [
+                          'Pria',
+                          'Wanita',
+                        ],
+                        validator: FormBuilderValidators.compose([
+                          FormBuilderValidators.required(
+                              errorText: 'This field cannot be empty'),
+                        ]),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      DropdownButtonCustom2(
+                        hint: "Agama",
+                        name: "agama",
+                        items: const [
+                          'Islam',
+                          'Katolik',
+                          'Protestan',
+                          'Hindu',
+                          'Buddha',
+                          'Khonghucu'
+                        ],
+                        validator: FormBuilderValidators.compose([
+                          FormBuilderValidators.required(
+                              errorText: 'This field cannot be empty'),
+                        ]),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      TextFieldWidget(
+                        name: "notelpon",
+                        hintText: "No Telpon",
+                        label: "No Telpon",
+                        keyboardType: TextInputType.phone,
+                        validator: FormBuilderValidators.compose([
+                          FormBuilderValidators.required(),
+                        ]),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      TextFieldWidget(
                         name: "email",
                         hintText: "Email",
                         label: "Email",
@@ -142,9 +353,13 @@ class RegisterPage extends StatelessWidget {
                         height: 12,
                       ),
                       DropdownButtonCustom2(
-                        hint: "PRODI",
+                        hint: "Prodi",
                         name: "prodi",
-                        items: const ['Informatika', 'Sistem Informasi'],
+                        items: const [
+                          'S1 Informatika',
+                          'S1 Sistem Informasi',
+                          'D3 Sistem Informasi'
+                        ],
                         validator: FormBuilderValidators.compose([
                           FormBuilderValidators.required(
                               errorText: 'This field cannot be empty'),
@@ -190,6 +405,16 @@ class RegisterPage extends StatelessWidget {
                                 formKey.currentState?.fields['nama']?.value;
                             final nim =
                                 formKey.currentState?.fields['nim']?.value;
+                            final tempatLahir = formKey
+                                .currentState?.fields['tempatlahir']?.value;
+                            final tanggalLahir = formKey.currentState?.fields['tanggallahir']?.value;
+                            String? tanggalLahirStr = tanggalLahir?.toLocal().toString().split(' ')[0];
+                            final jenisKelamin = formKey
+                                .currentState?.fields['jeniskelamin']?.value;
+                            final agama =
+                                formKey.currentState?.fields['agama']?.value;
+                            final noTelpon =
+                                formKey.currentState?.fields['notelpon']?.value;
                             final email =
                                 formKey.currentState?.fields['email']?.value;
                             final password =
@@ -203,6 +428,11 @@ class RegisterPage extends StatelessWidget {
 
                             registerBloc.add(RegisterSubmitEvent(
                                 name: nama,
+                                tempatLahir: tempatLahir,
+                                tanggalLahir: tanggalLahirStr,
+                                jenisKelamin: jenisKelamin,
+                                agama: agama,
+                                noTelpon: noTelpon,
                                 angkatan: angkatan,
                                 email: email,
                                 nim: nim,

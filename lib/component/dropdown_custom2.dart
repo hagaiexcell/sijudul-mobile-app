@@ -42,11 +42,17 @@ class DropdownButtonCustom2 extends StatelessWidget {
                   borderSide: const BorderSide(color: Colors.grey),
                 ),
               ),
-              hint:  Text(hint),
+              hint: Text(hint),
               value: field.value,
               items: items
                   .map((item) => DropdownMenuItem<String>(
-                        value: item,
+                        value: item == "S1 Informatika"
+                            ? "Sarjana Informatika"
+                            : item == "S1 Sistem Informasi"
+                                ? "Sarjana Sistem Informasi"
+                                : item == "D3 Sistem Informasi"
+                                    ? "Diploma Sistem Informasi"
+                                    : item,
                         child: Text(
                           item,
                           style: const TextStyle(

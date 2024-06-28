@@ -5,6 +5,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 // import 'package:flutter/material.dart';
 import 'package:flutter_project_skripsi/features/login/repos/login_repo.dart';
+import 'package:flutter_project_skripsi/features/profile/bloc/profile_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_project_skripsi/features/login/model/user_model.dart';
 
@@ -20,7 +21,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   FutureOr<void> loginSubmitEvent(
       LoginSubmitEvent event, Emitter<LoginState> emit) async {
     emit(LoginLoadingState());
-
+   
     try {
       var result = await LoginRepo.loginMahasiswa(event.nim, event.password);
       // print(result);
@@ -45,10 +46,20 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   FutureOr<void> registerSubmitEvent(
       RegisterSubmitEvent event, Emitter<LoginState> emit) async {
     emit(LoginLoadingState());
-   
+
     try {
-      var result = await LoginRepo.registerMahasiswa(event.name, event.nim,
-          event.email, event.password, event.prodi, event.angkatan, event.sks);
+      var result = await LoginRepo.registerMahasiswa(
+          event.name,
+          event.nim,
+          event.email,
+          event.password,
+          event.prodi,
+          event.angkatan,
+          event.sks,
+          event.tempatLahir,
+          event.tanggalLahir,
+          event.jenisKelamin,
+          event.agama);
       // print("haloooooo $result");
       if (result.containsKey('error') && result['error'] != null) {
         emit(RegisterSubmitFailureState(message: result['error']));
@@ -72,6 +83,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   Future<void> _saveUserData(User user) async {
     final prefs = await SharedPreferences.getInstance();
     final userDataJson = jsonEncode(user.toJson());
+    // print("$userDataJson useeeee");
     await prefs.setString('userData', userDataJson);
   }
 }
