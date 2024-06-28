@@ -32,17 +32,16 @@ class ProfileRepo {
         "jenis_kelamin": jenisKelamin,
         "agama": agama
       });
-      var response = await client.put(Uri.parse("$baseUrl/mahasiswa/$id"),
-          body: body,
-          headers: {
-            "Authorization": "Bearer ${prefs.getString('auth_token')}"
-          });
+      var response = await client
+          .put(Uri.parse("$baseUrl/mahasiswa/$id"), body: body, headers: {
+        "Authorization": "Bearer ${prefs.getString('auth_token')}",
+        'Content-Type': 'application/json',
+      });
 
-      debugPrint("${response.body}");
       if (response.statusCode == 200) {
         var jsonResponse = jsonDecode(response.body);
-        print("aaaa $jsonResponse");
-        return jsonResponse;
+
+        return jsonResponse['result'];
       } else {
         throw Exception("Failed to load Profile");
       }

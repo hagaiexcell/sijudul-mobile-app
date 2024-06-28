@@ -61,7 +61,6 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     emit(ProfileLoadingState());
     try {
       // print(
-      //     "${event.name} ${event.email} ${event.agama} ${event.jenisKelamin} ${event.tempatLahir} ${event.tanggalLahir}");
       Map<String, dynamic> user = await ProfileRepo.updateProfile(
           email: event.email,
           id: event.id,
@@ -70,8 +69,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
           jenisKelamin: event.jenisKelamin,
           tanggalLahir: event.tanggalLahir,
           tempatLahir: event.tempatLahir);
-      // print(user);
-      emit(ProfileLoadedState(user['result']));
+      emit(ProfileLoadedState(user));
     } catch (error) {
       emit(ProfileErrorState(error.toString()));
     }
