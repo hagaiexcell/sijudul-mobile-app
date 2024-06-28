@@ -362,8 +362,8 @@ class ProfileEditPage extends StatelessWidget {
                               // noTelpon: noTelpon
                             ));
 
-                            Navigator.of(context)
-                                .pushReplacementNamed('/profile');
+                            // Navigator.of(context)
+                            //     .pushReplacementNamed('/profile');
                           }
                         },
                       ),
