@@ -13,6 +13,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   ProfileBloc() : super(ProfileInitialState()) {
     on<ProfileFetchEvent>(profileFetchEvent);
     on<ProfileUpdateEvent>(profileUpdateEvent);
+    on<ProfileLogoutEvent>(profileLogoutEvent);
   }
 
   // FutureOr<void> profileFetchEvent(
@@ -74,5 +75,10 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     } catch (error) {
       emit(ProfileErrorState(error.toString()));
     }
+  }
+
+  FutureOr<void> profileLogoutEvent(
+      ProfileLogoutEvent event, Emitter<ProfileState> emit) {
+    emit(ProfileInitialState());
   }
 }

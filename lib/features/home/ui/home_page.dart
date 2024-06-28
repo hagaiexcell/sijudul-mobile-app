@@ -136,88 +136,94 @@ class StatusHome extends StatelessWidget {
     int lengthPengajuan = pengajuan.length;
     // print(lengthPengajuan);
 
-    return Container(
-        width: double.infinity,
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            color: Colors.white,
-            boxShadow: [AppElevation.elevationPrimary]),
-        child: pengajuan.isNotEmpty
-            ? Column(
-                children: [
-                  IntrinsicHeight(
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 2,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(2),
-                            color: AppColors.primary,
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).pushNamed('/detail-judul',
+            arguments: pengajuan[lengthPengajuan - 1].id);
+      },
+      child: Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              color: Colors.white,
+              boxShadow: [AppElevation.elevationPrimary]),
+          child: pengajuan.isNotEmpty
+              ? Column(
+                  children: [
+                    IntrinsicHeight(
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 2,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(2),
+                              color: AppColors.primary,
+                            ),
                           ),
-                        ),
-                        const SizedBox(
-                          width: 12,
-                        ),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                "Judul",
-                                style: TextStyle(fontWeight: FontWeight.w600),
-                              ),
-                              Text(
-                                lengthPengajuan > 0
-                                    ? pengajuan[lengthPengajuan - 1].judul
-                                    : "Anda Belum Mengajukan Judul Apa pun",
-                                maxLines: 2,
-                              )
-                            ],
+                          const SizedBox(
+                            width: 12,
                           ),
-                        )
-                      ],
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  "Judul",
+                                  style: TextStyle(fontWeight: FontWeight.w600),
+                                ),
+                                Text(
+                                  lengthPengajuan > 0
+                                      ? pengajuan[lengthPengajuan - 1].judul
+                                      : "Anda Belum Mengajukan Judul Apa pun",
+                                  maxLines: 2,
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  IntrinsicHeight(
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 2,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(2),
-                            color: AppColors.primary,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 12,
-                        ),
-                        TagStatus(
-                          status:
-                              pengajuan[lengthPengajuan - 1].statusAccKaprodi ==
-                                          "Pending" ||
-                                      pengajuan[lengthPengajuan - 1]
-                                              .statusAccKaprodi ==
-                                          "Checking"
-                                  ? "Pending"
-                                  : pengajuan[lengthPengajuan - 1]
-                                              .statusAccKaprodi ==
-                                          "Approved"
-                                      ? "Approved"
-                                      : pengajuan[lengthPengajuan - 1]
-                                                  .statusAccKaprodi ==
-                                              "Rejected"
-                                          ? "Rejected"
-                                          : "",
-                        )
-                      ],
+                    const SizedBox(
+                      height: 8,
                     ),
-                  )
-                ],
-              )
-            : Text("Anda Belum Mengajukan Judul Apapun"));
+                    IntrinsicHeight(
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 2,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(2),
+                              color: AppColors.primary,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 12,
+                          ),
+                          TagStatus(
+                            status: pengajuan[lengthPengajuan - 1]
+                                            .statusAccKaprodi ==
+                                        "Pending" ||
+                                    pengajuan[lengthPengajuan - 1]
+                                            .statusAccKaprodi ==
+                                        "Checking"
+                                ? "Pending"
+                                : pengajuan[lengthPengajuan - 1]
+                                            .statusAccKaprodi ==
+                                        "Approved"
+                                    ? "Approved"
+                                    : pengajuan[lengthPengajuan - 1]
+                                                .statusAccKaprodi ==
+                                            "Rejected"
+                                        ? "Rejected"
+                                        : "",
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                )
+              : Text("Anda Belum Mengajukan Judul Apapun")),
+    );
   }
 }

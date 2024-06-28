@@ -23,6 +23,8 @@ class ProfilePage extends StatelessWidget {
     final prefs = await SharedPreferences.getInstance();
     prefs.remove('auth_token');
     prefs.remove('userData');
+    // ignore: use_build_context_synchronously
+    context.read<ProfileBloc>().add(ProfileLogoutEvent());
 
     // ignore: use_build_context_synchronously
     Navigator.of(context).pushReplacementNamed('/login');

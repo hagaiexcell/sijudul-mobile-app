@@ -23,14 +23,16 @@ class ProfileUpdateEvent extends ProfileEvent {
   final String agama;
   // final String noTelpon;
 
-  const ProfileUpdateEvent(
-      {required this.id,
-      required this.email,
-      required this.name,
-      required this.tempatLahir,
-      this.tanggalLahir,
-      required this.jenisKelamin,
-      required this.agama,
-      // required this.noTelpon
-      });
+  const ProfileUpdateEvent({
+    required this.id,
+    required this.email,
+    required this.name,
+    required this.tempatLahir,
+    this.tanggalLahir,
+    required this.jenisKelamin,
+    required this.agama,
+    // required this.noTelpon
+  });
 }
+
+class ProfileLogoutEvent extends ProfileEvent {}
