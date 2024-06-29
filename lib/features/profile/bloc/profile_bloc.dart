@@ -68,7 +68,9 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
           agama: event.agama,
           jenisKelamin: event.jenisKelamin,
           tanggalLahir: event.tanggalLahir,
-          tempatLahir: event.tempatLahir);
+          tempatLahir: event.tempatLahir,
+          noTelpon : event.noTelpon
+          );
       emit(ProfileLoadedState(user));
     } catch (error) {
       emit(ProfileErrorState(error.toString()));

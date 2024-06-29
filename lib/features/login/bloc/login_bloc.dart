@@ -60,6 +60,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           event.tanggalLahir,
           event.jenisKelamin,
           event.agama,
+          event.noTelpon
           // event.noTelpon
           );
       // print("haloooooo $result");
@@ -85,7 +86,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   Future<void> _saveUserData(User user) async {
     final prefs = await SharedPreferences.getInstance();
     final userDataJson = jsonEncode(user.toJson());
-    // print("$userDataJson useeeee");
+    print("$userDataJson useeeee");
     await prefs.setString('userData', userDataJson);
   }
 }

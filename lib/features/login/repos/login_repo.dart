@@ -38,19 +38,20 @@ class LoginRepo {
   }
 
   static Future registerMahasiswa(
-    String name,
-    String nim,
-    String email,
-    String password,
-    String prodi,
-    int? angkatan,
-    int? sks,
-    String tempatLahir,
-    String? tanggalLahir,
-    String jenisKelamin,
-    String agama,
-    // String notelpon
-  ) async {
+      String name,
+      String nim,
+      String email,
+      String password,
+      String prodi,
+      int? angkatan,
+      int? sks,
+      String tempatLahir,
+      String? tanggalLahir,
+      String jenisKelamin,
+      String agama,
+      String noTelp
+      // String notelpon
+      ) async {
     var client = http.Client();
     try {
       var body = jsonEncode({
@@ -66,7 +67,7 @@ class LoginRepo {
         "tanggal_lahir": tanggalLahir,
         "jenis_kelamin": jenisKelamin,
         "agama": agama,
-
+        "no_telp": noTelp
         // "no_telpon": notelpon
       });
       // print('Request Body: $body');

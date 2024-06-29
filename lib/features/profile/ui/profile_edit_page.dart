@@ -142,6 +142,19 @@ class ProfileEditPage extends StatelessWidget {
                               const SizedBox(
                                 height: 12,
                               ),
+                              const LabelFormWidget(labelText: "No Telpon"),
+                              TextFieldWidget(
+                                name: "notelpon",
+                                hintText: "No Telpon",
+                                initialValue: state.userData['no_telp'] ??
+                                    '', // Provide default value
+                                validator: FormBuilderValidators.compose([
+                                  FormBuilderValidators.required(),
+                                ]),
+                              ),
+                              const SizedBox(
+                                height: 12,
+                              ),
                               const LabelFormWidget(labelText: "Tempat Lahir"),
                               TextFieldWidget(
                                 name: "tempatlahir",
@@ -352,15 +365,14 @@ class ProfileEditPage extends StatelessWidget {
                                 formKey.currentState?.fields['notelpon']?.value;
 
                             profileBloc.add(ProfileUpdateEvent(
-                              email: email,
-                              name: name,
-                              id: userId,
-                              tempatLahir: tempatLahir,
-                              tanggalLahir: tanggalLahirStr,
-                              jenisKelamin: jenisKelamin,
-                              agama: agama,
-                              // noTelpon: noTelpon
-                            ));
+                                email: email,
+                                name: name,
+                                id: userId,
+                                tempatLahir: tempatLahir,
+                                tanggalLahir: tanggalLahirStr,
+                                jenisKelamin: jenisKelamin,
+                                agama: agama,
+                                noTelpon: noTelpon));
 
                             // Navigator.of(context)
                             //     .pushReplacementNamed('/profile');

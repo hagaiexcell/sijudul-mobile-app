@@ -17,7 +17,8 @@ class ProfileRepo {
       tempatLahir,
       String? tanggalLahir,
       jenisKelamin,
-      agama}) async {
+      agama,
+      noTelpon}) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     var client = http.Client();
 
@@ -30,7 +31,8 @@ class ProfileRepo {
         "tempat_lahir": tempatLahir,
         "tanggal_lahir": tanggalLahir,
         "jenis_kelamin": jenisKelamin,
-        "agama": agama
+        "agama": agama,
+        "no_telp": noTelpon
       });
       var response = await client
           .put(Uri.parse("$baseUrl/mahasiswa/$id"), body: body, headers: {
@@ -40,7 +42,7 @@ class ProfileRepo {
 
       if (response.statusCode == 200) {
         var jsonResponse = jsonDecode(response.body);
-
+        // print(jsonResponse['result']);
         return jsonResponse['result'];
       } else {
         throw Exception("Failed to load Profile");

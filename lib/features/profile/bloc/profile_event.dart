@@ -21,7 +21,7 @@ class ProfileUpdateEvent extends ProfileEvent {
   final String? tanggalLahir;
   final String jenisKelamin;
   final String agama;
-  // final String noTelpon;
+  final String noTelpon;
 
   const ProfileUpdateEvent({
     required this.id,
@@ -31,7 +31,7 @@ class ProfileUpdateEvent extends ProfileEvent {
     this.tanggalLahir,
     required this.jenisKelamin,
     required this.agama,
-    // required this.noTelpon
+    required this.noTelpon
   });
 }
 
