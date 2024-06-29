@@ -32,6 +32,7 @@ class PengajuanDetailPage extends StatelessWidget {
           } else if (state is PengajuanDetailFetchingSuccessfulState) {
             return SingleChildScrollView(
               child: Container(
+                margin: const EdgeInsets.only(top: 12),
                 padding: const EdgeInsets.only(left: 16, right: 16, bottom: 30),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

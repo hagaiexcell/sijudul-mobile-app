@@ -85,6 +85,7 @@ class ProfileEditPage extends StatelessWidget {
             } else if (state is ProfileLoadedState) {
               return SingleChildScrollView(
                 child: Container(
+                  margin: const EdgeInsets.only(top: 12),
                   padding:
                       const EdgeInsets.only(left: 16, right: 16, bottom: 30),
                   child: Column(
@@ -101,21 +102,19 @@ class ProfileEditPage extends StatelessWidget {
                           key: formKey,
                           child: Column(
                             children: [
-                              Container(
-                                height: 150,
-                                width: 150,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: const Color.fromRGBO(228, 228, 228, 1),
-                                  image: const DecorationImage(
-                                    image: AssetImage(
-                                        "lib/resources/images/empty-profile.png"),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 16,
-                              ),
+                              // Container(
+                              //   height: 150,
+                              //   width: 150,
+                              //   decoration: BoxDecoration(
+                              //     borderRadius: BorderRadius.circular(10),
+                              //     color: const Color.fromRGBO(228, 228, 228, 1),
+                              //     image: const DecorationImage(
+                              //       image: AssetImage(
+                              //           "lib/resources/images/empty-profile.png"),
+                              //     ),
+                              //   ),
+                              // ),
+
                               const LabelFormWidget(labelText: "Nama"),
                               TextFieldWidget(
                                 name: "name",

@@ -58,10 +58,10 @@ class ProfilePage extends StatelessWidget {
                       width: 100,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color: const Color.fromRGBO(228, 228, 228, 1),
+                        // color: const Color.fromRGBO(228, 228, 228, 1),
                         image: const DecorationImage(
                           image: AssetImage(
-                              "lib/resources/images/empty-profile.png"),
+                              "lib/resources/images/logo-upn-big.png"),
                         ),
                       ),
                     ),

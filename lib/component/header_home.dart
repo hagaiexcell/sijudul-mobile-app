@@ -57,17 +57,17 @@ class HeaderHome extends StatelessWidget {
                 ],
               ),
             ),
-            ClipOval(
-              child: Container(
-                width: 60,
-                height: 60,
-                decoration: const BoxDecoration(
-                    color: Color.fromRGBO(228, 228, 228, 1),
-                    image: DecorationImage(
-                        image: AssetImage(
-                            "lib/resources/images/empty-profile.png"))),
-              ),
-            )
+            // ClipOval(
+            //   child: Container(
+            //     width: 60,
+            //     height: 60,
+            //     decoration: const BoxDecoration(
+            //         color: Color.fromRGBO(228, 228, 228, 1),
+            //         image: DecorationImage(
+            //             image: AssetImage(
+            //                 "lib/resources/images/empty-profile.png"))),
+            //   ),
+            // )
           ],
         )
       ]),
