@@ -245,7 +245,7 @@ class BuildContent extends StatelessWidget {
                             ),
                             const SizedBox(height: 8),
                             Text(
-                              "${state.listPengajuan[index].mahasiswa.prodi} (${state.listPengajuan[index].mahasiswa.angkatan})",
+                              "${state.listPengajuan[index].mahasiswa.prodi == "Sarjana Informatika" ? "S1 - Informatika" : state.listPengajuan[index].mahasiswa.prodi == "Sarjana Sistem Informasi" ? "S1 - Sistem Informasi" : state.listPengajuan[index].mahasiswa.prodi == "Diploma" ? "D3 - Sistem Informasi" : ""} (${state.listPengajuan[index].mahasiswa.angkatan})",
                               style: const TextStyle(color: AppColors.gray700),
                             ),
                           ],
