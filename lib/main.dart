@@ -10,6 +10,7 @@ import 'package:flutter_project_skripsi/features/login/ui/login_page.dart';
 import 'package:flutter_project_skripsi/features/login/ui/register_page.dart';
 import 'package:flutter_project_skripsi/features/notifications/bloc/notification_bloc.dart';
 import 'package:flutter_project_skripsi/features/notifications/ui/notifications_page.dart';
+import 'package:flutter_project_skripsi/features/pengajuan/bloc/my_pengajuan_bloc.dart';
 import 'package:flutter_project_skripsi/features/pengajuan/bloc/pengajuan_bloc.dart';
 import 'package:flutter_project_skripsi/features/pengajuan/ui/pengajuan_create_page.dart';
 import 'package:flutter_project_skripsi/features/pengajuan/ui/pengajuan_detail_page.dart';
@@ -49,6 +50,7 @@ class _MyAppState extends State<MyApp> {
           BlocProvider<PengajuanBloc>(create: (context) => PengajuanBloc()),
           BlocProvider<NotificationBloc>(
               create: (context) => NotificationBloc()),
+          BlocProvider<MyPengajuanBloc>(create: (context) => MyPengajuanBloc()),
         ],
         child: MaterialApp(
           theme: ThemeData(

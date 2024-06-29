@@ -5,7 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_project_skripsi/component/header_home.dart';
 import 'package:flutter_project_skripsi/component/menu_bar.dart';
 import 'package:flutter_project_skripsi/component/tag_status.dart';
-import 'package:flutter_project_skripsi/features/pengajuan/bloc/pengajuan_bloc.dart';
+import 'package:flutter_project_skripsi/features/pengajuan/bloc/my_pengajuan_bloc.dart';
+// import 'package:flutter_project_skripsi/features/pengajuan/bloc/pengajuan_bloc.dart';
 import 'package:flutter_project_skripsi/features/profile/bloc/profile_bloc.dart';
 import 'package:flutter_project_skripsi/resources/resources.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -44,9 +45,9 @@ class HomePage extends StatelessWidget {
                 return const Center(child: CircularProgressIndicator());
               } else if (state is ProfileLoadedState) {
                 int userId = state.userData['id'];
-                context
-                    .read<PengajuanBloc>()
-                    .add(MyPengajuanListEvent(id: userId, isInitial: true));
+                context.read<MyPengajuanBloc>().add(MyPengajuanFetchEvent(
+                      id: userId,
+                    ));
                 return HeaderHome(
                   userData: state.userData,
                 );
@@ -74,11 +75,11 @@ class HomePage extends StatelessWidget {
                 const SizedBox(
                   height: 8,
                 ),
-                BlocBuilder<PengajuanBloc, PengajuanState>(
+                BlocBuilder<MyPengajuanBloc, MyPengajuanState>(
                   builder: (context, state) {
-                    if (state is PengajuanLoadingState) {
+                    if (state is MyPengajuanLoadingState) {
                       return const CircularProgressIndicator();
-                    } else if (state is PengajuanFetchingSuccessfulState) {
+                    } else if (state is MyPengajuanSuccessfulState) {
                       // print(state.listPengajuan);
                       return StatusHome(
                         pengajuan: state.listPengajuan,
