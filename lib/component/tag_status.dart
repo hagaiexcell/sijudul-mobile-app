@@ -11,9 +11,11 @@ class TagStatus extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8),
       decoration: BoxDecoration(
-          color: status == "Approved"
+          color: status == "Approved By Dosen Pembimbing" ||
+                  status == "Accepted By Kaprodi"
               ? AppColors.success
-              : status == "Rejected"
+              : status == "Rejected By Dosen Pembimbing" ||
+                      status == "Rejected By Kaprodi"
                   ? AppColors.danger
                   : AppColors.secondary,
           borderRadius: BorderRadius.circular(16)),

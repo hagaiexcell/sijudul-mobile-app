@@ -148,7 +148,8 @@ class StatusHome extends StatelessWidget {
   Widget build(BuildContext context) {
     int lengthPengajuan = pengajuan.length;
     // print(lengthPengajuan);
-
+    var statusKaprodi = pengajuan[lengthPengajuan - 1].statusAccKaprodi;
+    var statusDospem = pengajuan[lengthPengajuan - 1].status;
     return InkWell(
       onTap: () {
         Navigator.of(context).pushNamed('/detail-judul',
@@ -198,45 +199,104 @@ class StatusHome extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(
-                      height: 8,
+                      height: 16,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 22,
+                          height: 22,
+                          decoration: BoxDecoration(
+                              color: statusDospem == "Pending" ||
+                                      statusDospem == "Approved" ||
+                                      statusDospem == "Rejected"
+                                  ? AppColors.primary
+                                  : AppColors.gray,
+                              borderRadius: BorderRadius.circular(100)),
+                        ),
+                        Expanded(
+                          child: Container(
+                            height: 2,
+                            decoration: BoxDecoration(
+                              color: statusDospem == "Approved" ||
+                                      statusDospem == "Rejected"
+                                  ? AppColors.primary
+                                  : AppColors.gray,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: 22,
+                          height: 22,
+                          decoration: BoxDecoration(
+                              color: statusDospem == "Approved"
+                                  ? AppColors.primary
+                                  : statusDospem == "Rejected"
+                                      ? AppColors.danger
+                                      : AppColors.gray,
+                              borderRadius: BorderRadius.circular(100)),
+                        ),
+                        Expanded(
+                          child: Container(
+                            height: 2,
+                            decoration: BoxDecoration(
+                              color: statusKaprodi == "Approved" ||
+                                      statusKaprodi == "Rejecte"
+                                  ? AppColors.primary
+                                  : AppColors.gray,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: 22,
+                          height: 22,
+                          decoration: BoxDecoration(
+                              color: statusKaprodi == "Approved"
+                                  ? AppColors.success
+                                  : statusKaprodi == "Rejected"
+                                      ? AppColors.danger
+                                      : AppColors.gray,
+                              borderRadius: BorderRadius.circular(100)),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 16,
                     ),
                     IntrinsicHeight(
                       child: Row(
                         children: [
-                          Container(
-                            width: 2,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(2),
-                              color: AppColors.primary,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 12,
-                          ),
+                          // Container(
+                          //   width: 2,
+                          //   decoration: BoxDecoration(
+                          //     borderRadius: BorderRadius.circular(2),
+                          //     color: AppColors.primary,
+                          //   ),
+                          // ),
+                          // const SizedBox(
+                          //   width: 12,
+                          // ),
                           TagStatus(
-                            status: pengajuan[lengthPengajuan - 1]
-                                            .statusAccKaprodi ==
-                                        "Pending" ||
-                                    pengajuan[lengthPengajuan - 1]
-                                            .statusAccKaprodi ==
-                                        "Checking"
+                            status: statusKaprodi == "Pending" ||
+                                    statusDospem == "Pending"
                                 ? "Pending"
-                                : pengajuan[lengthPengajuan - 1]
-                                            .statusAccKaprodi ==
-                                        "Approved"
-                                    ? "Approved"
-                                    : pengajuan[lengthPengajuan - 1]
-                                                .statusAccKaprodi ==
-                                            "Rejected"
-                                        ? "Rejected"
-                                        : "",
+                                : statusDospem == "Approved"
+                                    ? "Approved By Dosen Pembimbing"
+                                    : statusDospem == "Rejected"
+                                        ? "Rejected By Dosen Pembimbing"
+                                        : statusKaprodi == "Approved"
+                                            ? "Accepted By Kaprodi"
+                                            : statusKaprodi == "Rejected"
+                                                ? "Rejected By Kaprodi"
+                                                : "",
                           )
                         ],
                       ),
                     )
                   ],
                 )
-              : Text("Anda Belum Mengajukan Judul Apapun")),
+              : const Text("Anda Belum Mengajukan Judul Apapun")),
     );
   }
 }
