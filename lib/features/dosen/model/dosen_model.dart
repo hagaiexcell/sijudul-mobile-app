@@ -10,6 +10,7 @@ class Dosen {
   String kepakaran;
   String image;
   List mahasiswaBimbingan;
+  String noTelp;
 
   Dosen(
       {required this.id,
@@ -22,7 +23,9 @@ class Dosen {
       required this.jabatan,
       required this.kepakaran,
       required this.mahasiswaBimbingan,
-      required this.image});
+      required this.image,
+      required this.noTelp
+      });
 
   factory Dosen.fromMap(Map<String, dynamic> json) {
     return Dosen(
@@ -36,7 +39,9 @@ class Dosen {
         totalMahasiswa: json['total_mahasiswa'] ?? 0,
         jabatan: json['jabatan'] ?? "",
         mahasiswaBimbingan: json['mahasiswa_bimbingan_id'] ?? [],
-        kepakaran: json['kepakaran'] ?? "");
+        kepakaran: json['kepakaran'] ?? "",
+        noTelp: json['no_telp'] ?? "",
+        );
   }
 
   Map<String, dynamic> toMap() {
@@ -51,7 +56,8 @@ class Dosen {
       'total_mahasiswa': totalMahasiswa,
       'jabatan': jabatan,
       'kepakaran': kepakaran,
-      'mahasiswa_bimbingan_id': mahasiswaBimbingan
+      'mahasiswa_bimbingan_id': mahasiswaBimbingan,
+      'no_telp': noTelp,
     };
   }
 }

@@ -10,6 +10,8 @@ import 'package:flutter_project_skripsi/features/dosen/bloc/dosen1_bloc.dart';
 import 'package:flutter_project_skripsi/resources/resources.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:url_launcher/url_launcher.dart';
+
 class Dosen1Page extends StatelessWidget {
   final String type;
   const Dosen1Page({
@@ -25,6 +27,15 @@ class Dosen1Page extends StatelessWidget {
       return userData;
     }
     throw Exception('User data not found');
+  }
+
+  Future<void> _launchWhatsApp(String phoneNumber) async {
+    final Uri whatsappUrl = Uri.parse('https://wa.me/$phoneNumber');
+    if (await canLaunch(whatsappUrl.toString())) {
+      await launch(whatsappUrl.toString());
+    } else {
+      throw 'Could not launch $whatsappUrl';
+    }
   }
 
   @override
@@ -169,9 +180,41 @@ class Dosen1Page extends StatelessWidget {
                               const SizedBox(
                                 width: 16,
                               ),
-                              SvgPicture.asset(
-                                "lib/resources/images/ic-envelope.svg",
-                                width: 24,
+                              InkWell(
+                                onTap: () {
+                                  listDosen[index].noTelp == ""
+                                      ? showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return AlertDialog(
+                                              title: const Text('Message',
+                                                  style: TextStyle(
+                                                      color: AppColors.primary,
+                                                      fontWeight:
+                                                          FontWeight.w600)),
+                                              content: const Text(
+                                                  "Dosen Tidak Memiliki No Telpon"),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: const Text('OK',
+                                                      style: TextStyle(
+                                                          color: AppColors
+                                                              .primary)),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        )
+                                      : launchUrl(Uri.parse(
+                                          'https://wa.me/${listDosen[index].noTelp}'));
+                                },
+                                child: SvgPicture.asset(
+                                  "lib/resources/images/ic-envelope.svg",
+                                  width: 24,
+                                ),
                               ),
                             ],
                           ),
