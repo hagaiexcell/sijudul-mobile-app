@@ -4,6 +4,7 @@ import 'package:flutter_project_skripsi/features/dosen/bloc/dosen1_bloc.dart';
 import 'package:flutter_project_skripsi/features/pengajuan/bloc/pengajuan_bloc.dart';
 import 'package:flutter_project_skripsi/resources/resources.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DosenDetailPage extends StatelessWidget {
   const DosenDetailPage({super.key});
@@ -29,6 +30,7 @@ class DosenDetailPage extends StatelessWidget {
             if (state is DosenLoadingState) {
               return const Center(child: CircularProgressIndicator());
             } else if (state is DosenDetailFetchingSuccessfulState) {
+              // print(state.detail);
               return SingleChildScrollView(
                 child: Container(
                   padding:
@@ -111,6 +113,48 @@ class DosenDetailPage extends StatelessWidget {
                                     height: 10,
                                   ),
                                   const Text(
+                                    "No Telepon",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 18),
+                                  ),
+                                  Text(
+                                    state.detail.noTelp,
+                                    style: const TextStyle(
+                                        color: AppColors.gray700),
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  const Text(
+                                    "Gelar",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 18),
+                                  ),
+                                  Text(
+                                    state.detail.gelar,
+                                    style: const TextStyle(
+                                        color: AppColors.gray700),
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  const Text(
+                                    "Jenjang Akademik",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 18),
+                                  ),
+                                  Text(
+                                    state.detail.jenjangAkademik,
+                                    style: const TextStyle(
+                                        color: AppColors.gray700),
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  const Text(
                                     "Prodi",
                                     style: TextStyle(
                                         fontWeight: FontWeight.w600,
@@ -153,7 +197,7 @@ class DosenDetailPage extends StatelessWidget {
                                     height: 10,
                                   ),
                                   const Text(
-                                    "Kuota",
+                                    "Sisa Kuota",
                                     style: TextStyle(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 18),
@@ -171,6 +215,40 @@ class DosenDetailPage extends StatelessWidget {
                             ),
                           ],
                         ),
+                      ),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      ElevatedButtonWithCustomStyle(
+                        text: "Hubungi Dosen",
+                        onPressed: () {
+                          state.detail.noTelp == ""
+                              ? showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: const Text('Message',
+                                          style: TextStyle(
+                                              color: AppColors.primary,
+                                              fontWeight: FontWeight.w600)),
+                                      content: const Text(
+                                          "Dosen Tidak Memiliki No Telpon"),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text('OK',
+                                              style: TextStyle(
+                                                  color: AppColors.primary)),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                )
+                              : launchUrl(Uri.parse(
+                                  'https://wa.me/${state.detail.noTelp}'));
+                        },
                       ),
                     ],
                   ),

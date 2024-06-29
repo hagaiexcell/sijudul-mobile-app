@@ -24,8 +24,20 @@ class HomePage extends StatelessWidget {
     return null;
   }
 
+  // Future<void> logout(BuildContext context) async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   prefs.remove('auth_token');
+  //   prefs.remove('userData');
+  //   // ignore: use_build_context_synchronously
+  //   context.read<ProfileBloc>().add(ProfileLogoutEvent());
+
+  //   // ignore: use_build_context_synchronously
+  //   Navigator.of(context).pushReplacementNamed('/login');
+  // }
+
   @override
   Widget build(BuildContext context) {
+    // logout(context);
     _getUserId().then((id) {
       // print("$id woy");
       if (id != null) {

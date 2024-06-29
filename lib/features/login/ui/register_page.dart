@@ -165,6 +165,22 @@ class RegisterPage extends StatelessWidget {
                       const SizedBox(
                         height: 16,
                       ),
+                      DropdownButtonCustom2(
+                        hint: "Prodi",
+                        name: "prodi",
+                        items: const [
+                          'S1 Informatika',
+                          'S1 Sistem Informasi',
+                          'D3 Sistem Informasi'
+                        ],
+                        validator: FormBuilderValidators.compose([
+                          FormBuilderValidators.required(
+                              errorText: 'This field cannot be empty'),
+                        ]),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
                       TextFieldWidget(
                         name: "tempatlahir",
                         hintText: "Tempat Lahir",
@@ -350,22 +366,6 @@ class RegisterPage extends StatelessWidget {
                         ]),
                       ),
                       const SizedBox(
-                        height: 12,
-                      ),
-                      DropdownButtonCustom2(
-                        hint: "Prodi",
-                        name: "prodi",
-                        items: const [
-                          'S1 Informatika',
-                          'S1 Sistem Informasi',
-                          'D3 Sistem Informasi'
-                        ],
-                        validator: FormBuilderValidators.compose([
-                          FormBuilderValidators.required(
-                              errorText: 'This field cannot be empty'),
-                        ]),
-                      ),
-                      const SizedBox(
                         height: 16,
                       ),
                       TextFieldWidget(
@@ -407,8 +407,12 @@ class RegisterPage extends StatelessWidget {
                                 formKey.currentState?.fields['nim']?.value;
                             final tempatLahir = formKey
                                 .currentState?.fields['tempatlahir']?.value;
-                            final tanggalLahir = formKey.currentState?.fields['tanggallahir']?.value;
-                            String? tanggalLahirStr = tanggalLahir?.toLocal().toString().split(' ')[0];
+                            final tanggalLahir = formKey
+                                .currentState?.fields['tanggallahir']?.value;
+                            String? tanggalLahirStr = tanggalLahir
+                                ?.toLocal()
+                                .toString()
+                                .split(' ')[0];
                             final jenisKelamin = formKey
                                 .currentState?.fields['jeniskelamin']?.value;
                             final agama =

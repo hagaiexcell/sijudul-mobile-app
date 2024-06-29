@@ -29,14 +29,14 @@ class Dosen1Page extends StatelessWidget {
     throw Exception('User data not found');
   }
 
-  Future<void> _launchWhatsApp(String phoneNumber) async {
-    final Uri whatsappUrl = Uri.parse('https://wa.me/$phoneNumber');
-    if (await canLaunch(whatsappUrl.toString())) {
-      await launch(whatsappUrl.toString());
-    } else {
-      throw 'Could not launch $whatsappUrl';
-    }
-  }
+  // Future<void> _launchWhatsApp(String phoneNumber) async {
+  //   final Uri whatsappUrl = Uri.parse('https://wa.me/$phoneNumber');
+  //   if (await canLaunch(whatsappUrl.toString())) {
+  //     await launch(whatsappUrl.toString());
+  //   } else {
+  //     throw 'Could not launch $whatsappUrl';
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {

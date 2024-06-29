@@ -30,7 +30,7 @@ class Dosen1Repo {
       } else {
         throw Exception('Failed to load Dosen');
       }
-
+      // print(listDosen);
       return listDosen;
     } catch (e) {
       debugPrint(e.toString());
@@ -45,9 +45,10 @@ class Dosen1Repo {
     var client = http.Client();
 
     try {
-      var response = await client.get(Uri.parse("$baseUrl/dosen/$id"), headers: {
-        "Authorization": "Bearer ${prefs.getString('auth_token')}"
-      });
+      var response = await client.get(Uri.parse("$baseUrl/dosen/$id"),
+          headers: {
+            "Authorization": "Bearer ${prefs.getString('auth_token')}"
+          });
       // print("dosenn");
       if (response.statusCode == 200) {
         Map<String, dynamic> jsonResponse = jsonDecode(response.body);
