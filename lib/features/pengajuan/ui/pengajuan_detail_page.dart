@@ -30,6 +30,8 @@ class PengajuanDetailPage extends StatelessWidget {
           if (state is PengajuanLoadingState) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is PengajuanDetailFetchingSuccessfulState) {
+            var statusDospem = state.pengajuanDetail.status;
+            var statusKaprodi = state.pengajuanDetail.statusAccKaprodi;
             return SingleChildScrollView(
               child: Container(
                 margin: const EdgeInsets.only(top: 12),
@@ -203,28 +205,28 @@ class PengajuanDetailPage extends StatelessWidget {
                       height: 24,
                     ),
                     ElevatedButtonWithCustomStyle(
-                      text: state.pengajuanDetail.statusAccKaprodi ==
-                                  "Pending" ||
-                              state.pengajuanDetail.statusAccKaprodi ==
-                                  "Checking"
-                          ? "PENDING"
-                          : state.pengajuanDetail.statusAccKaprodi == "Approved"
-                              ? "APPROVED"
-                              : state.pengajuanDetail.statusAccKaprodi ==
-                                      "Rejected"
-                                  ? "REJECTED"
-                                  : "",
-                      type: state.pengajuanDetail.statusAccKaprodi ==
-                                  "Pending" ||
-                              state.pengajuanDetail.statusAccKaprodi ==
-                                  "Checking"
+                      text: statusDospem == "Pending"
+                          ? "Pending"
+                          : statusDospem == "Approved"
+                              ? "Approved By Dosen Pembimbing"
+                              : statusDospem == "Rejected"
+                                  ? "Rejected By Dosen Pembimbing"
+                                  : statusKaprodi == "Approved"
+                                      ? "Accepted By Kaprodi"
+                                      : statusKaprodi == "Rejected"
+                                          ? "Rejected By Kaprodi"
+                                          : "",
+                      type: statusDospem == "Pending"
                           ? "pending"
-                          : state.pengajuanDetail.statusAccKaprodi == "Approved"
-                              ? "success"
-                              : state.pengajuanDetail.statusAccKaprodi ==
-                                      "Rejected"
+                          : statusDospem == "Approved"
+                              ? "primary"
+                              : statusDospem == "Rejected"
                                   ? "danger"
-                                  : "",
+                                  : statusKaprodi == "Approved"
+                                      ? "success"
+                                      : statusKaprodi == "Rejected"
+                                          ? "danger"
+                                          : "",
                       onPressed: () {},
                       icon: "lib/resources/images/ic-checklist-white.svg",
                     ),

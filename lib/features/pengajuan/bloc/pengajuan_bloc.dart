@@ -127,7 +127,7 @@ FutureOr<void> pengajuanCreateEvent(event, Emitter<PengajuanState> emit) async {
       double similarity = checkSimilarity['similarity'];
       emit(PengajuanCreateErrorState(
           error:
-              '${checkSimilarity['message']} with "${checkSimilarity['similar']}" (${similarity.toStringAsFixed(2)}%)'));
+              '${checkSimilarity['message']} : "${checkSimilarity['similar']}" (${similarity.toStringAsFixed(2)}%)'));
     } else {
       await PengajuanRepo.createPengajuan(
           id: event.userId,

@@ -11,18 +11,20 @@ class TagStatus extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8),
       decoration: BoxDecoration(
-          color: status == "Approved By Dosen Pembimbing" ||
-                  status == "Accepted By Kaprodi"
-              ? AppColors.success
-              : status == "Rejected By Dosen Pembimbing" ||
-                      status == "Rejected By Kaprodi"
-                  ? AppColors.danger
-                  : AppColors.secondary,
+          color: status == "Approved By Dosen Pembimbing"
+              ? AppColors.primary
+              : status == "Accepted By Kaprodi"
+                  ? AppColors.success
+                  : status == "Rejected By Dosen Pembimbing" ||
+                          status == "Rejected By Kaprodi"
+                      ? AppColors.danger
+                      : AppColors.secondary,
           borderRadius: BorderRadius.circular(16)),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       child: Text(
         status,
-        style: const TextStyle(fontSize: 12, color: Colors.white),
+        style: const TextStyle(
+            fontSize: 14, color: Colors.white, fontWeight: FontWeight.w500),
       ),
     );
   }

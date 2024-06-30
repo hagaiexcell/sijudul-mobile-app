@@ -150,6 +150,7 @@ class StatusHome extends StatelessWidget {
     // print(lengthPengajuan);
     var statusKaprodi = pengajuan[lengthPengajuan - 1].statusAccKaprodi;
     var statusDospem = pengajuan[lengthPengajuan - 1].status;
+    print("$statusKaprodi $statusDospem");
     return InkWell(
       onTap: () {
         Navigator.of(context).pushNamed('/detail-judul',
@@ -278,8 +279,7 @@ class StatusHome extends StatelessWidget {
                           //   width: 12,
                           // ),
                           TagStatus(
-                            status: statusKaprodi == "Pending" ||
-                                    statusDospem == "Pending"
+                            status: statusDospem == "Pending"
                                 ? "Pending"
                                 : statusDospem == "Approved"
                                     ? "Approved By Dosen Pembimbing"
