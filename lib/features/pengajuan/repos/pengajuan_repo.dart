@@ -154,9 +154,12 @@ class PengajuanRepo {
           return Pengajuan.fromMap(results);
           // return true;
         } else {
+          print("uhuuu ${redirectResponse.body}");
           throw Exception('Failed to create pengajuan');
         }
       } else {
+        print("uhuuu2 ${response.body}");
+
         throw Exception('Failed to create pengajuan');
       }
     } catch (e) {

@@ -13,7 +13,7 @@ class TagStatus extends StatelessWidget {
       decoration: BoxDecoration(
           color: status == "Approved By Dosen Pembimbing"
               ? AppColors.primary
-              : status == "Accepted By Kaprodi"
+              : status == "Accepted"
                   ? AppColors.success
                   : status == "Rejected"
                       ? AppColors.danger
