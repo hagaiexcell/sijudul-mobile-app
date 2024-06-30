@@ -15,8 +15,7 @@ class TagStatus extends StatelessWidget {
               ? AppColors.primary
               : status == "Accepted By Kaprodi"
                   ? AppColors.success
-                  : status == "Rejected By Dosen Pembimbing" ||
-                          status == "Rejected By Kaprodi"
+                  : status == "Rejected"
                       ? AppColors.danger
                       : AppColors.secondary,
           borderRadius: BorderRadius.circular(16)),

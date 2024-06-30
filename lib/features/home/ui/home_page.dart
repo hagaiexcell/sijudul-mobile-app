@@ -148,9 +148,14 @@ class StatusHome extends StatelessWidget {
   Widget build(BuildContext context) {
     int lengthPengajuan = pengajuan.length;
     // print(lengthPengajuan);
-    var statusKaprodi = pengajuan[lengthPengajuan - 1].statusAccKaprodi;
-    var statusDospem = pengajuan[lengthPengajuan - 1].status;
-    print("$statusKaprodi $statusDospem");
+    var statusKaprodi;
+    var statusDospem;
+    if (pengajuan.isNotEmpty) {
+      statusKaprodi = pengajuan[lengthPengajuan - 1].statusAccKaprodi;
+      statusDospem = pengajuan[lengthPengajuan - 1].status;
+      print("$statusKaprodi,$statusDospem");
+    }
+    // print("$statusKaprodi $statusDospem");
     return InkWell(
       onTap: () {
         Navigator.of(context).pushNamed('/detail-judul',
@@ -243,7 +248,7 @@ class StatusHome extends StatelessWidget {
                             height: 2,
                             decoration: BoxDecoration(
                               color: statusKaprodi == "Approved" ||
-                                      statusKaprodi == "Rejecte"
+                                      statusKaprodi == "Rejected"
                                   ? AppColors.primary
                                   : AppColors.gray,
                             ),
@@ -281,14 +286,14 @@ class StatusHome extends StatelessWidget {
                           TagStatus(
                             status: statusDospem == "Pending"
                                 ? "Pending"
-                                : statusDospem == "Approved"
+                                : statusDospem == "Approved" && statusKaprodi == "Pending"
                                     ? "Approved By Dosen Pembimbing"
                                     : statusDospem == "Rejected"
-                                        ? "Rejected By Dosen Pembimbing"
+                                        ? "Rejected"
                                         : statusKaprodi == "Approved"
-                                            ? "Accepted By Kaprodi"
+                                            ? "Accepted"
                                             : statusKaprodi == "Rejected"
-                                                ? "Rejected By Kaprodi"
+                                                ? "Rejected"
                                                 : "",
                           )
                         ],
