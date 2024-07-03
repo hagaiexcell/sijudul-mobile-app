@@ -42,7 +42,7 @@ class TextFieldWidget extends StatelessWidget {
       style: Theme.of(context)
           .textTheme
           .bodyMedium!
-          .copyWith(color: AppColors.primary),
+          .copyWith(color: AppColors.textColour90),
       decoration: InputDecoration(
         fillColor: enabled ? Colors.transparent : AppColors.textColour10,
         labelText: label,

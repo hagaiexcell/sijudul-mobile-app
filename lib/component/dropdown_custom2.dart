@@ -71,7 +71,7 @@ class DropdownButtonCustom2 extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 14,
                       color: item == field.value
-                          ? AppColors.primary
+                          ? AppColors.textColour90
                           : Colors.black,
                     ),
                   );

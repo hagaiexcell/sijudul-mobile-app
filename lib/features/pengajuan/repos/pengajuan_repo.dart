@@ -154,13 +154,13 @@ class PengajuanRepo {
           return Pengajuan.fromMap(results);
           // return true;
         } else {
-          print("uhuuu ${redirectResponse.body}");
-          throw Exception('Failed to create pengajuan');
+          // print("uhuuu ${jsonDecode(redirectResponse.body)['error']}");
+          throw Exception(jsonDecode(redirectResponse.body)['error']);
         }
       } else {
-        print("uhuuu2 ${response.body}");
-
-        throw Exception('Failed to create pengajuan');
+        // print("uhuuu2 ${jsonDecode(response.body)['error']}");
+        throw Exception(jsonDecode(response.body)['error']);
+        // throw Exception('Failed to create pengajuan');
       }
     } catch (e) {
       rethrow;

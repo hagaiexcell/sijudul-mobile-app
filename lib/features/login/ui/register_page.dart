@@ -286,7 +286,7 @@ class RegisterPage extends StatelessWidget {
                                         : Theme.of(context)
                                             .textTheme
                                             .bodyMedium!
-                                            .copyWith(color: AppColors.primary),
+                                            .copyWith(color: AppColors.textColour90),
                                   ),
                                 ),
                               ),
