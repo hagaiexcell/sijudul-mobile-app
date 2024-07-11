@@ -124,10 +124,14 @@ FutureOr<void> pengajuanCreateEvent(event, Emitter<PengajuanState> emit) async {
 
     if (checkSimilarity.containsKey('similarity') &&
         checkSimilarity['similarity'] != null) {
-      double similarity = checkSimilarity['similarity'];
+      double similarity = checkSimilarity['similarity'].toDouble();
       emit(PengajuanCreateErrorState(
           error:
               '${checkSimilarity['message']} : "${checkSimilarity['similar']}" (${similarity.toStringAsFixed(2)}%)'));
+    } else if (checkSimilarity['peminatan'] != event.peminatan && checkSimilarity['peminatan'] != "Unclassified") {
+      emit(PengajuanCreateErrorState(
+          error:
+              "Judul yang anda ajukan termasuk ke dalam peminatan ${checkSimilarity['peminatan']}, mohon ajukan kembali dengan peminatan yang sesuai"));
     } else {
       await PengajuanRepo.createPengajuan(
           id: event.userId,
